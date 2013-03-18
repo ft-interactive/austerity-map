@@ -1,2 +1,17 @@
+// Variables
+@import "ft-colours";
+@import "z-indexes";
+
+// Mixins
 @import "sass-bootstrap/lib/mixins";
+@import "misc-mixins";
+
+// Start fonts downloading ASAP
+@import "ft-fonts";
+
+// Reset
 @import "sass-bootstrap/lib/reset";
+
+// Styles
+@import "type-and-colour";
+@import "layout";

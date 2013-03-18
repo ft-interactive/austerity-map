@@ -1,0 +1,32 @@
+html, body, #cont {
+  height: 100% ;
+  margin: 0 ;
+  padding: 0 ;
+}
+
+#cont {
+  width: 972px ;
+  margin: 0 auto ;
+  position: relative ;
+}
+
+  #ft-header, #ft-footer {
+    padding: 40px 0 ;
+    background: $ft-tint2 ;
+  }
+
+  #main {
+    margin: 20px 0 ;
+  }
+
+    #presets {
+      background: #9a9 ;
+    }
+
+    #map {
+      background: #fdd ;
+    }
+
+    #area-stats {
+      background: #aac ;
+    }
