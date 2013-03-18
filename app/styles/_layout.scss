@@ -11,7 +11,7 @@ html, body, #cont {
 }
 
   #ft-header, #ft-footer {
-    padding: 40px 0 ;
+    padding: 80px 0 ;
     background: $ft-tint2 ;
   }
 
@@ -21,11 +21,42 @@ html, body, #cont {
 
     #presets {
       background: #9a9 ;
+      padding: 100px 0 ;
     }
 
-    #map {
+    #map-cont {
       background: #fdd ;
+      position: relative ;
     }
+
+      #map {
+      }
+      
+      #postcode-search,
+      #control-panel {
+        width: 220px ;
+        @include border-radius(5px) ;
+        background-color: transparentize(#666, 0.2) ;
+        position: absolute ;
+        left: 20px ;
+        padding: 20px ;
+      }
+
+      #postcode-search {
+        top: 20px ;
+        height: 20px ;
+      }
+      #control-panel {
+        top: 100px ;
+      }
+
+
+      #histogram-cont {
+      }
+        #histogram {
+          height: 100px ;
+          background-color: #fdd ;
+        }
 
     #area-stats {
       background: #aac ;
