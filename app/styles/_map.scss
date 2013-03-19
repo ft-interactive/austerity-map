@@ -1,0 +1,52 @@
+#map {
+}
+
+  .la {
+    fill: #aaa ;
+    &:hover {
+      stroke: #888 ;
+      stroke-width: 2px ;
+    }
+  }
+
+#postcode-search,
+#control-panel {
+  width: 220px ;
+  @include border-radius(5px) ;
+  background-color: transparentize(#666, 0.2) ;
+  position: absolute ;
+  left: 20px ;
+  padding: 20px ;
+  color: #eee ;
+}
+
+#postcode-search {
+  top: 20px ;
+  height: 20px ;
+}
+
+#control-panel {
+  top: 100px ;
+
+  h3 {
+    font-size: 12px ;
+    font-weight: normal ;
+  }
+}
+  #cut-selector {
+  }
+
+  #measurement-options {
+
+    &> .option {
+      font-size: 12px ;
+    }
+  }
+
+
+#histogram-cont {
+}
+  #histogram {
+    height: 160px ;
+    background-color: #555 ;
+  }

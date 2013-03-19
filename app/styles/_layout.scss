@@ -25,39 +25,14 @@ html, body, #cont {
     }
 
     #map-cont {
-      background: #fdd ;
+      // background: #fdd ;
+      border-left: 1px solid $ft_tint2 ;
+      border-right: 1px solid $ft_tint2 ;
       position: relative ;
+      height: $map-height ;
     }
-
-      #map {
-      }
-      
-      #postcode-search,
-      #control-panel {
-        width: 220px ;
-        @include border-radius(5px) ;
-        background-color: transparentize(#666, 0.2) ;
-        position: absolute ;
-        left: 20px ;
-        padding: 20px ;
-      }
-
-      #postcode-search {
-        top: 20px ;
-        height: 20px ;
-      }
-      #control-panel {
-        top: 100px ;
-      }
-
-
-      #histogram-cont {
-      }
-        #histogram {
-          height: 100px ;
-          background-color: #fdd ;
-        }
 
     #area-stats {
       background: #aac ;
+      padding: 120px 0 ;
     }
