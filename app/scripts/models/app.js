@@ -17,7 +17,7 @@
 
     initialize: function () {
       if (instantiated)
-        throw 'Cannot instantiate Map view more than once' ;
+        throw 'Cannot instantiate App Model more than once' ;
       instantiated = true ;
 
       return this ;

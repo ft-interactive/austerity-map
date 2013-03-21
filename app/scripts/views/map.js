@@ -33,7 +33,7 @@
   UKA.Views.Map = Backbone.View.extend({
     initialize: function () {
       if (instantiated)
-        throw 'Cannot instantiate Map view more than once' ;
+        throw 'Cannot instantiate Map View more than once' ;
       instantiated = true ;
 
       map_view = this ;
