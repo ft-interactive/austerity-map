@@ -2,12 +2,17 @@
 (function () {
   'use strict' ;
 
-  // Download the data, then instantiate the app
-  $.getJSON('data/britain.json', function (data) {
+  // Instantiate the app when data downloaded
+
+  window.loadBritainJSON = function (data) {
     UKA.data = data ;
     $(function() {
       UKA.app = new UKA.Models.App();
-    });
-  }) ;
+      UKA.app.start();
+    }) ;
+  } ;
+
+  // $.getJSON('data/britain.json', loadBritainJSON) ;
+  // (Just loads in via a script tag, for now.)
 
 })();

@@ -10,7 +10,10 @@
 
   UKA.Models.App = Backbone.Model.extend({
     initialize: function () {
+      return this ;
+    },
 
+    start: function () {
       // Instantiate and render the main map view
       var map_view = UKA.map_view = new UKA.Views.Map({
         tagName: 'svg',
@@ -18,6 +21,7 @@
       });
       map_view.render();
 
+      return this ;
     }
   });
 

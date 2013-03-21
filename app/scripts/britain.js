@@ -1,4 +1,4 @@
-{
+loadBritainJSON({
 "type": "FeatureCollection",
                                                                                 
 "features": [
@@ -764,3 +764,4 @@
 
 ]
 }
+);
