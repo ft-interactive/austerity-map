@@ -3,9 +3,11 @@
 
   .la {
     fill: #aaa ;
+    stroke: $ft_primaryPink  ;
+    stroke-width: 1px ;
     &:hover {
-      stroke: #888 ;
-      stroke-width: 2px ;
+      // stroke-width: 2px ;
+      stroke: #666 ;
     }
   }
 

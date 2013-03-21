@@ -8,8 +8,18 @@
 (function () {
   'use strict' ;
 
+  var instantiated = false ;
+
   UKA.Models.App = Backbone.Model.extend({
+    defaults: {
+      'map_scale': 16000
+    },
+
     initialize: function () {
+      if (instantiated)
+        throw 'Cannot instantiate Map view more than once' ;
+      instantiated = true ;
+
       return this ;
     },
 
