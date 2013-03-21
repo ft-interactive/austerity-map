@@ -109,7 +109,7 @@
       // This transitions the `transform` attribute of the #las_group to reflect the current app attributes 'map_scale' and 'map_centre'.
 
       if (typeof duration !== 'number')
-        duration = 250 ;
+        duration = UKA.config.duration ;
 
       // FOR NOW: use a D3 transition (slow - tweens all the paths in JS)
       this.updateProjector() ;

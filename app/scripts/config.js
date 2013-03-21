@@ -1,6 +1,9 @@
 /*global UKA*/
 
 UKA.config = {
+  duration: 250,
+  map_scale = 16000,
+
   presets: [
     {
       id: 'bedroom-tax',

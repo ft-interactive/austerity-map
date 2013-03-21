@@ -8,11 +8,13 @@
 (function () {
   'use strict' ;
 
-  var instantiated = false ;
+  var instantiated = false
+    , config = UKA.config
+  ;
 
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
-      'map_scale': 16000
+      'map_scale': config.map_scale
     },
 
     initialize: function () {
