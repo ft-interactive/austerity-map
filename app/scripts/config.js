@@ -2,7 +2,7 @@
 
 UKA.config = {
   duration: 250,
-  map_scale = 16000,
+  map_scale: 16000,
 
   presets: [
     {
