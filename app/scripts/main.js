@@ -12,7 +12,6 @@
     }) ;
   } ;
 
-  // $.getJSON('data/britain.json', loadBritainJSON) ;
-  // (Just loads in via a script tag, for now.)
+  $.getJSON('data/britain.json', loadBritainJSON) ;
 
 })();
