@@ -12,6 +12,6 @@
     }) ;
   } ;
 
-  $.getJSON('data/britain.json', loadBritainJSON) ;
+  $.getJSON('data/local-authorities.json', loadBritainJSON) ;
 
 })();

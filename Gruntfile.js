@@ -266,23 +266,35 @@ module.exports = function (grunt) {
         'mocha'
     ]);
 
-    grunt.registerTask('build', [
-        'clean:dist',
-        'coffee',
-        'compass:dist',
-        'useminPrepare',
-        'imagemin',
-        'htmlmin',
-        'concat',
-        'cssmin',
-        'uglify',
-        'copy',
-        'usemin'
-    ]);
+    grunt.registerTask('build', function (target) {
+        var tasks = [
+            'clean:dist',
+            'coffee',
+            'compass:dist',
+            'useminPrepare',
+            'imagemin',
+            'htmlmin',
+            'concat',
+            'cssmin',
+            'uglify',
+            'copy',
+            'usemin'
+        ] ;
+
+        if (target === 'with-data') {
+            tasks.unshift('assemble-geojson')
+        }
+
+        grunt.task.run(tasks);
+    });
 
     grunt.registerTask('default', [
         'jshint',
         'test',
         'build'
     ]);
+
+    grunt.registerTask('assemble-geojson', function (target) {
+        require('./tasks/assemble-geojson.coffee')(grunt).call(this, target);
+    });
 };
