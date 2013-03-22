@@ -30,6 +30,7 @@ html, body, #cont {
       border-right: 1px solid $ft_tint2 ;
       position: relative ;
       height: $map-height ;
+      overflow: hidden ;
     }
 
     #area-stats {
