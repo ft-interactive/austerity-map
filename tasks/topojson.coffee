@@ -75,7 +75,6 @@ module.exports = (grunt) -> (target) ->
 
         grunt.log.ok "Built GeoJSON with #{output_features.length} features"
 
-
         # Write the output geojson to a temp file
         fs.writeFile TEMP_GEOJSON_FILE, JSON.stringify(output_geojson), (err) ->
           if err?
@@ -97,7 +96,7 @@ module.exports = (grunt) -> (target) ->
               throw 'TopoJSONconversion failed.'
             else
               grunt.log.ok 'Success.'
-              
+
               # Delete the temporary TopoJSON file
               fs.unlink TEMP_GEOJSON_FILE, (err) ->
                 if err?
