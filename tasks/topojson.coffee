@@ -1,5 +1,5 @@
 ###
-  This module exports a grunt task function that builds a static GeoJSON file at `app/data/local-authorities.json`.
+  This module exports a grunt task function that builds a static TopoJSON file at `app/data/local-authorities-topo.json`.
 ###
 
 config   = require '../data-config'
@@ -90,11 +90,11 @@ module.exports = (grunt) -> (target) ->
           grunt.log.ok "Running topojson command..."
 
           require('child_process').exec topojson_command, (error, stdout, stderr) ->
-            if error != null
-              grunt.log.error "COMMAND FAILED: #{topojson_command}"
-              console.log error
-              throw 'topojson conversion failed.'
+            console.log topojson_command
+            console.log stderr
 
+            if error?
+              throw 'TopoJSONconversion failed.'
             else
               grunt.log.ok 'Success.'
               
