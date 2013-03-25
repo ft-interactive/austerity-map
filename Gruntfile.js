@@ -282,7 +282,7 @@ module.exports = function (grunt) {
         ] ;
 
         if (target === 'with-data') {
-            tasks.unshift('assemble-geojson')
+            tasks.unshift('assemble-topojson')
         }
 
         grunt.task.run(tasks);
@@ -294,7 +294,7 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('assemble-geojson', function (target) {
-        require('./tasks/assemble-geojson.coffee')(grunt).call(this, target);
+    grunt.registerTask('assemble-topojson', function (target) {
+        require('./tasks/assemble-topojson.coffee')(grunt).call(this, target);
     });
 };
