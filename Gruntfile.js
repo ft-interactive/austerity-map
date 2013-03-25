@@ -290,7 +290,7 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('assemble-topojson', function (target) {
-        require('./tasks/assemble-topojson.coffee')(grunt).call(this, target);
+    grunt.registerTask('topojson', function (target) {
+        require('./tasks/topojson.coffee')(grunt).call(this, target);
     });
 };
