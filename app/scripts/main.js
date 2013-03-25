@@ -12,6 +12,6 @@
     }) ;
   } ;
 
-  $.getJSON('data/local-authorities.json', loadBritainJSON) ;
+  $.getJSON('data/local-authorities-topo.json', loadBritainJSON) ;
 
 })();

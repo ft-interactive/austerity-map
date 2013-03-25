@@ -2,13 +2,15 @@
   This module exports a grunt task function that builds a static GeoJSON file at `app/data/local-authorities.json`.
 ###
 
-config = require '../data-config'
-mysql  = require 'mysql'
-fs     = require 'fs'
-path   = require 'path'
+config   = require '../data-config'
+mysql    = require 'mysql'
+fs       = require 'fs'
+path     = require 'path'
 
-INPUT_GEOJSON_FILE  = path.resolve 'data/la-shapes.json'
-OUTPUT_GEOJSON_FILE = path.resolve 'app/data/local-authorities.json'
+INPUT_GEOJSON_FILE   = path.resolve 'data/la-shapes.json'
+TEMP_GEOJSON_FILE    = path.resolve '.tmp/local-authorities.json'
+OUTPUT_TOPOJSON_FILE = path.resolve 'app/data/local-authorities-topo.json'
+TOPOJSON_BINARY_PATH = path.resolve 'node_modules/topojson/bin/topojson'
 
 connection = mysql.createConnection({
   host     : config.mysql_host
@@ -66,21 +68,47 @@ module.exports = (grunt) -> (target) ->
         # All features built.
         connection.end()
 
-        output_geojson_string = JSON.stringify({
+        output_geojson = {
           type     : "FeatureCollection"
           features : output_features
-        })
+        }
 
         grunt.log.ok "Built GeoJSON with #{output_features.length} features"
 
-        # Write the output geojson to a file.
-        fs.writeFile OUTPUT_GEOJSON_FILE, output_geojson_string, (err) ->
+
+        # Write the output geojson to a temp file
+        fs.writeFile TEMP_GEOJSON_FILE, JSON.stringify(output_geojson), (err) ->
           if err?
-            grunt.log.error "Error writing file: #{OUTPUT_GEOJSON_FILE}"
+            grunt.log.error "Error writing file: #{TEMP_GEOJSON_FILE}"
             throw err
 
-          grunt.log.ok "Written GeoJSON to file: #{OUTPUT_GEOJSON_FILE}"
-          grunt_task_completed()
+          grunt.log.ok "Written temporary GeoJSON file"
+
+          # Convert to TopoJSON using CLI
+          topojson_command = "#{TOPOJSON_BINARY_PATH} -o #{OUTPUT_TOPOJSON_FILE} --properties --id-property code #{TEMP_GEOJSON_FILE}"
+
+          grunt.log.ok "Running topojson command..."
+
+          require('child_process').exec topojson_command, (error, stdout, stderr) ->
+            if error != null
+              grunt.log.error "COMMAND FAILED: #{topojson_command}"
+              console.log error
+              throw 'topojson conversion failed.'
+
+            else
+              grunt.log.ok 'Success.'
+              
+              # Delete the temporary TopoJSON file
+              fs.unlink TEMP_GEOJSON_FILE, (err) ->
+                if err?
+                  grunt.log.error "Error writing file: #{TEMP_GEOJSON_FILE}"
+                  throw err
+
+                grunt.log.ok 'Temporary GeoJSON file removed.'
+
+                # ALL DONE.
+                grunt_task_completed()
+
 
   # Start the loop
   buildNextFeature()

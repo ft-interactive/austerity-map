@@ -49,10 +49,17 @@
 
       // Append a group element
       las_group = svg.append('g').attr('id', 'las-group') ;
+      // Convert TopoJSON to GeoJSON
+      var topojson_data = UKA.data,
+          geojson_data = topojson.object(
+            topojson_data, 
+            topojson_data.objects['local-authorities']
+          )
+      ;
 
       // Append the features (without actually drawing their paths yet)
       la_paths = las_group.selectAll('.la')
-        .data(UKA.data.features)
+        .data(geojson_data.geometries)
         .enter().append('path')
           .attr('id', function (d) {
             return 'la_' + d.properties.CODE ;
