@@ -50,43 +50,35 @@
       // Append a group element
       las_group = svg.append('g').attr('id', 'las-group') ;
 
-      // Append the features
+      // Append the features (without actually drawing their paths yet)
       la_paths = las_group.selectAll('.la')
         .data(UKA.data.features)
         .enter().append('path')
-          // .each(function () {
-          //   console.log('each', arguments) ;
-          // })
           .attr('id', function (d) {
             return 'la_' + d.properties.CODE ;
           })
           .attr('class', 'la')
-          // .attr('d', projectPath)
+          .on('click', function (d, i) {
+            app.set('selected_la', d.properties) ;
+          })
       ;
-
+      
       // Draw the map
-      // console.log('app map_scale', app.get('map_scale'));
       map_view.drawPaths() ;
 
       // Listen for mousewheel, and update app:map_scale property
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
         event.preventDefault() ;
 
-        console.log(delta, delta_x, delta_y) ;
-
         var value = UKA.app.attributes.map_scale + (delta_y * 5000) ;
         if (value < 5000)
           value = 5000 ;
 
         UKA.app.set('map_scale', value) ;
-
-        console.log('app.attributes.map_scale', UKA.app.attributes.map_scale) ;
       }) ;
 
       // Listen for chnages to app:map_scale and update the appearance
       app.on('change:map_scale', function () {
-        console.log('change:map_scale', arguments) ;
-
         // Transition the map using the `#las_group[transform]` attribute - NB. this will run drawPaths at the end of the transition duration, which clears the transform and redraws everything geographically
         map_view.transitionMap() ;
       }) ;
@@ -127,10 +119,14 @@
       // Clear the `transform` from the #las_group
       // TODO
 
+      // var startTime = Date.now() ;
+
       // Compute and set all the paths
       la_paths.attr('d', function (d) {
         return projectPath(d) || '' ;
       });
+
+      // console.log('Drawn map in ' + (Date.now() - startTime) + ' ms') ;
 
       return this ;
     },
@@ -146,7 +142,7 @@
     },
 
     mousedown: function (e) {
-      console.log('dragStart', e) ;
+      // console.log('dragStart', e) ;
       this.dragging = true ;
     },
 
@@ -157,7 +153,7 @@
     },
 
     mouseup: function (e) {
-      console.log('dragEnd', e) ;
+      // console.log('dragEnd', e) ;
       this.dragging = false ;
     }
   });

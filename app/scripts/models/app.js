@@ -14,7 +14,8 @@
 
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
-      'map_scale': config.map_scale
+      'map_scale': config.map_scale,
+      'selected_la': null
     },
 
     initialize: function () {
@@ -28,10 +29,13 @@
     start: function () {
       // Instantiate and render the main map view
       var map_view = UKA.map_view = new UKA.Views.Map({
-        tagName: 'svg',
         el: document.getElementById('map')
       });
       map_view.render();
+
+      UKA.area_stats_view = new UKA.Views.AreaStats({
+        el: document.getElementById('area-stats')
+      });
 
       return this ;
     }
