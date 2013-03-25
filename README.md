@@ -14,5 +14,3 @@ To rebuild this file (e.g. after data is updated in the DB):
 This will generate new TopoJSON based on the shape data from `data/la-shapes.json` and the austerity data from the database, and save it to `app/data/local-authorities.json` (overwriting that file).
 
 You might then want to upload this new file to replace the one on the server, or you might want to run `grunt build` to build a complete new `dist` (which will include the new TopoJSON file).
-
-If you want to do it in one step, you can run `grunt build:with-data` – this basically runs the `assemble-geojson` task first, followed by the rest of the `build` task as usual.

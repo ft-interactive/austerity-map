@@ -281,10 +281,6 @@ module.exports = function (grunt) {
             'usemin'
         ] ;
 
-        if (target === 'with-data') {
-            tasks.unshift('assemble-topojson')
-        }
-
         grunt.task.run(tasks);
     });
 
