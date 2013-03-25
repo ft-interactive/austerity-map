@@ -3,19 +3,19 @@
 ###
 
 config = require '../data-config'
-mysql = require 'mysql'
-fs = require 'fs'
-path = require 'path'
+mysql  = require 'mysql'
+fs     = require 'fs'
+path   = require 'path'
 
-INPUT_GEOJSON_FILE = path.resolve 'data/la-shapes.json'
+INPUT_GEOJSON_FILE  = path.resolve 'data/la-shapes.json'
 OUTPUT_GEOJSON_FILE = path.resolve 'app/data/local-authorities.json'
 
-connection = mysql.createConnection
-  host: config.mysql_host
-  user: config.mysql_user
-  password: config.mysql_password
-  database: config.mysql_database
-
+connection = mysql.createConnection({
+  host     : config.mysql_host
+  user     : config.mysql_user
+  password : config.mysql_password
+  database : config.mysql_database
+})
 
 module.exports = (grunt) -> (target) ->
   grunt_task_completed = this.async()
@@ -30,13 +30,13 @@ module.exports = (grunt) -> (target) ->
   output_features = []
 
   # Loop through it, doing a query thing for each one
-  current_index = 0
+  current_index = 0  
   buildNextFeature = ->
-
     input_feature = input_features[current_index]
 
     # Fetch using MySQL
     sql = "SELECT * FROM `#{config.mysql_table_name}` WHERE `ONS_Area_code` = '#{input_feature.properties.CODE}' LIMIT 1"
+
     connection.query sql, (err, rows, fields) ->
       if err?
         grunt.log.error "MySQL query error for query: #{sql}"
@@ -52,9 +52,9 @@ module.exports = (grunt) -> (target) ->
           output_properties[target_name] = record[db_field]
 
         output_features.push({
-          type: 'Feature'
-          properties: output_properties
-          geometry: input_feature.geometry
+          type       : 'Feature'
+          properties : output_properties
+          geometry   : input_feature.geometry
         })
       else
         grunt.log.error "Not found in DB; skipping: #{input_feature.properties.CODE} - #{input_feature.properties.NAME}"
@@ -67,8 +67,8 @@ module.exports = (grunt) -> (target) ->
         connection.end()
 
         output_geojson_string = JSON.stringify({
-          type: "FeatureCollection"
-          features: output_features
+          type     : "FeatureCollection"
+          features : output_features
         })
 
         grunt.log.ok "Built GeoJSON with #{output_features.length} features"
