@@ -6,11 +6,10 @@
 /*global UKA, Backbone*/
 
 (function () {
-  'use strict' ;
+  'use strict';
 
-  var instantiated = false
-    , config = UKA.config
-  ;
+  var instantiated = false,
+      config = UKA.config;
 
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
@@ -20,10 +19,10 @@
 
     initialize: function () {
       if (instantiated)
-        throw 'Cannot instantiate App Model more than once' ;
-      instantiated = true ;
+        throw 'Cannot instantiate App Model more than once';
+      instantiated = true;
 
-      return this ;
+      return this;
     },
 
     start: function () {
@@ -37,7 +36,7 @@
         el: document.getElementById('area-stats')
       });
 
-      return this ;
+      return this;
     }
   });
 
