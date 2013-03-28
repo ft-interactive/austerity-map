@@ -9,7 +9,7 @@
   'use strict';
 
   // Create D3 mapping functions (and other vars for use from multiple methods of this view) on initial execution
-  var instantiated = false
+  var instantiated = false,
       map_view,
       app,
 
