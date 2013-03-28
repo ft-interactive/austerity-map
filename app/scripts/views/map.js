@@ -83,11 +83,39 @@
         UKA.app.set('map_scale', value);
       }) ;
 
+      // Listen for mousedown and start a drag interaction
+      map_view.$el.on('mousedown', function (event) {
+        if (event.which === 1) {
+          var map_view_el = this,
+              last_delta_x,
+              last_delta_y;
+
+          new DragSequence({
+            // threshold: 5,
+            initialEvent: event,
+
+            dragMove: function (delta_x, delta_y) {
+              console.log('args', arguments);
+
+              last_delta_x = delta_x;
+              last_delta_y = delta_y;
+            },
+
+            dragEnd: function () {
+              console.log('new position', last_delta_x, last_delta_y);
+            }
+          });
+        }
+      });
+
+
       // Listen for chnages to app:map_scale and update the appearance
       app.on('change:map_scale', function () {
         // Transition the map using the `#las_group[transform]` attribute - NB. this will run drawPaths at the end of the transition duration, which clears the transform and redraws everything geographically
         map_view.transitionMap();
       }) ;
+
+
 
       return this ;
     },
@@ -135,32 +163,6 @@
       // console.log('Drawn map in ' + (Date.now() - startTime) + ' ms') ;
 
       return this ;
-    },
-
-
-    ////////////////////////////////////////////////////////////
-    // EVENT LISTENERS
-    ////////////////////////////////////////////////////////////
-    events: {
-      'mousedown': 'mousedown',
-      'mousemove': 'mousemove',
-      'mouseup': 'mouseup'
-    },
-
-    mousedown: function (e) {
-      // console.log('dragStart', e);
-      this.dragging = true;
-    },
-
-    mousemove: function (e) {
-      if (this.dragging) {
-        console.log('dragMove', e);
-      }
-    },
-
-    mouseup: function (e) {
-      // console.log('dragEnd', e);
-      this.dragging = false;
     }
   });
 
