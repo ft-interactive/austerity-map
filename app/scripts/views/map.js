@@ -14,8 +14,11 @@
       app,
 
       svg,
+      las_group_wrapper,
       las_group,
       la_paths,
+
+      las_group_el,
 
       width = 972,
       height = 680,
@@ -37,6 +40,14 @@
 
       map_view = this;
       app = UKA.app;
+
+
+      // Establish the intial "transform" object for the map
+      map_view.las_group_transform = {
+        translate_x: 0,
+        translate_y: 0,
+        scale: 1
+      };
     },
 
     render: function () {
@@ -47,7 +58,10 @@
       ;
 
       // Append a group element
-      las_group = svg.append('g').attr('id', 'las-group');
+      las_group_wrapper = svg.append('g').attr('id', 'las-group-wrapper');
+      las_group = las_group_wrapper.append('g').attr('id', 'las-group');
+      las_group_el = las_group[0][0];
+
       // Convert TopoJSON to GeoJSON
       var topojson_data = UKA.data,
           geojson_data = topojson.object(
@@ -68,7 +82,7 @@
             app.set('selected_la', d.properties);
           })
       ;
-      
+
       // Draw the map
       map_view.drawPaths() ;
 
@@ -76,47 +90,86 @@
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
         event.preventDefault();
 
-        var value = UKA.app.attributes.map_scale + (delta_y * 5000);
-        if (value < 5000)
-          value = 5000;
+        var value = UKA.app.attributes.map_transform_scale + (delta_y*0.1);
 
-        UKA.app.set('map_scale', value);
+        if (value < UKA.config.min_map_transform_scale)
+          value = UKA.config.min_map_transform_scale;
+
+        UKA.app.set('map_transform_scale', value);
       }) ;
 
       // Listen for mousedown and start a drag interaction
-      map_view.$el.on('mousedown', function (event) {
-        if (event.which === 1) {
+      map_view.$el.on('mousedown', function (mousedown_event) {
+        if (mousedown_event.which === 1) {
+
+          mousedown_event.preventDefault();
+
           var map_view_el = this,
               last_delta_x,
-              last_delta_y;
+              last_delta_y,
+              starting_translate_x = map_view.las_group_transform.translate_x,
+              starting_translate_y = map_view.las_group_transform.translate_y;
 
           new DragSequence({
-            // threshold: 5,
-            initialEvent: event,
+            initialEvent: mousedown_event,
 
-            dragMove: function (delta_x, delta_y) {
-              console.log('args', arguments);
+            dragStart: function () {
+            },
+
+            dragMove: function (delta_x, delta_y, ds, move_event) {
+              map_view.setLasGroupTransform({
+                translate_x: starting_translate_x + delta_x,
+                translate_y: starting_translate_y + delta_y
+              });
 
               last_delta_x = delta_x;
               last_delta_y = delta_y;
             },
 
             dragEnd: function () {
-              console.log('new position', last_delta_x, last_delta_y);
+              // console.log('new position', last_delta_x, last_delta_y);
             }
           });
         }
       });
 
-
       // Listen for chnages to app:map_scale and update the appearance
-      app.on('change:map_scale', function () {
-        // Transition the map using the `#las_group[transform]` attribute - NB. this will run drawPaths at the end of the transition duration, which clears the transform and redraws everything geographically
-        map_view.transitionMap();
-      }) ;
+      app.on('change:map_transform_scale', (function () {
+        var initialised = false,
+            base_width,
+            base_height
+        ;
 
+        return function () {
+          // Updates the transform attribute to reflect the current values in the app model.
 
+          // On first call, establish the 'real' size of the #las_group
+          if (!initialised) {
+            var las_bbox = las_group_el.getBBox();
+            base_width = las_bbox.width;
+            base_height = las_bbox.height;
+            initialised = true;
+          }
 
+          // Work out the new translations for the current scale
+          var new_scale = app.attributes.map_transform_scale,
+
+              new_width = new_scale * base_width,
+              new_height = new_scale * base_height,
+
+              new_translate_x = new_width / 2,
+              new_translate_y = new_height / 2
+          ;
+
+          // console.log('new_translate_y', new_translate_y, new_height, new_scale);
+
+          map_view.setLasGroupTransform({
+            scale: new_scale
+          });
+        };
+      })()) ;
+
+      // Return for chaining
       return this ;
     },
 
@@ -124,34 +177,76 @@
     ////////////////////////////////////////////////////////////
     // METHODS TO CONTROL THE RENDERED MAP
     ////////////////////////////////////////////////////////////
-    updateProjector: function () {
-      // This updates the projector function to reflect current `map_scale` and `map_centre` attributes of `app`.
 
-      projection.scale( app.attributes.map_scale );
-      return this ;
-    },
+    // adjustLasGroupTransform: function (adjustments) {
+    //   // This performs a relative adjustment of the current transform.
 
-    transitionMap: function (duration) {
-      // This transitions the `transform` attribute of the #las_group to reflect the current app attributes 'map_scale' and 'map_centre'.
+    //   console.log('adjustments', adjustments);
 
-      if (typeof duration !== 'number')
-        duration = UKA.config.duration;
+    //   var current_transform = map_view.las_group_transform,
+    //       new_translate_x = current_transform.translate_x,
+    //       new_translate_y = current_transform.translate_y,
+    //       new_scale = current_transform.scale;
 
-      // FOR NOW: use a D3 transition (slow - tweens all the paths in JS)
-      this.updateProjector();
-      var t = la_paths.transition().duration(duration);
-      t.attr('d', function (d) {
-        return projectPath(d) || '';
-      });
+    //   // Work out adjustments
+    //   if (adjustments.translate_x != null)
+    //     new_translate_x += adjustments.translate_x;
+    //   if (adjustments.translate_y != null)
+    //     new_translate_y += adjustments.translate_y;
+    //   if (adjustments.scale != null)
+    //     new_scale += adjustments.scale;
 
-      return this;
+    //   map_view.setLasGroupTransform({
+    //     translate_x: new_translate_x,
+    //     translate_y: new_translate_y,
+    //     scale: new_scale
+    //   });
+
+    //   console.log('current_transform', current_transform);
+    // },
+
+    setLasGroupTransform: function (transform) {
+      var current_transform = map_view.las_group_transform,
+          scale = transform.scale,
+          translate_x = transform.translate_x,
+          translate_y = transform.translate_y;
+
+      if (scale == null)
+        scale = current_transform.scale;
+      if (translate_x == null)
+        translate_x = current_transform.translate_x;
+      if (translate_y == null)
+        translate_y = current_transform.translate_y;
+
+
+      var scale_transform_string = 'scale(' + scale + ')',
+          translate_transform_string = (
+            'translate(' +
+              translate_x + ' ' +
+              translate_y +
+            ')'
+          );
+
+      las_group.attr('transform', scale_transform_string);
+      las_group_wrapper.attr('transform', translate_transform_string);
+
+
+      // Update the latest one stored on the map_view
+      map_view.las_group_transform = {
+        scale: scale,
+        translate_x: translate_x,
+        translate_y: translate_y
+      };
+
+      // Update the stroke
+      la_paths.attr('stroke-width', UKA.config.la_stroke_width * (-scale));
     },
 
     drawPaths: function () {
-      this.updateProjector();
+      // This function actually draws the map
 
-      // Clear the `transform` from the #las_group
-      // TODO
+      // Set the projector function's scale according to settings
+      projection.scale( UKA.config.map_projection_scale );
 
       // var startTime = Date.now() ;
 
