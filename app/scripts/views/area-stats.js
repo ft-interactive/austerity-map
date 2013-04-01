@@ -9,11 +9,9 @@
 (function () {
   'use strict';
 
-  // Create D3 mapping functions (and other vars for use from multiple methods of this view) on initial execution
   var area_stats_view = null,
       app;
 
-  // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.AreaStats = Backbone.View.extend({
     initialize: function () {
       if (area_stats_view)
