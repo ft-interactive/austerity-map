@@ -35,18 +35,14 @@
           <form id="postcode-search">Postcode</form>
 
           <div id="control-panel">
-            <select id="cut-selector"></select>
+            <select id="cut-types-dropdown">
+            </select>
 
             <div id="measurement-options">
-              <h3>Colour map according to:</h3>
-              <div class="option">Total financial loss per local authority area</div>
-              <div class="option">Number of people/households affected per 10,000</div>
-              <div class="option">Number of people in affected households</div>
-              <div class="option">Financial loss per head of population</div>
             </div>
 
             <div id="histogram-cont">
-              <h3>£ loss per head of population</h3>
+              <h3></h3>
               <div id="histogram">Histogram</div>
             </div>
 
@@ -81,6 +77,8 @@
 
     <script src="scripts/views/map.js"></script>
     <script src="scripts/views/area-stats.js"></script>
+    <script src="scripts/views/cut-types-dropdown.js"></script>
+    <script src="scripts/views/measurement-options.js"></script>
 
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

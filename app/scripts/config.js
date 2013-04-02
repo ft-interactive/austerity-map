@@ -10,6 +10,55 @@ UKA.config = {
   la_stroke_colour_hover: '#666',
   la_stroke_width: 1,
 
+  default_cut_type: 'BEDTAX',
+  default_measurement_option: 'NO_HH',
+
+  map_bucket_colours: [
+    '662222',
+    '993F3C',
+    'D17C70',
+    'DF9C92',
+    'EBBCB3'
+  ],
+
+  cut_types: [
+    {
+      value: 'BEDTAX',
+      label: 'Spare bedroom tax'
+    },
+    {
+      value: 'BENCAP',
+      label: 'Housing benefit cap'
+    },
+    {
+      value: 'CTB',
+      label: 'Council tax benefit cut'
+    },
+    {
+      value: 'NONDEP',
+      label: 'Non-dependent deductions'
+    }
+  ],
+
+  measurement_options: [
+    {
+      value: 'NO_HH',
+      label: 'Number of households affected'
+    },
+    {
+      value: 'NO_P10000HH',
+      label: 'Number of people in affected households per 10,000'
+    },
+    {
+      value: '£MILL',
+      label: 'Total financial loss for local authority area'
+    },
+    {
+      value: '£PWA',
+      label: 'Financial loss per working adult'
+    }
+  ],
+
   presets: [
     {
       id: 'bedroom-tax',

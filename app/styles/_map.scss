@@ -2,10 +2,11 @@
 }
 
   .la {
-    fill: #aaa ;
-    stroke: $ft_primaryPink  ;
+    stroke-width: 1 ;
+    stroke: $ft_primaryPink ;
+    // vector-effect: non-scaling-stroke ;
     &:hover {
-      stroke: #666 ;
+      stroke: #000 ;
     }
   }
 
@@ -33,13 +34,21 @@
     font-weight: normal ;
   }
 }
-  #cut-selector {
+  #cut-types-dropdown {
   }
 
   #measurement-options {
+    &> div {
+      margin-top: 4px ;
+      &> label {
+        &> input {
+          margin-right: 5px ;
+        }
 
-    &> .option {
-      font-size: 12px ;
+        &> span {
+          font-size: 12px ;
+        }
+      }
     }
   }
 

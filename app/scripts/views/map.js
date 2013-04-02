@@ -9,9 +9,10 @@
   'use strict';
 
   // Create D3 mapping functions (and other vars for use from multiple methods of this view) on initial execution
-  var instantiated = false,
-      map_view,
+  var map_view,
       app,
+
+      config,
 
       svg,
       las_group_wrapper,
@@ -24,7 +25,7 @@
       height = 680,
 
       projection = d3.geo.mercator()
-        .scale( 16000 )
+        // .scale( 16000 )
         .center( [0, 55.4] )
         .translate( [(width/2) + 200, height/2] ),
 
@@ -34,13 +35,15 @@
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
     initialize: function () {
-      if (instantiated)
+      if (map_view)
         throw 'Cannot instantiate Map View more than once';
-      instantiated = true;
 
       map_view = this;
       app = UKA.app;
+      config = UKA.config;
 
+      // Set the geo scale of the projection function according to config
+      projection.scale( config.map_projection_scale );
 
       // Establish the intial "transform" object for the map
       map_view.las_group_transform = {
@@ -70,21 +73,32 @@
           )
       ;
 
-      // Append the features (without actually drawing their paths yet)
+      // Append and draw the features
       la_paths = las_group.selectAll('.la')
         .data(geojson_data.geometries)
         .enter().append('path')
-          .attr('id', function (d) {
-            return 'la_' + d.properties.CODE;
-          })
+          // .attr('id', function (d) {
+          //   return 'la_' + d.properties.CODE;
+          // })
           .attr('class', 'la')
+          .attr('vector-effect', 'non-scaling-stroke')
           .on('click', function (d, i) {
             app.set('selected_la', d.properties);
           })
+          .on('mouseover', function (d, i) {
+            // Move hovered LA to end so it appears on top
+            las_group_el.appendChild(this);
+          })
+          .attr('d', function (d) {
+            return projectPath(d) || '';
+          })
       ;
 
-      // Draw the map
-      map_view.drawPaths() ;
+      // Update the fill colours whenever relevant app state properties change
+      app.on('change:selected_cut change:selected_measurement_option', function () {
+        // map_view.establishBuckets();
+        map_view.updateMapColours();
+      });
 
       // Listen for mousewheel, and update app:map_scale property
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
@@ -92,8 +106,8 @@
 
         var value = UKA.app.attributes.map_transform_scale + (delta_y*0.1);
 
-        if (value < UKA.config.min_map_transform_scale)
-          value = UKA.config.min_map_transform_scale;
+        if (value < config.min_map_transform_scale)
+          value = config.min_map_transform_scale;
 
         UKA.app.set('map_transform_scale', value);
       }) ;
@@ -209,7 +223,9 @@
       var current_transform = map_view.las_group_transform,
           scale = transform.scale,
           translate_x = transform.translate_x,
-          translate_y = transform.translate_y;
+          translate_y = transform.translate_y,
+          scale_changed = (scale != null),
+          translate_changed = (translate_x != null || translate_y != null);
 
       if (scale == null)
         scale = current_transform.scale;
@@ -218,47 +234,59 @@
       if (translate_y == null)
         translate_y = current_transform.translate_y;
 
+      // Update scale if necessary
+      if (scale_changed) {
+        var scale_transform_string = 'scale(' + scale + ')';
+        las_group.attr('transform', scale_transform_string);
 
-      var scale_transform_string = 'scale(' + scale + ')',
-          translate_transform_string = (
-            'translate(' +
-              translate_x + ' ' +
-              translate_y +
-            ')'
-          );
+        // Update the stroke
+        // la_paths.attr('stroke-width', Math.round(config.la_stroke_width * (-scale)));
+      }
 
-      las_group.attr('transform', scale_transform_string);
-      las_group_wrapper.attr('transform', translate_transform_string);
-
-
+      // Update the translate if necessary
+      if (translate_changed) {
+        var translate_transform_string = (
+          'translate(' +
+            translate_x + ' ' +
+            translate_y +
+          ')'
+        );
+        las_group_wrapper.attr('transform', translate_transform_string);
+      }
+      
       // Update the latest one stored on the map_view
       map_view.las_group_transform = {
         scale: scale,
         translate_x: translate_x,
         translate_y: translate_y
       };
-
-      // Update the stroke
-      la_paths.attr('stroke-width', UKA.config.la_stroke_width * (-scale));
     },
 
-    drawPaths: function () {
-      // This function actually draws the map
+    updateMapColours: function () {
+      la_paths.attr('fill', function (d, i) {
+        var colour;
 
-      // Set the projector function's scale according to settings
-      projection.scale( UKA.config.map_projection_scale );
+        // if (d.properties.colours[
 
-      // var startTime = Date.now() ;
-
-      // Compute and set all the paths
-      la_paths.attr('d', function (d) {
-        return projectPath(d) || '';
+        return map_view.getLaColour(d.properties);
       });
+    },
 
-      // console.log('Drawn map in ' + (Date.now() - startTime) + ' ms') ;
+    getLaColour: function (properties) {
+      // Returns the correct colour for the given properties.
 
-      return this ;
+      // See what property we need to base this on
+      var cut_type = app.get('selected_cut'),
+          measurement_option = app.get('selected_measurement_option'),
+          property_name = cut_type + '_' + measurement_option;
+
+      // console.log(property_name, properties[property_name]);
+
+      // Return a random number for now
+      return 'hsl(0,50%,'+ (Math.floor(Math.random() * 50)+25) +'%)';
+
     }
+
   });
 
 })();
