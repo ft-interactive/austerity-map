@@ -2,9 +2,7 @@
 }
 
   .la {
-    stroke-width: 1 ;
     stroke: $ft_primaryPink ;
-    // vector-effect: non-scaling-stroke ;
     &:hover {
       stroke: #000 ;
     }

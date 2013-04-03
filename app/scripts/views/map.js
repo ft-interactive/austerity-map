@@ -81,6 +81,7 @@
           //   return 'la_' + d.properties.CODE;
           // })
           .attr('class', 'la')
+          .attr('stroke-width', '1')
           .attr('vector-effect', 'non-scaling-stroke')
           .on('click', function (d, i) {
             app.set('selected_la', d.properties);
@@ -88,6 +89,10 @@
           .on('mouseover', function (d, i) {
             // Move hovered LA to end so it appears on top
             las_group_el.appendChild(this);
+            this.setAttribute('stroke-width', '2');
+          })
+          .on('mouseout', function  (d, i) {
+            this.setAttribute('stroke-width', '1');
           })
           .attr('d', function (d) {
             return projectPath(d) || '';
