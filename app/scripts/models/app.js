@@ -18,7 +18,8 @@
       'map_translate_y': 0,
 
       'selected_la': null,
-      'selected_measurement_option': 'NO_HH'
+      'selected_measure': config.default_measure,
+      'selected_cut': config.default_cut
     },
 
     initialize: function () {
@@ -59,10 +60,6 @@
       }).render();
 
       return this;
-    },
-
-    getCurrentSelectionCode: function () {
-      return app.attributes.selected_cut + '_' + app.attributes.selected_measurement_option;
     }
   });
 

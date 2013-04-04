@@ -30,7 +30,13 @@
 
       var new_html = '<ul>';
       for (var key in selected_la) {
-        new_html += ('<li>' + key + ': <b>' + selected_la[key] + '</b></li>');
+        if (key != 'cuts')
+          new_html += ('<li>' + key + ': <b>' + selected_la[key] + '</b></li>');
+        else {
+          new_html += ('<li>DATA: <pre>');
+          new_html += JSON.stringify(selected_la.cuts, null, 2);
+          new_html += ('</pre></li>');
+        }
       }
       new_html += '</ul>';
 

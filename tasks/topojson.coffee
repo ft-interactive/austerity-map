@@ -1,11 +1,19 @@
 ###
   This module exports a grunt task function that builds a static TopoJSON file at `app/data/local-authorities-topo.json`.
+
+  TODO:
+    - rename to `grunt data`
+    - also build a a file at `app/data/properties.js`, which gets added to UKA.config dynamically, consisting of the `cuts` and `measures` arrays (currently hard-coded in the config.js) built based on the central listing in `config/data-properties.coffee`.
+    - turn `local-authorities-topo.json` into a `.js` file and build it into bottom.js (but still keep it in `app/data` - this dir is for built JS that shouldn't be hand-edited).
+
 ###
 
-config   = require '../data-config'
-mysql    = require 'mysql'
-fs       = require 'fs'
-path     = require 'path'
+config = require '../config/database-settings'
+cuts   = require('../config/data-properties').cuts
+mysql  = require 'mysql'
+fs     = require 'fs'
+path   = require 'path'
+_      = require 'underscore'
 
 INPUT_GEOJSON_FILE   = path.resolve 'data/la-shapes.json'
 TEMP_GEOJSON_FILE    = path.resolve '.tmp/local-authorities.json'
@@ -46,19 +54,47 @@ module.exports = (grunt) -> (target) ->
 
       record = rows[0]
       if record?
+        # Build the feature for this LA record
         output_properties = {}
+
         for own db_field, target_name of config.properties_mapping
           if record[db_field] is undefined
             throw "Field '#{db_field}' defined in config but not found in DB"
           target_name = db_field if not target_name
           output_properties[target_name] = record[db_field]
 
+        cut_values_for_feature = {}
+        for cut in cuts
+          cut_key = cut.key
+          cut_values_for_feature[cut_key] = {}
+          for measure_key in cut.measures
+            # Geting the value and bucket number for this cut/measure combo
+            field_name = "#{cut_key}_#{measure_key}"
+
+            # Get the value
+            value = record[field_name]
+            if not value? then throw "DB FIELD NOT FOUND: #{field_name}"
+
+            # Get the bucket 
+            bucket_field_name = "#{field_name}_quintile"
+            bucket_num = record[bucket_field_name]
+            if not bucket_num? then throw "DB FIELD NOT FOUND: #{bucket_field_name}"
+
+            # Add to the object
+            cut_values_for_feature[cut.key][measure_key] = [value, bucket_num]
+
+        # Add the cuts object to the `properties` object for this feature
+        output_properties.cuts = cut_values_for_feature
+
+        # Add this feature to the list of all the features
         output_features.push({
           type       : 'Feature'
           properties : output_properties
           geometry   : input_feature.geometry
         })
+
       else
+        # Just a warning in the console, as this feature is missing from the database
         grunt.log.error "Not found in DB; skipping: #{input_feature.properties.CODE} - #{input_feature.properties.NAME}"
 
       current_index++
@@ -107,7 +143,6 @@ module.exports = (grunt) -> (target) ->
 
                 # ALL DONE.
                 grunt_task_completed()
-
 
   # Start the loop
   buildNextFeature()

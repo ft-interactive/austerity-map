@@ -24,7 +24,8 @@
     "matchdep": "~0.1.1",
     "coffee-script": "~1.6.2",
     "mysql": "~2.0.0-alpha7",
-    "topojson": "0.0.38"
+    "topojson": "0.0.38",
+    "underscore": "~1.4.4"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -23,46 +23,72 @@
       $el = view.$el;
       
       // Update selection when app property changes
-      app.on('change:selected_measurement_option', view.selectCorrectRadioButton);
+      app.on('change:selected_measure', view.selectCorrectRadioButton);
 
       // Update app property when selection changes
       $el.on('change', 'input[name=measurement-option]', function () {
         if (this.checked)
-          app.set('selected_measurement_option', this.value);
+          app.set('selected_measure', this.value);
+      });
+
+      // Re-render the whole list whenever the selected cut changes
+      app.on('change:selected_cut', function () {
+        view.render();
+        if ( !$el.find('input:checked').length ) {
+          // No radio button selected selected.
+          // Just select the first one
+          var $first_radio_button = $el.find('input').first();
+          $first_radio_button.prop('checked', true);
+          app.set('selected_measure', $first_radio_button.val());
+        }
       });
 
       return view;
     },
 
     selectCorrectRadioButton: function () {
-      $el
-        .find('[value=' + app.get('selected_measurement_option') + ']')
-        .prop('checked', true);
+      var $radio_button = $el
+        .find('[value=' + app.get('selected_measure') + ']');
+
+      if ($radio_button.length) {
+        $radio_button.prop('checked', true);
+      }
     },
 
     render: function () {
       $el.empty();
 
       // Set up cut types dropdown menu
-      var option, i, id, input_value, input_id;
-      for (i=0; i < config.measurement_options.length; i++) {
-        option = config.measurement_options[i];
-        input_value = option.value;
-        input_id = 'mo_' + input_value;
+      var option, i, id, input_value, input_id, measure, label,
+          measures = config.measures
+      ;
 
-        $el.append(
-          '<div>' +
-            '<label for="' + input_id + '">' +
-              '<input type="radio" name="measurement-option" value="' + input_value + '" id="' + input_id + '">' +
-              '<span>' +
-                (option.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')) +
-              '</span>' +
-            '</label>' +
-          '</div>'
-        );
+      // Find measures for the currently selected cut
+      var cut = _.find(config.cuts, function (cut) {
+        return cut.key === app.get('selected_cut');
+      });
+      if (!cut) throw 'Cut not found: ' + app.get('selected_cut');
 
-        view.selectCorrectRadioButton();
+      for (i=0; i < measures.length; i++) {
+        if (cut.measures.indexOf(measures[i].key) > -1) {
+          // This cut does use this measure.
+          measure = measures[i];
+          input_value = measure.key;
+          input_id = 'mo_' + input_value;
+          label = measure.label.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+          $el.append(
+            '<div>' +
+              '<label for="' + input_id + '">' +
+                '<input type="radio" name="measurement-option" value="' + input_value + '" id="' + input_id + '">' +
+                '<span>' + label + '</span>' +
+              '</label>' +
+            '</div>'
+          );
+        }
       }
+
+      // Ensure the correct one is selected now
+      view.selectCorrectRadioButton();
 
       return view;
     }

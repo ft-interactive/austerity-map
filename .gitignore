@@ -4,4 +4,4 @@ dist
 .sass-cache
 app/components
 builds
-data-config.coffee
+config/database-settings.coffee

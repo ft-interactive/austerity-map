@@ -43,12 +43,13 @@
     render: function () {
       $el.empty();
 
-      var cut_type, i;
-      for (i=0; i < config.cut_types.length; i++) {
-        cut_type = config.cut_types[i];
+      var cut, i;
+      for (i=0; i < config.cuts.length; i++) {
+        cut = config.cuts[i];
+
         $('<option></option>')
-          .attr('value', cut_type.value)
-          .text(cut_type.label)
+          .attr('value', cut.key)
+          .text(cut.label)
           .appendTo($el);
       }
 

@@ -100,9 +100,20 @@
       ;
 
       // Update the fill colours whenever relevant app state properties change
-      app.on('change:selected_cut change:selected_measurement_option', function () {
-        // map_view.establishBuckets();
-        map_view.updateMapColours();
+      app.on('change:selected_cut change:selected_measure', function () {
+        // If the current combination of cut and measure is valid, update the colours
+        $.each(config.cuts, function (i, cut) {
+          if (
+            cut.key === app.attributes.selected_cut &&
+            cut.measures.indexOf(app.attributes.selected_measure) > -1
+          ) {
+            // This is a valid combination.
+            // Update the colours
+            map_view.updateMapColours();
+            // Break from loop
+            return false;
+          }
+        });
       });
 
       // Listen for mousewheel, and update app:map_scale property
@@ -244,7 +255,7 @@
         var scale_transform_string = 'scale(' + scale + ')';
         las_group.attr('transform', scale_transform_string);
 
-        // Update the stroke
+        // Update the stroke - TODO: enable this for when vector-effects property not supported (IE)
         // la_paths.attr('stroke-width', Math.round(config.la_stroke_width * (-scale)));
       }
 
@@ -268,11 +279,9 @@
     },
 
     updateMapColours: function () {
+      // console.log('updating map colours');
+
       la_paths.attr('fill', function (d, i) {
-        var colour;
-
-        // if (d.properties.colours[
-
         return map_view.getLaColour(d.properties);
       });
     },
@@ -281,15 +290,19 @@
       // Returns the correct colour for the given properties.
 
       // See what property we need to base this on
-      var cut_type = app.get('selected_cut'),
-          measurement_option = app.get('selected_measurement_option'),
-          property_name = cut_type + '_' + measurement_option;
+      var data = properties.cuts[app.get('selected_cut')][app.get('selected_measure')];
 
-      // console.log(property_name, properties[property_name]);
+      if (!data || data.length !== 2) 
+        throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
 
-      // Return a random number for now
-      return 'hsl(0,50%,'+ (Math.floor(Math.random() * 50)+25) +'%)';
+      // Return a number
+      var bucket_num = data[1];
+      var multiplier = UKA.normaliseBucket(bucket_num, config.num_buckets);
 
+      var divisions = 50 / multiplier;
+      var luminosity = 75 - (divisions * bucket_num);
+
+      return 'hsl(0,50%,'+ luminosity +'%)';
     }
 
   });

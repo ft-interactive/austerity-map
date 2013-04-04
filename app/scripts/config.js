@@ -10,52 +10,145 @@ UKA.config = {
   la_stroke_colour_hover: '#666',
   la_stroke_width: 1,
 
-  default_cut_type: 'BEDTAX',
-  default_measurement_option: 'NO_HH',
+  default_cut: 'BEDTAX',
+  default_measure: 'NO_HH',
 
-  map_bucket_colours: [
-    '662222',
-    '993F3C',
-    'D17C70',
-    'DF9C92',
-    'EBBCB3'
-  ],
+  num_buckets: 8,
 
-  cut_types: [
+  // The following "cuts" and "measures" arrays have been manually entered to be the same as those defined in config/data-properties.coffee. They must be kept the same. To do: take these out of the config into a separate file in app/data/ (next to the topojson file) and build it automatically along with the topojson file.
+  cuts: [
     {
-      value: 'BEDTAX',
-      label: 'Spare bedroom tax'
+      "key": "BEDTAX",
+      "label": "Under occupancy (bedroom tax)",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
     },
     {
-      value: 'BENCAP',
-      label: 'Housing benefit cap'
+      "key": "BENCAP",
+      "label": "Household benefit cap",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
     },
     {
-      value: 'CTB',
-      label: 'Council tax benefit cut'
+      "key": "CTB",
+      "label": "Council tax benefit ",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
     },
     {
-      value: 'NONDEP',
-      label: 'Non-dependent deductions'
+      "key": "NONDEP",
+      "label": "Non-dependent deduction",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "CHILDBEN",
+      "label": "Child benefit ",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "TAXCRED",
+      "label": "Tax credits",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "LHA",
+      "label": "Local housing allowance ",
+      "measures": [
+        "NO_HH",
+        "£MILL",
+        "NO_P10000HH",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "DLA",
+      "label": "Disability living allowance ",
+      "measures": [
+        "NO_INDIVID",
+        "£MILL",
+        "NO_P10000INDIVID",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "IB_ESA",
+      "label": "Incapacity benefits",
+      "measures": [
+        "NO_INDIVID",
+        "£MILL",
+        "NO_P10000INDIVID",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "1%UPRATE",
+      "label": "1 percent uprating",
+      "measures": [
+        "£MILL",
+        "£PWA"
+      ]
+    },
+    {
+      "key": "TOTAL_IMPACT",
+      "label": "Overall impact",
+      "measures": [
+        "£MILL",
+        "£PWA"
+      ]
     }
   ],
 
-  measurement_options: [
+  measures: [
     {
-      value: 'NO_HH',
-      label: 'Number of households affected'
+      "key": "NO_HH",
+      "label": "Number of households affected"
     },
     {
-      value: 'NO_P10000HH',
-      label: 'Number of people in affected households per 10,000'
+      "key": "£MILL",
+      "label": "Estimated loss per area, £m per year"
     },
     {
-      value: '£MILL',
-      label: 'Total financial loss for local authority area'
+      "key": "NO_P10000HH",
+      "label": "Number of households affected per 10,000"
     },
     {
-      value: '£PWA',
-      label: 'Financial loss per working adult'
+      "key": "£PWA",
+      "label": "Loss per working age adult, £ per year"
+    },
+    {
+      "key": "NO_P10000INDIVID",
+      "label": "Number of individuals affected per 10,000"
+    },
+    {
+      "key": "NO_INDIVID",
+      "label": "Number of individuals affected"
     }
   ],
 
@@ -68,4 +161,5 @@ UKA.config = {
       map_scale: 8
     }
   ]
+
 };
