@@ -8,7 +8,6 @@
 (function () {
   'use strict';
 
-  // Create D3 mapping functions (and other vars for use from multiple methods of this view) on initial execution
   var map_view,
       app,
 
@@ -30,7 +29,14 @@
         .translate( [(width/2) + 200, height/2] ),
 
       projectPath = d3.geo.path()
-        .projection(projection);
+        .projection(projection),
+
+      $hover_box,
+
+      hide_hover_box_timeout,
+      hover_sequence,
+      panning_sequence;
+      
 
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
@@ -41,6 +47,11 @@
       map_view = this;
       app = UKA.app;
       config = UKA.config;
+
+      $hover_box = $(
+        '<div id="hover-box">' +
+        '</div>'
+      ).appendTo('body');
 
       // Set the geo scale of the projection function according to config
       projection.scale( config.map_projection_scale );
@@ -87,12 +98,22 @@
             app.set('selected_la', d.properties);
           })
           .on('mouseover', function (d, i) {
+            if (panning_sequence)
+              return;
+
             // Move hovered LA to end so it appears on top
             las_group_el.appendChild(this);
             this.setAttribute('stroke-width', '2');
+
+            map_view.showHoverBox(this, d);
           })
           .on('mouseout', function  (d, i) {
+            if (panning_sequence)
+              return;
+
             this.setAttribute('stroke-width', '1');
+
+            map_view.hideHoverBox();
           })
           .attr('d', function (d) {
             return projectPath(d) || '';
@@ -140,10 +161,15 @@
               starting_translate_x = map_view.las_group_transform.translate_x,
               starting_translate_y = map_view.las_group_transform.translate_y;
 
-          new DragSequence({
+          if (hover_sequence)
+            hover_sequence.cancel();
+
+          panning_sequence = new DragSequence({
             initialEvent: mousedown_event,
 
             dragStart: function () {
+              // console.log('PAN STARTED');
+              map_view.hideHoverBox();
             },
 
             dragMove: function (delta_x, delta_y, ds, move_event) {
@@ -157,7 +183,8 @@
             },
 
             dragEnd: function () {
-              // console.log('new position', last_delta_x, last_delta_y);
+              // console.log('PAN FINISHED');
+              panning_sequence = null;
             }
           });
         }
@@ -303,8 +330,64 @@
       var luminosity = 75 - (divisions * bucket_num);
 
       return 'hsl(0,50%,'+ luminosity +'%)';
-    }
+    },
 
+
+    // Hover box
+    showHoverBox: function (path, data) {
+      var left_offset,
+          top_offset,
+          gap_above_cursor = 30;
+
+      hover_sequence = new DragSequence({
+        threshold: 0,
+        drag: false,
+
+        dragStart: function () {
+          // console.log('start');
+          clearTimeout(hide_hover_box_timeout);
+          $hover_box
+            .html(
+              '<h3>' + p.name + '</h3>' + ''
+            )
+            .show();
+          left_offset = Math.round($hover_box.outerWidth() / 2) ;
+          top_offset = $hover_box.outerHeight() + gap_above_cursor ;
+        },
+
+        dragMove: function (delta_x, delta_y, ds, move_event) {
+          // console.log('move', move_event.pageX);
+
+
+
+          // Just reposition the hover box
+          $hover_box.css({
+            top: (move_event.pageY - top_offset) + 'px',
+            left: (move_event.pageX - left_offset) + 'px'
+          });
+        },
+
+        dragCancel: function () {
+          hover_sequence = null;
+          // console.log('CANCELLING HOVER SEQUENCE');
+        }
+      });
+
+      var p = data.properties;
+      
+    },
+
+    hideHoverBox: function () {
+      if (hover_sequence) {
+        // console.log('CANCELLING HOVER SEQUENCE');
+        hover_sequence.cancel();
+        hover_sequence = null;
+      }
+
+      hide_hover_box_timeout = setTimeout(function () {
+        $hover_box.fadeOut(100);
+      },150);
+    }
   });
 
 })();

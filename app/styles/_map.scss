@@ -2,7 +2,7 @@
 }
 
   .la {
-    stroke: $ft_primaryPink ;
+    stroke: #766 ;
     &:hover {
       stroke: #000 ;
     }
@@ -12,11 +12,10 @@
 #control-panel {
   width: 220px ;
   @include border-radius(5px) ;
-  background-color: transparentize(#666, 0.2) ;
+  @include transparentDarkGreyBackground ;
   position: absolute ;
   left: 20px ;
   padding: 20px ;
-  color: #eee ;
 }
 
 #postcode-search {
@@ -57,3 +56,5 @@
     height: 160px ;
     background-color: #555 ;
   }
+
+

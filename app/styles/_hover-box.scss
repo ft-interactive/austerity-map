@@ -1,0 +1,13 @@
+#hover-box {
+  position: absolute ;
+  padding: 8px 12px ;
+
+  @include pointer-events(none) ;
+  @include transparentDarkGreyBackground ;
+  @include border-radius(3px) ;
+
+  &> h3 {
+    font: normal 16px BentonSans ;
+    margin: 0 ;
+  }
+}

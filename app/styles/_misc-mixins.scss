@@ -9,3 +9,15 @@
   &:hover { color: $ft_linkBlueText ; }
   cursor: pointer ;
 }
+
+@mixin pointer-events($type: none) {
+  $type: unquote($type);
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none;
+}
+
+@mixin transparentDarkGreyBackground {
+  color: #eee ;
+  background-color: transparentize(#666, 0.2) ;
+}
