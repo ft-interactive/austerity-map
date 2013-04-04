@@ -14,11 +14,15 @@
       config,
 
       svg,
+      las_group_outer,
       las_group_wrapper,
       las_group,
       la_paths,
 
       las_group_el,
+
+      las_natural_width,
+      las_natural_height,
 
       width = 972,
       height = 680,
@@ -72,7 +76,8 @@
       ;
 
       // Append a group element
-      las_group_wrapper = svg.append('g').attr('id', 'las-group-wrapper');
+      las_group_outer = svg.append('g').attr('id', 'las-group-outer');
+      las_group_wrapper = las_group_outer.append('g').attr('id', 'las-group-wrapper');
       las_group = las_group_wrapper.append('g').attr('id', 'las-group');
       las_group_el = las_group[0][0];
 
@@ -120,6 +125,11 @@
           })
       ;
 
+      // Note the original dimensions
+      var bbox = las_group_wrapper[0][0].getBBox();
+      las_natural_width = bbox.width;
+      las_natural_height = bbox.height;
+
       // Update the fill colours whenever relevant app state properties change
       app.on('change:selected_cut change:selected_measure', function () {
         // If the current combination of cut and measure is valid, update the colours
@@ -141,12 +151,20 @@
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
         event.preventDefault();
 
-        var value = UKA.app.attributes.map_transform_scale + (delta_y*0.1);
+        var zoom_adjustment;
+        if (delta_y > 0)
+          zoom_adjustment = 1;
+        else if (delta_y < 0)
+          zoom_adjustment = -1;
+        
+        // console.log('zooming', zoom_adjustment);
 
-        if (value < config.min_map_transform_scale)
-          value = config.min_map_transform_scale;
+        var old_zoom_level = app.attributes.zoom_level;
 
-        UKA.app.set('map_transform_scale', value);
+        app.set('zoom_level', old_zoom_level + zoom_adjustment);
+        
+        // if (app.attributes.zoom_level === old_zoom_level)
+        //   return ;
       }) ;
 
       // Listen for mousedown and start a drag interaction
@@ -208,21 +226,12 @@
             initialised = true;
           }
 
-          // Work out the new translations for the current scale
-          var new_scale = app.attributes.map_transform_scale,
-
-              new_width = new_scale * base_width,
-              new_height = new_scale * base_height,
-
-              new_translate_x = new_width / 2,
-              new_translate_y = new_height / 2
-          ;
-
-          // console.log('new_translate_y', new_translate_y, new_height, new_scale);
+          var new_scale = app.attributes.map_transform_scale;
 
           map_view.setLasGroupTransform({
             scale: new_scale
           });
+          
         };
       })()) ;
 
@@ -280,7 +289,17 @@
       // Update scale if necessary
       if (scale_changed) {
         var scale_transform_string = 'scale(' + scale + ')';
+
         las_group.attr('transform', scale_transform_string);
+
+        // Also update the in-between group with the translation to compensate for the scaling
+        var extra_width = (las_natural_width * scale) - las_natural_width;
+        var extra_height = (las_natural_height * scale) - las_natural_height;
+        console.log('extra_width', extra_width);
+        las_group_wrapper.attr(
+          'transform',
+          'translate(' + (-extra_width)*2 + ' ' + (-extra_height)/2 + ')'
+        );
 
         // Update the stroke - TODO: enable this for when vector-effects property not supported (IE)
         // la_paths.attr('stroke-width', Math.round(config.la_stroke_width * (-scale)));
@@ -294,7 +313,7 @@
             translate_y +
           ')'
         );
-        las_group_wrapper.attr('transform', translate_transform_string);
+        las_group_outer.attr('transform', translate_transform_string);
       }
       
       // Update the latest one stored on the map_view
