@@ -58,7 +58,7 @@
 
       UKA.area_stats_view = new UKA.Views.AreaStats({
         el: document.getElementById('area-stats')
-      });
+      }).render();
 
       // Set up the cut types dropdown
       new UKA.Views.CutTypesDropdown({

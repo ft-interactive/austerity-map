@@ -36,14 +36,41 @@ html, body {
 
     #area-stats {
 	  padding:12px 15px 15px 15px;
-      height: 200px ;
       overflow: auto ;
   	  border-top:8px solid $ft_warmGrey1;
+	  color:$ft_darkGrey;
   	  .laName{
   		font-family: Clarion, serif ;
-  		font-size:32px;
-  		color:$ft_darkGrey;
+  		font-size:32px;  		
   	  }
+	  .donutTitle{
+	  	font-size:17px;
+	  }
+	  .donutValue{
+	  	position:relative;
+		font-size:34px;
+		top:-150px;
+		left:58px;
+		text-align:center;
+		width:100px;
+		line-height:26px;
+	  }
+	  
+	  .toolTip
+	  {
+	  	background-color: #fff;
+	  	font-size:14px;
+	  	padding:10px;
+	  	position: absolute;
+	  	border: 1px solid $ft_warmGrey1;
+	  	opacity:0;
+	  	z-index:11000;
+	  	pointer-events:none;
+		width:120px;
+		.bigNumber{
+			font-size: 40px;
+		}
+	  }
     }
 	
 	#ft-footer{		
