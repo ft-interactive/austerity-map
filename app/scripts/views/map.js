@@ -8,18 +8,21 @@
 (function () {
   'use strict';
 
-  // Create D3 mapping functions (and other vars for use from multiple methods of this view) on initial execution
   var map_view,
       app,
 
       config,
 
       svg,
+      las_group_outer,
       las_group_wrapper,
       las_group,
       la_paths,
 
       las_group_el,
+
+      las_natural_width,
+      las_natural_height,
 
       width = 972,
       height = 680,
@@ -30,7 +33,14 @@
         .translate( [(width/2) + 200, height/2] ),
 
       projectPath = d3.geo.path()
-        .projection(projection);
+        .projection(projection),
+
+      $hover_box,
+
+      hide_hover_box_timeout,
+      hover_sequence,
+      panning_sequence;
+      
 
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
@@ -41,6 +51,11 @@
       map_view = this;
       app = UKA.app;
       config = UKA.config;
+
+      $hover_box = $(
+        '<div id="hover-box">' +
+        '</div>'
+      ).appendTo('body');
 
       // Set the geo scale of the projection function according to config
       projection.scale( config.map_projection_scale );
@@ -61,9 +76,20 @@
       ;
 
       // Append a group element
-      las_group_wrapper = svg.append('g').attr('id', 'las-group-wrapper');
+      las_group_outer = svg.append('g').attr('id', 'las-group-outer');
+      las_group_wrapper = las_group_outer.append('g').attr('id', 'las-group-wrapper');
       las_group = las_group_wrapper.append('g').attr('id', 'las-group');
       las_group_el = las_group[0][0];
+
+      // Add a centre marker (for debugging)
+      // svg.append('rect')
+      //   .attr('id', 'centre-marker')
+      //   .attr('x', width/2-1)
+      //   .attr('y', height/2-1)
+      //   .attr('width', 2)
+      //   .attr('height', 2)
+      //   .attr('fill', 'blue')
+      // ;
 
       // Convert TopoJSON to GeoJSON
       var topojson_data = UKA.data,
@@ -87,17 +113,32 @@
             app.set('selected_la', d.properties);
           })
           .on('mouseover', function (d, i) {
+            if (panning_sequence)
+              return;
+
             // Move hovered LA to end so it appears on top
             las_group_el.appendChild(this);
             this.setAttribute('stroke-width', '2');
+
+            map_view.showHoverBox(this, d);
           })
           .on('mouseout', function  (d, i) {
+            if (panning_sequence)
+              return;
+
             this.setAttribute('stroke-width', '1');
+
+            map_view.hideHoverBox();
           })
           .attr('d', function (d) {
             return projectPath(d) || '';
           })
       ;
+
+      // Note the original dimensions
+      var bbox = las_group_wrapper[0][0].getBBox();
+      las_natural_width = bbox.width;
+      las_natural_height = bbox.height;
 
       // Update the fill colours whenever relevant app state properties change
       app.on('change:selected_cut change:selected_measure', function () {
@@ -120,12 +161,20 @@
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
         event.preventDefault();
 
-        var value = UKA.app.attributes.map_transform_scale + (delta_y*0.1);
+        var zoom_adjustment;
+        if (delta_y > 0)
+          zoom_adjustment = 1;
+        else if (delta_y < 0)
+          zoom_adjustment = -1;
+        
+        // console.log('zooming', zoom_adjustment);
 
-        if (value < config.min_map_transform_scale)
-          value = config.min_map_transform_scale;
+        var old_zoom_level = app.attributes.zoom_level;
 
-        UKA.app.set('map_transform_scale', value);
+        app.set('zoom_level', old_zoom_level + zoom_adjustment);
+        
+        // if (app.attributes.zoom_level === old_zoom_level)
+        //   return ;
       }) ;
 
       // Listen for mousedown and start a drag interaction
@@ -140,10 +189,15 @@
               starting_translate_x = map_view.las_group_transform.translate_x,
               starting_translate_y = map_view.las_group_transform.translate_y;
 
-          new DragSequence({
+          if (hover_sequence)
+            hover_sequence.cancel();
+
+          panning_sequence = new DragSequence({
             initialEvent: mousedown_event,
 
             dragStart: function () {
+              // console.log('PAN STARTED');
+              map_view.hideHoverBox();
             },
 
             dragMove: function (delta_x, delta_y, ds, move_event) {
@@ -157,7 +211,8 @@
             },
 
             dragEnd: function () {
-              // console.log('new position', last_delta_x, last_delta_y);
+              // console.log('PAN FINISHED');
+              panning_sequence = null;
             }
           });
         }
@@ -181,21 +236,12 @@
             initialised = true;
           }
 
-          // Work out the new translations for the current scale
-          var new_scale = app.attributes.map_transform_scale,
-
-              new_width = new_scale * base_width,
-              new_height = new_scale * base_height,
-
-              new_translate_x = new_width / 2,
-              new_translate_y = new_height / 2
-          ;
-
-          // console.log('new_translate_y', new_translate_y, new_height, new_scale);
+          var new_scale = app.attributes.map_transform_scale;
 
           map_view.setLasGroupTransform({
             scale: new_scale
           });
+          
         };
       })()) ;
 
@@ -253,7 +299,17 @@
       // Update scale if necessary
       if (scale_changed) {
         var scale_transform_string = 'scale(' + scale + ')';
+
         las_group.attr('transform', scale_transform_string);
+
+        // Also update the in-between group with the translation to compensate for the scaling
+        var extra_width = (las_natural_width * scale) - las_natural_width;
+        var extra_height = (las_natural_height * scale) - las_natural_height;
+        // console.log('extra_width', extra_width);
+        las_group_wrapper.attr(
+          'transform',
+          'translate(' + (-extra_width)*2 + ' ' + (-extra_height)/2 + ')'
+        );
 
         // Update the stroke - TODO: enable this for when vector-effects property not supported (IE)
         // la_paths.attr('stroke-width', Math.round(config.la_stroke_width * (-scale)));
@@ -267,7 +323,7 @@
             translate_y +
           ')'
         );
-        las_group_wrapper.attr('transform', translate_transform_string);
+        las_group_outer.attr('transform', translate_transform_string);
       }
       
       // Update the latest one stored on the map_view
@@ -303,8 +359,64 @@
       var luminosity = 75 - (divisions * bucket_num);
 
       return 'hsl(0,50%,'+ luminosity +'%)';
-    }
+    },
 
+
+    // Hover box
+    showHoverBox: function (path, data) {
+      var left_offset,
+          top_offset,
+          gap_above_cursor = 30;
+
+      hover_sequence = new DragSequence({
+        threshold: 0,
+        drag: false,
+
+        dragStart: function () {
+          // console.log('start');
+          clearTimeout(hide_hover_box_timeout);
+          $hover_box
+            .html(
+              '<h3>' + p.name + '</h3>' + ''
+            )
+            .show();
+          left_offset = Math.round($hover_box.outerWidth() / 2) ;
+          top_offset = $hover_box.outerHeight() + gap_above_cursor ;
+        },
+
+        dragMove: function (delta_x, delta_y, ds, move_event) {
+          // console.log('move', move_event.pageX);
+
+
+
+          // Just reposition the hover box
+          $hover_box.css({
+            top: (move_event.pageY - top_offset) + 'px',
+            left: (move_event.pageX - left_offset) + 'px'
+          });
+        },
+
+        dragCancel: function () {
+          hover_sequence = null;
+          // console.log('CANCELLING HOVER SEQUENCE');
+        }
+      });
+
+      var p = data.properties;
+      
+    },
+
+    hideHoverBox: function () {
+      if (hover_sequence) {
+        // console.log('CANCELLING HOVER SEQUENCE');
+        hover_sequence.cancel();
+        hover_sequence = null;
+      }
+
+      hide_hover_box_timeout = setTimeout(function () {
+        $hover_box.fadeOut(100);
+      },150);
+    }
   });
 
 })();

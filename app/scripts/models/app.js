@@ -16,6 +16,7 @@
       'map_transform_scale': 1,
       'map_translate_x': 0,
       'map_translate_y': 0,
+      'zoom_level': 1,
 
       'selected_la': null,
       'selected_measure': config.default_measure,
@@ -27,13 +28,23 @@
         throw 'Cannot instantiate App Model more than once';
       app = this;
 
-      // Establish the bucket ranges for each of the four measurement options
-      // var measurement_options = config.measurement_options,
-      //     option, i;
-      // for (i = measurement_options.length - 1; i >= 0; i--) {
-      //   option = measurement_options[i];
-      //   console.log('option', option);
-      // }
+      // Update zoom level to reflect scale
+      // 10 is an acceptable maximum scale
+      app.on('change:zoom_level', function () {
+
+        // Clamp zoom level between 1 and 20
+        var zoom_level = app.attributes.zoom_level;
+        if (zoom_level < 1 || !zoom_level)
+          zoom_level = 1;
+        else if (zoom_level > 20)
+          zoom_level = 20;
+        app.attributes.zoom_level = zoom_level;
+
+        // Calculate and set new transform scale
+        var map_transform_scale = (zoom_level / 2) + 0.5;
+        // console.log('changing scale from ' + app.attributes.map_transform_scale + ' to ' + map_transform_scale);
+        app.set('map_transform_scale', map_transform_scale);
+      });
 
       return this;
     },
@@ -58,6 +69,11 @@
       new UKA.Views.MeasurementOptions({
         el: document.getElementById('measurement-options')
       }).render();
+
+      // Set up zoom control
+      new UKA.Views.ZoomControl({
+        el: document.getElementById('zoom-control')
+      });
 
       return this;
     }
