@@ -10,10 +10,11 @@ html, body, #cont {
   position: relative ;
 }
 
-  #ft-header, #ft-footer {
+  #ft-header {
     padding: 80px 0 ;
     background: $ft-tint2 ;
   }
+
 
   #main {
     margin: 20px 0 ;
@@ -34,7 +35,39 @@ html, body, #cont {
     }
 
     #area-stats {
-      background: #aac ;
+	  padding:12px 15px 15px 15px;
       height: 200px ;
       overflow: auto ;
+  	  border-top:8px solid $ft_warmGrey1;
+  	  .laName{
+  		font-family: Clarion, serif ;
+  		font-size:32px;
+  		color:$ft_darkGrey;
+  	  }
     }
+	
+	#ft-footer{		
+		color: $ft_warmGrey2;
+		dl dt {
+		margin-bottom: .3em;
+		font-weight: 700;
+		margin: 0;
+		padding: 0;
+		direction: ltr;
+		}
+		.byline{
+			font-size: .75em;
+		}
+		dl {
+			padding-left: 15px;
+			line-height: 1.6;
+			list-style-position: outside;
+		}
+		dd{
+		display: block;
+		-webkit-margin-start:0px;
+		}
+		dl dd {
+		margin-bottom: .75em;
+		}
+	}
