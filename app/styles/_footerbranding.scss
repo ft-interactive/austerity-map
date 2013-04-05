@@ -1,0 +1,87 @@
+// Media Queries
+$small-screen: emCalc(768px) !default;
+$medium-screen: emCalc(1280px) !default;
+$large-screen: emCalc(1440px) !default;
+
+$screen: "only screen" !default;
+$small: "only screen and (min-width:"#{$small-screen}")" !default;
+$medium: "only screen and (min-width:"#{$medium-screen}")" !default;
+$large: "only screen and (min-width:"#{$large-screen}")" !default;
+$landscape: "only screen and (orientation: landscape)" !default;
+$portrait: "only screen and (orientation: portrait)" !default;
+
+/* text colors */
+$text-color-muted-dark:         #505050;
+$text-color-muted-mid:          #74736C;
+$text-color-muted-light:        #999999;
+
+$font-family-sans: 'BentonSans', 'Helvetica', 'Arial', sans-serif;
+$font-family-ui: $font-family-sans;
+
+/** --------
+*
+*    FT & Pearson Branding 
+*
+*    -------
+**/
+
+/* FT copyright etc */
+.ft-details{
+    font-size:12px;
+    font-family:  $font-family-ui;
+    margin:3em 0 2em 0;
+	padding-left: 15px;
+}
+
+.ft-details, .ft-details acronym{
+    color: $text-color-muted-light;
+}
+
+.ft-details .copyright{
+    color: $text-color-muted-dark;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+@media #{$small} {
+    .ft-details .copyright {
+        display: inline;
+    }
+}
+
+
+
+/* Pearson branding */
+.pearson{
+    background-color: $ft_tint2;
+    border: 0 none;
+    padding: 0 1em;
+    display:inline-block;
+    vertical-align: middle;
+    line-height: 30px;
+    width:100%;
+    position: relative;
+}
+
+.pearson .tagline {
+    width: 139px;
+    height: 50px;
+    float: left;
+    background: url("http://im.ft-static.com/m/img/pearson_always_learning_small.gif") no-repeat left center;
+}
+
+.pearson .companyName{
+    width: 114px;
+    height: 50px;
+    float: right;
+    background: url("http://im.ft-static.com/m/img/pearson_logo_small.gif") no-repeat right center;
+}
+
+.pearson  .offscreen{
+    position: absolute;
+    left: -5000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
