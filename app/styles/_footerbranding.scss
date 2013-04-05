@@ -55,7 +55,6 @@ $font-family-ui: $font-family-sans;
 .pearson{
     background-color: $ft_tint2;
     border: 0 none;
-    padding: 0 1em;
     display:inline-block;
     vertical-align: middle;
     line-height: 30px;
@@ -68,6 +67,7 @@ $font-family-ui: $font-family-sans;
     height: 50px;
     float: left;
     background: url("http://im.ft-static.com/m/img/pearson_always_learning_small.gif") no-repeat left center;
+    margin-left: 1em;
 }
 
 .pearson .companyName{
@@ -75,6 +75,7 @@ $font-family-ui: $font-family-sans;
     height: 50px;
     float: right;
     background: url("http://im.ft-static.com/m/img/pearson_logo_small.gif") no-repeat right center;
+    margin-right: 1em;
 }
 
 .pearson  .offscreen{

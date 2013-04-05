@@ -40,7 +40,7 @@
       hide_hover_box_timeout,
       hover_sequence,
       panning_sequence;
-      
+
 
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
@@ -103,12 +103,11 @@
       la_paths = las_group.selectAll('.la')
         .data(geojson_data.geometries)
         .enter().append('path')
-          // .attr('id', function (d) {
-          //   return 'la_' + d.properties.CODE;
-          // })
-          .attr('class', 'la')
-          .attr('stroke-width', '1')
-          .attr('vector-effect', 'non-scaling-stroke')
+          .attr({
+            'class': 'la',
+            'stroke-width': getStrokeWidth(),
+            'stroke': config.la_stroke_colour
+          })
           .on('click', function (d, i) {
             app.set('selected_la', d.properties);
           })
@@ -118,7 +117,8 @@
 
             // Move hovered LA to end so it appears on top
             las_group_el.appendChild(this);
-            this.setAttribute('stroke-width', '2');
+            this.setAttribute('stroke-width', 2*getStrokeWidth());
+            this.setAttribute('stroke', config.la_stroke_colour_hover);
 
             map_view.showHoverBox(this, d);
           })
@@ -126,7 +126,8 @@
             if (panning_sequence)
               return;
 
-            this.setAttribute('stroke-width', '1');
+            this.setAttribute('stroke-width', getStrokeWidth());
+            this.setAttribute('stroke', config.la_stroke_colour);
 
             map_view.hideHoverBox();
           })
@@ -311,8 +312,9 @@
           'translate(' + (-extra_width)*2 + ' ' + (-extra_height)/2 + ')'
         );
 
-        // Update the stroke - TODO: enable this for when vector-effects property not supported (IE)
-        // la_paths.attr('stroke-width', Math.round(config.la_stroke_width * (-scale)));
+        // Update the stroke thickness of all the paths
+        var new_stroke_width = getStrokeWidth();
+        la_paths.attr('stroke-width', new_stroke_width);
       }
 
       // Update the translate if necessary
@@ -418,5 +420,38 @@
       },150);
     }
   });
+  
+  var getStrokeWidth = (function () {
+    var results = [];
+
+    function zoomLevelToStrokeWidth(zoom) {
+      // Returns a sensible stroke thickness for the current zoom level, scaled to the inverse of whatever the current map transform scale is.
+
+      var stroke;
+
+      // Pick a sensible pixel thickness
+      if (zoom === 1)
+        stroke = 0.8;
+      else if (zoom < 5)
+        stroke = 1;
+      else
+        stroke = 1.5;
+
+      // Scale it according to the current zoom level
+      var scaled_stroke = stroke ;
+      if (zoom !== 1)
+        scaled_stroke *= ( 1 / UKA.zoomLevelToScale(zoom) );
+
+      return scaled_stroke;
+    }
+
+    for (var i = 1; i < 21; i++) {
+      results[i] = zoomLevelToStrokeWidth(i);
+    }
+
+    return function () {
+      return results[app.attributes.zoom_level] /*|| zoomLevelToStrokeWidth(app.attributes.zoom_level)*/;
+    };
+  })();
 
 })();
