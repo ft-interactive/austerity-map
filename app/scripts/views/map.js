@@ -413,7 +413,7 @@
 
       hide_hover_box_timeout = setTimeout(function () {
         $hover_box.fadeOut(100);
-      },150);
+      }, 150);
     }
   });
 
