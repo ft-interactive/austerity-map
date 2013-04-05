@@ -4,7 +4,7 @@
   Manages the <select> element containing all the cut types (bedroom tax, housing benefit, etc).
 */
 
-/*global UKA, Backbone*/
+/*global UKA, Backbone, $*/
 
 (function () {
   'use strict';
@@ -23,7 +23,7 @@
       app = UKA.app;
       config = UKA.config;
       $el = view.$el;
-      
+
       // Update selection when app property changes
       app.on('change:selected_cut', view.selectCorrectOption);
 
@@ -54,7 +54,7 @@
       }
 
       view.selectCorrectOption();
-      
+
       return view;
     }
   });

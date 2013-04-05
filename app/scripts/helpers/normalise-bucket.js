@@ -4,14 +4,14 @@
   Turns a standard deviation number (e.g. -2, -1, +1, +2) into a natural number.
 
   Example:
-    If num_buckets is 8, 
+    If num_buckets is 8,
       - inputs can be -4 to +4 (not including 0)
       - output can be 1 to 8
 */
 
 window.UKA = window.UKA || {};
 
-window.UKA.normaliseBucket = function(bucket_num, num_buckets) {
+window.UKA.normaliseBucket = function (bucket_num, num_buckets) {
   'use strict';
 
   var half, multiplier;
