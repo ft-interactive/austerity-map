@@ -3,7 +3,7 @@
   The view that manages the svg#map element - one instance only, exported as `UKA.map_view`.
 */
 
-/*global UKA, Backbone, d3*/
+/*global UKA, Backbone, d3, $, topojson, DragSequence*/
 
 (function () {
   'use strict';
@@ -94,7 +94,7 @@
       // Convert TopoJSON to GeoJSON
       var topojson_data = UKA.data,
           geojson_data = topojson.object(
-            topojson_data, 
+            topojson_data,
             topojson_data.objects['local-authorities']
           )
       ;
@@ -102,38 +102,39 @@
       // Append and draw the features
       la_paths = las_group.selectAll('.la')
         .data(geojson_data.geometries)
-        .enter().append('path')
-          .attr({
-            'class': 'la',
-            'stroke-width': getStrokeWidth(),
-            'stroke': config.la_stroke_colour
-          })
-          .on('click', function (d, i) {
-            app.set('selected_la', d.properties);
-          })
-          .on('mouseover', function (d, i) {
-            if (panning_sequence)
-              return;
+        .enter()
+        .append('path')
+        .attr({
+          'class': 'la',
+          'stroke-width': getStrokeWidth(),
+          'stroke': config.la_stroke_colour
+        })
+        .on('click', function (d, i) {
+          app.set('selected_la', d.properties);
+        })
+        .on('mouseover', function (d, i) {
+          if (panning_sequence)
+            return;
 
-            // Move hovered LA to end so it appears on top
-            las_group_el.appendChild(this);
-            this.setAttribute('stroke-width', 2*getStrokeWidth());
-            this.setAttribute('stroke', config.la_stroke_colour_hover);
+          // Move hovered LA to end so it appears on top
+          las_group_el.appendChild(this);
+          this.setAttribute('stroke-width', 2*getStrokeWidth());
+          this.setAttribute('stroke', config.la_stroke_colour_hover);
 
-            map_view.showHoverBox(this, d);
-          })
-          .on('mouseout', function  (d, i) {
-            if (panning_sequence)
-              return;
+          map_view.showHoverBox(this, d);
+        })
+        .on('mouseout', function  (d, i) {
+          if (panning_sequence)
+            return;
 
-            this.setAttribute('stroke-width', getStrokeWidth());
-            this.setAttribute('stroke', config.la_stroke_colour);
+          this.setAttribute('stroke-width', getStrokeWidth());
+          this.setAttribute('stroke', config.la_stroke_colour);
 
-            map_view.hideHoverBox();
-          })
-          .attr('d', function (d) {
-            return projectPath(d) || '';
-          })
+          map_view.hideHoverBox();
+        })
+        .attr('d', function (d) {
+          return projectPath(d) || '';
+        })
       ;
 
       // Note the original dimensions
@@ -167,13 +168,13 @@
           zoom_adjustment = 1;
         else if (delta_y < 0)
           zoom_adjustment = -1;
-        
+
         // console.log('zooming', zoom_adjustment);
 
         var old_zoom_level = app.attributes.zoom_level;
 
         app.set('zoom_level', old_zoom_level + zoom_adjustment);
-        
+
         // if (app.attributes.zoom_level === old_zoom_level)
         //   return ;
       }) ;
@@ -242,7 +243,7 @@
           map_view.setLasGroupTransform({
             scale: new_scale
           });
-          
+
         };
       })()) ;
 
@@ -327,7 +328,7 @@
         );
         las_group_outer.attr('transform', translate_transform_string);
       }
-      
+
       // Update the latest one stored on the map_view
       map_view.las_group_transform = {
         scale: scale,
@@ -350,7 +351,7 @@
       // See what property we need to base this on
       var data = properties.cuts[app.get('selected_cut')][app.get('selected_measure')];
 
-      if (!data || data.length !== 2) 
+      if (!data || data.length !== 2)
         throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
 
       // Return a number
@@ -363,12 +364,12 @@
       return 'hsl(0,50%,'+ luminosity +'%)';
     },
 
-
     // Hover box
     showHoverBox: function (path, data) {
       var left_offset,
           top_offset,
-          gap_above_cursor = 30;
+          gap_above_cursor = 30,
+          p = data.properties;
 
       hover_sequence = new DragSequence({
         threshold: 0,
@@ -389,8 +390,6 @@
         dragMove: function (delta_x, delta_y, ds, move_event) {
           // console.log('move', move_event.pageX);
 
-
-
           // Just reposition the hover box
           $hover_box.css({
             top: (move_event.pageY - top_offset) + 'px',
@@ -403,9 +402,6 @@
           // console.log('CANCELLING HOVER SEQUENCE');
         }
       });
-
-      var p = data.properties;
-      
     },
 
     hideHoverBox: function () {
@@ -420,7 +416,7 @@
       },150);
     }
   });
-  
+
   var getStrokeWidth = (function () {
     var results = [];
 

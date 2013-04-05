@@ -4,7 +4,7 @@
   Manages the section under the map showing charts etc. relating to the selected feature.
 */
 
-/*global UKA, Backbone, d3*/
+/*global UKA, Backbone, $*/
 
 (function () {
   'use strict';

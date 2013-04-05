@@ -15,9 +15,10 @@
     "quotmark": "single",
     "regexp": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "laxcomma" true
+    "laxcomma": true,
+    "eqnull": true
 }

@@ -2,7 +2,7 @@
   MeasurementOptions View
 */
 
-/*global UKA, Backbone*/
+/*global UKA, Backbone, _*/
 
 (function () {
   'use strict';
@@ -21,7 +21,7 @@
       app = UKA.app;
       config = UKA.config;
       $el = view.$el;
-      
+
       // Update selection when app property changes
       app.on('change:selected_measure', view.selectCorrectRadioButton);
 
