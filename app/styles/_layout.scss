@@ -34,7 +34,13 @@ html, body, #cont {
     }
 
     #area-stats {
-      background: #aac ;
+	  padding:12px 15px 15px 15px;
       height: 200px ;
       overflow: auto ;
+  	  border-top:8px solid $ft_warmGrey1;
+  	  .laName{
+  		font-family: Clarion, serif ;
+  		font-size:32px;
+  		color:$ft_darkGrey;
+  	  }
     }
