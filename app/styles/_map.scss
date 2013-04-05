@@ -20,10 +20,10 @@
   #decrease-zoom {
     background-color: transparentize(#ccc, 0.1);
     width: 20px ;
-    height: 18px ;
-    padding-top: 2px ;
+    height: 20px ;
+    
     color: #333 ;
-    font: bold 16px sans-serif;
+    font: bold 17px georgia;
     text-align: center ;
     @include border-radius(2px) ;
     cursor: pointer ;
