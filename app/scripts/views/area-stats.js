@@ -27,7 +27,16 @@
 
     render: function () {
       var selected_la = app.get('selected_la');
+	  var selected_measure = app.get('selected_measure');
+	  var selected_cut = app.get('selected_cut');
 	  console.log(selected_la);
+	   console.log(UKA.config.cuts[0].label)
+	  var cuts = selected_la.cuts
+	  var donut_values =[];
+	       for (var cut in cuts) {
+	         donut_values.push(cuts[cut]['£PWA'][0]);
+	       }
+	       console.log(donut_values);
       var new_html = '<div>';
 	  new_html += ('<div class="laName">' + selected_la.name + '</div>');
       /*for (var key in selected_la) {
