@@ -81,6 +81,16 @@
       las_group = las_group_wrapper.append('g').attr('id', 'las-group');
       las_group_el = las_group[0][0];
 
+      // Add a centre marker (for debugging)
+      // svg.append('rect')
+      //   .attr('id', 'centre-marker')
+      //   .attr('x', width/2-1)
+      //   .attr('y', height/2-1)
+      //   .attr('width', 2)
+      //   .attr('height', 2)
+      //   .attr('fill', 'blue')
+      // ;
+
       // Convert TopoJSON to GeoJSON
       var topojson_data = UKA.data,
           geojson_data = topojson.object(
@@ -295,7 +305,7 @@
         // Also update the in-between group with the translation to compensate for the scaling
         var extra_width = (las_natural_width * scale) - las_natural_width;
         var extra_height = (las_natural_height * scale) - las_natural_height;
-        console.log('extra_width', extra_width);
+        // console.log('extra_width', extra_width);
         las_group_wrapper.attr(
           'transform',
           'translate(' + (-extra_width)*2 + ' ' + (-extra_height)/2 + ')'
