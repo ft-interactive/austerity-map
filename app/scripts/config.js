@@ -6,8 +6,8 @@ UKA.config = {
 
   min_map_transform_scale: 0.7,
 
-  la_stroke_colour: '#fff1e0',
-  la_stroke_colour_hover: '#666',
+  la_stroke_colour: '#fff',
+  la_stroke_colour_hover: '#333',
   la_stroke_width: 1,
 
   default_cut: 'BEDTAX',

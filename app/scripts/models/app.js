@@ -41,7 +41,7 @@
         app.attributes.zoom_level = zoom_level;
 
         // Calculate and set new transform scale
-        var map_transform_scale = (zoom_level / 2) + 0.5;
+        var map_transform_scale = UKA.zoomLevelToScale(zoom_level);
         // console.log('changing scale from ' + app.attributes.map_transform_scale + ' to ' + map_transform_scale);
         app.set('map_transform_scale', map_transform_scale);
       });
