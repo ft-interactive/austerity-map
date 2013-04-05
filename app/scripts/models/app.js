@@ -70,6 +70,11 @@
         el: document.getElementById('measurement-options')
       }).render();
 
+      // Set up zoom control
+      new UKA.Views.ZoomControl({
+        el: document.getElementById('zoom-control')
+      });
+
       return this;
     }
   });

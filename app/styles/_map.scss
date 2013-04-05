@@ -8,6 +8,44 @@
     }
   }
 
+
+#zoom-control {
+  position: absolute ;
+  left: 20px ;
+  top: 20px ;
+  // width: 30px;
+  padding: 8px;
+
+  @include border-radius(5px) ;
+  @include transparentDarkGreyBackground ;
+  @include user-select(none) ;
+
+}
+  #increase-zoom,
+  #decrease-zoom {
+    background-color: transparentize(#ccc, 0.1);
+    width: 20px ;
+    height: 18px ;
+    padding-top: 2px ;
+    color: #333 ;
+    font: bold 16px sans-serif;
+    text-align: center ;
+    @include border-radius(2px) ;
+    cursor: pointer ;
+
+
+    &:hover {
+      background-color: #ddd ;
+    }
+    &:active {
+      background-color: #bbb ;
+    }
+  }
+  #increase-zoom {
+    margin-bottom: 5px ;
+  }
+
+
 #postcode-search,
 #control-panel {
   width: 220px ;
@@ -19,12 +57,12 @@
 }
 
 #postcode-search {
-  top: 20px ;
+  top: 90px ;
   height: 20px ;
 }
 
 #control-panel {
-  top: 100px ;
+  top: 160px ;
 
   h3 {
     font-size: 12px ;
