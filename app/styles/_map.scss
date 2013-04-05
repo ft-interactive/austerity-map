@@ -11,8 +11,8 @@
 
 #zoom-control {
   position: absolute ;
-  left: 20px ;
-  top: 20px ;
+  left: 15px ;
+  top: 15px ;
   // width: 30px;
   padding: 8px;
 
@@ -45,10 +45,16 @@
     margin-bottom: 5px ;
   }
 
+#mag-glass{
+	position: absolute ;
+	top:100px;
+	z-index:100;
+	left: 30px;
+}
 
 #postcode-search,
 #control-panel {
-  width: 220px ;
+  width: 240px ;
   @include border-radius(5px) ;
   @include transparentDarkGreyBackground ;
   position: absolute ;
@@ -57,13 +63,17 @@
 }
 
 #postcode-search {
+  width: 210px ;
   top: 90px ;
   height: 20px ;
+  font-size:20px;
+  letter-spacing:1px;
+  padding: 10px 20px 18px 50px;
 }
 
 #control-panel {
-  top: 160px ;
-
+  top: 144px ;
+	
   h3 {
     font-size: 12px ;
     font-weight: normal ;
@@ -81,12 +91,15 @@
         }
 
         &> span {
-          font-size: 12px ;
+          font-size: 14px ;
         }
       }
     }
   }
-
+#filter-title{
+	padding:8px 0px 6px 0px;
+	font-size:12px;
+}
 
 #histogram-cont {
 }

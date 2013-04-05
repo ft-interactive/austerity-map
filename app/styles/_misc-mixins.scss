@@ -18,6 +18,6 @@
 }
 
 @mixin transparentDarkGreyBackground {
-  color: #eee ;
-  background-color: transparentize(#666, 0.2) ;
+  color: #fff;
+  background-color: transparentize($ft_darkGrey, 0.3) ;
 }

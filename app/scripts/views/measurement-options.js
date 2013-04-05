@@ -68,7 +68,7 @@
         return cut.key === app.get('selected_cut');
       });
       if (!cut) throw 'Cut not found: ' + app.get('selected_cut');
-
+	 $el.append('<div id="filter-title">REFINE FILTERS</div>');
       for (i=0; i < measures.length; i++) {
         if (cut.measures.indexOf(measures[i].key) > -1) {
           // This cut does use this measure.
@@ -77,6 +77,7 @@
           input_id = 'mo_' + input_value;
           label = measure.label.replace(/&/g,'&amp;').replace(/</g,'&lt;');
           $el.append(
+			
             '<div>' +
               '<label for="' + input_id + '">' +
                 '<input type="radio" name="measurement-option" value="' + input_value + '" id="' + input_id + '">' +
