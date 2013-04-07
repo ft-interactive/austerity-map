@@ -11,8 +11,44 @@ html, body {
 }
 
   #ft-header {
-    padding: 80px 0 ;
-    background: $ft-tint2 ;
+    font-family: "MillerDisplay";
+    color:$ft_white;
+    background: $ft_black;
+    padding: 7px 22px 7px 14px;
+    height:34px;
+    border-bottom: 2px solid $ft_claretFill;
+    moz-box-shadow: 0px 1px 2px #000;
+    webkit-box-shadow: 0px 1px 2px #000;
+    box-shadow: 0px 1px 2px #999;
+    .ftLogo{
+      background-color: #FDCBA3;
+      width:34px;
+      height:34px;
+      float:left;
+    }
+    .gTitle{
+      font-size: 22px;
+      margin-left:25px;
+      float:left;
+      color: $ft_white;
+      padding-top:2px;
+    }
+    .linksHolder{
+      float:right;
+      font-size: 14px;
+      .headerLinks{
+        float: left;
+        margin-left: 40px;
+        padding-top: 10px;
+        a{
+          color:$ft_white;
+          text-decoration: none;
+        }
+        a:hover{
+            color:$ft_claretText;
+          }
+      }
+    }
   }
 
 
@@ -74,24 +110,11 @@ html, body {
         font-size: 13px;
         line-height: 16px;
       }
-  	  .toolTip
-  	  {
-        background-color: $ft_white;
-        font-size:14px;
-        padding:10px 10px 6px 10px;
-        position: absolute;
-        border: 1px solid $ft_warmGrey1;
-        opacity:0;
-        z-index:11000;
-        pointer-events:none;
-        max-width:130px;
-        .bigNumber{
-          font-size: 40px;
-    		}
-  	  }
+  	  
     }
 	
   .areaRightHolder{
+    visibility: hidden;
     float:left;
     background-color: $ft_tint1;
     width:453px;
@@ -111,6 +134,22 @@ html, body {
       font-size: 14px;
       line-height: 22px;
       margin-top: 20px;
+    }
+  }
+
+  .toolTip
+  {
+    background-color: $ft_white;
+    font-size:14px;
+    padding:10px 10px 6px 10px;
+    position: absolute;
+    border: 1px solid $ft_warmGrey1;
+    opacity:0;
+    z-index:11000;
+    pointer-events:none;
+    max-width:130px;
+    .bigNumber{
+      font-size: 40px;
     }
   }
 	#ft-footer{		

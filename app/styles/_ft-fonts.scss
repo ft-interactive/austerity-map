@@ -1,4 +1,12 @@
 @font-face{
+    font-family:ft-icons;
+    src:url(fonts/icons.woff) format("woff"),url(fonts/icons.ttf) format("truetype");
+    font-style:normal;
+    font-weight:400
+    }
+    [class^=ft-icon-],[class*=" ft-icon-"]{font-family:ft-icons;font-weight:400;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;vertical-align:baseline;background-image:none;background-position:0 0;background-repeat:repeat;color:#000}[class^=ft-icon-]:before,[class*=" ft-icon-"]:before{text-decoration:inherit;display:inline-block;speak:none}.icon-large:before{vertical-align:-10%;font-size:1.3333333333333333em}.icon-2x{font-size:2em}.icon-3x{font-size:3em}.icon-4x{font-size:4em}.ft-icon-logo:before{content:"\0046"}
+
+@font-face{
     font-family: "BentonSans";
     src: url("http://s1.ft-static.com/m/font/e9d47971-b7d8-4663-8c9b-3a0b425e981f-2.eot");
     src: url("http://s1.ft-static.com/m/font/e9d47971-b7d8-4663-8c9b-3a0b425e981f-2.eot?#iefix") format("embedded-opentype"), 

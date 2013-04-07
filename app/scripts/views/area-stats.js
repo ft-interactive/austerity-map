@@ -15,7 +15,8 @@
 	  svg,
 	  arc,
 	  color,
-	  path;
+	  path,
+	  leftPos;
 	  $.fn.moveTop = function(){
 	  	for(var i = 0; i < $("." + $(this).attr("class")).length; i++){
 	  		$.each(this, function(){
@@ -42,7 +43,6 @@
       new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class=politicalHolder><span style="font-size:22px"><i>Political</i></span>');
       new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:<br/>');
       new_html += ('<div class="mps"></div></div></div>');
-      new_html += ('<div class="toolTip"></div>');
       new_html += '</div>';
       view.$el.html(new_html);
   	  return this;
@@ -58,7 +58,7 @@
 	  var donut_labels =[];
     view.$(".laName").text(selected_la.name);
     view.$(".donutTitle").html("Annual impact<br/>per working<br/>age adult");
-    
+    view.$(".areaRightHolder").css("visibility","visible")
     if(selected_la.nutsNote==null){
       view.$(".nutsNote").empty()
     }else{
@@ -114,6 +114,7 @@
       .on("mouseout", donutOut);
 			  
 		  function donutOver(d, i) {
+		  	  leftPos = $('#cont').offset();
 			  $(".toolTip").show();
 			  $(".toolTip").empty();
 			  d3.select(this).style("stroke", function(d, i) { return "#000"; });
@@ -138,10 +139,10 @@
 		  }
 			  
 		  $('#cont').bind("mousemove", hoverHandler);
-			  
+	
 		  function hoverHandler(e){
 			  //console.log(e);
-			  $('.toolTip').css("left", e.pageX -10).css("top", e.pageY - 40);
+			  $('.toolTip').css("left", e.pageX + (20-leftPos.left)).css("top", e.pageY -60);
 		  }
 
 	 //change();

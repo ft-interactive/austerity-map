@@ -50,6 +50,7 @@
     },
 
     start: function () {
+      
       // Instantiate and render the main map view
       var map_view = UKA.map_view = new UKA.Views.Map({
         el: document.getElementById('map')
@@ -59,6 +60,7 @@
       UKA.area_stats_view = new UKA.Views.AreaStats({
         el: document.getElementById('area-stats')
       }).render();
+
 
       // Set up the cut types dropdown
       new UKA.Views.CutTypesDropdown({
@@ -74,6 +76,10 @@
       new UKA.Views.ZoomControl({
         el: document.getElementById('zoom-control')
       });
+
+      UKA.ft_header_view = new UKA.Views.FTHeader({
+        el: document.getElementById('ft-header')
+      }).render();
 
       return this;
     }
