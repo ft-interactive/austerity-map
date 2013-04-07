@@ -50,8 +50,14 @@
       var $radio_button = $el
         .find('[value=' + app.get('selected_measure') + ']');
 
+      var $radio_label = $el
+        .find('[for=' + "mo_" + app.get('selected_measure') + ']');
+
+      $("#measurement-options div label").removeClass('selected');
+      $("#measurement-options div label").addClass('unselected');
       if ($radio_button.length) {
         $radio_button.prop('checked', true);
+        $radio_label.addClass('selected');
       }
     },
 

@@ -81,8 +81,9 @@
     &> div {
       margin-top: 4px ;
       &> label {
+
         &> input {
-          margin-right: 5px ;
+          margin-right: 24px ;
         }
 
         &> span {
@@ -91,6 +92,18 @@
       }
     }
   }
+
+  input[type="radio"] {
+    -webkit-appearance: none !important;
+  }
+
+  .unselected{
+    background: url("_media/inactive.png") no-repeat;
+  }
+  .selected{
+    background: url("_media/active.png")no-repeat;
+  }
+
 #filter-title{
 	padding:8px 0px 6px 0px;
 	font-size:12px;
