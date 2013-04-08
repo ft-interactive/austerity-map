@@ -289,6 +289,16 @@
         };
       })()) ;
 
+      // Append a little shadow effect along the top
+      svg.append('rect').attr({
+        id: 'inset-shadow',
+        x: 0,
+        y: 0,
+        width: width,
+        height: 15,
+        fill: 'url(#inset-shadow-gradient)'
+      });
+
       // Return for chaining
       return this ;
     },
