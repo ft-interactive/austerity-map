@@ -228,7 +228,8 @@ module.exports = function (grunt) {
             '*.{ico,txt}',
             '.htaccess',
             'data/*',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'styles/images/*'
           ]
         }]
       }
