@@ -9,7 +9,7 @@
   for (i = 0; i < cuts.length; i++) {
     cut = cuts[i];
     cut_labels[cut.key] = cut.label;
-  };
+  }
   UKA.cut_labels = cut_labels;
 
   // Instantiate the app when data downloaded

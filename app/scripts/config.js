@@ -11,13 +11,21 @@ UKA.config = {
   la_stroke_colour_selected: '#222',
   la_stroke_width: 1,
 
-  default_cut: 'BEDTAX',
-  default_measure: 'NO_HH',
+  default_cut: 'TOTAL_IMPACT',
+  default_measure: '£PWA',
 
   num_buckets: 8,
 
   // The following "cuts" and "measures" arrays have been manually entered to be the same as those defined in config/data-properties.coffee. They must be kept the same. To do: take these out of the config into a separate file in app/data/ (next to the topojson file) and build it automatically along with the topojson file.
   cuts: [
+    {
+      "key": "TOTAL_IMPACT",
+      "label": "Overall impact",
+      "measures": [
+        "£MILL",
+        "£PWA"
+      ]
+    },
     {
       "key": "BEDTAX",
       "label": "Under occupancy (bedroom tax)",
@@ -115,18 +123,14 @@ UKA.config = {
         "£MILL",
         "£PWA"
       ]
-    },
-    {
-      "key": "TOTAL_IMPACT",
-      "label": "Overall impact",
-      "measures": [
-        "£MILL",
-        "£PWA"
-      ]
     }
   ],
 
   measures: [
+    {
+      "key": "£PWA",
+      "label": "Loss per working age adult, £ per year"
+    },
     {
       "key": "NO_HH",
       "label": "Number of households affected"
@@ -138,10 +142,6 @@ UKA.config = {
     {
       "key": "NO_P10000HH",
       "label": "Number of households affected per 10,000"
-    },
-    {
-      "key": "£PWA",
-      "label": "Loss per working age adult, £ per year"
     },
     {
       "key": "NO_P10000INDIVID",
