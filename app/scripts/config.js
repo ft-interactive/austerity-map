@@ -154,12 +154,36 @@ UKA.config = {
 
   presets: [
     {
-      id: 'bedroom-tax',
-      title: 'Bedroom tax in the Shetlands',
-      description: 'A little blurb about the bedroom tax thing',
-      map_centre: [50,1],
-      map_scale: 8
+      id: 'blackpool',
+      title: 'Blackpool',
+      description: 'Overall most affected area',
+      map_centre: [50, 1],
+      map_scale: 8,
+      image_url: 'images/icon1.png'
+    },
+    {
+      id: 'london',
+      title: 'London',
+      description: 'Housing benefit cap',
+      map_centre: [50, 1],
+      map_scale: 8,
+      image_url: 'images/icon2.png'
+    },
+    {
+      id: 'neath-port-talbot',
+      title: 'Neath Port Talbot',
+      description: 'Incapacity benefit',
+      map_centre: [50, 1],
+      map_scale: 8,
+      image_url: 'images/icon3.png'
+    },
+    {
+      id: 'st-albans',
+      title: 'St Albans',
+      description: 'Child benefit',
+      map_centre: [50, 1],
+      map_scale: 8,
+      image_url: 'images/icon4.png'
     }
   ]
-
 };

@@ -50,7 +50,13 @@
     },
 
     start: function () {
-      // Instantiate and render the main map view
+      // Set up the presets
+      var presets = config.presets;
+      for (var i=0, l=presets.length; i<l; i++) {
+        new UKA.Models.Preset(presets[i]);
+      }
+
+      // Set up the main map view
       var map_view = UKA.map_view = new UKA.Views.Map({
         el: document.getElementById('map')
       });

@@ -1,0 +1,23 @@
+#presets {
+  padding-left: 6px ;
+}
+  .preset {
+    display: inline-block;
+    
+    width: 200px ;
+    text-align: center;
+    // outline: 1px solid red ;
+    padding: 20px 0 ;
+    cursor: pointer ;
+  
+    &:hover {
+      background-color: $ft_tint1;
+    }
+
+    &> h4 {
+      color: darken(#91BCAE, 5%) ;
+      text-transform: uppercase ;
+      font: normal 18px BentonSans ;
+      font-weight: 100 ;
+    }
+  }
