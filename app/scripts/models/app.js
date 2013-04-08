@@ -82,10 +82,6 @@
         el: document.getElementById('zoom-control')
       });
 
-      UKA.ft_header_view = new UKA.Views.FTHeader({
-        el: document.getElementById('ft-header')
-      }).render();
-
       return this;
     }
   });
