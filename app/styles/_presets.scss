@@ -1,5 +1,7 @@
 #presets {
-  padding-left: 6px ;
+  text-align: center ;
+
+  @include user-select(none);
 }
   .preset {
     display: inline-block;
@@ -7,17 +9,44 @@
     width: 200px ;
     text-align: center;
     // outline: 1px solid red ;
-    padding: 20px 0 ;
+    padding: 20px 20px ;
     cursor: pointer ;
+
+    font-family: BentonSans ;
   
-    &:hover {
-      background-color: $ft_tint1;
-    }
+
 
     &> h4 {
+      margin: 20px 0 0 0;
       color: darken(#91BCAE, 5%) ;
       text-transform: uppercase ;
-      font: normal 18px BentonSans ;
       font-weight: 100 ;
+      font-size: 18px ;
+    }
+
+    &> p {
+      font-style: italic ;
+      font-size: 12px ;
+      color: #777 ;
+    }
+
+    &:hover {
+      background-color: $ft_tint1;
+      &> h4 {
+        color: darken(#91BCAE, 25%) ;
+      }
+      &> p {
+        color: darken(#777, 15%) ;
+      }
+    }
+
+    &:active {
+      background-color: transparentize($ft_tint2, 0.3);
+      &> h4 {
+        color: darken(#91BCAE, 35%) ;
+      }
+      &> p {
+        color: darken(#777, 25%) ;
+      }
     }
   }

@@ -163,7 +163,11 @@ UKA.config = {
       description: 'Overall most affected area',
       map_centre: [50, 1],
       map_scale: 8,
-      image_url: 'images/icon1.png'
+      image_url: 'images/icon1.png',
+      select_la: 'E06000009',
+      translate_x: 1323,
+      translate_y: -1013,
+      zoom: 20
     },
     {
       id: 'london',
@@ -171,7 +175,10 @@ UKA.config = {
       description: 'Housing benefit cap',
       map_centre: [50, 1],
       map_scale: 8,
-      image_url: 'images/icon2.png'
+      image_url: 'images/icon2.png',
+      translate_x: 223,
+      translate_y: -2435,
+      zoom: 20
     },
     {
       id: 'neath-port-talbot',
@@ -179,7 +186,11 @@ UKA.config = {
       description: 'Incapacity benefit',
       map_centre: [50, 1],
       map_scale: 8,
-      image_url: 'images/icon3.png'
+      image_url: 'images/icon3.png',
+      select_la: 'W06000012',
+      translate_x: 499,
+      translate_y: -920,
+      zoom: 7
     },
     {
       id: 'st-albans',
@@ -187,7 +198,11 @@ UKA.config = {
       description: 'Child benefit',
       map_centre: [50, 1],
       map_scale: 8,
-      image_url: 'images/icon4.png'
+      image_url: 'images/icon4.png',
+      select_la: 'E07000240',
+      translate_x: 96,
+      translate_y: -1500,
+      zoom: 13
     }
   ]
 };

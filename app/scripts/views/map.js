@@ -49,6 +49,9 @@
 
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
+
+    all_las_properties: {},
+
     initialize: function () {
       if (map_view)
         throw 'Cannot instantiate Map View more than once';
@@ -115,6 +118,9 @@
         .enter()
         .append('path')
         .attr({
+          // 'id': function (d) {
+          //   return 'la_' + d.properties.code;
+          // },
           'class': 'la',
           'stroke-width': getStrokeWidth(),
           'stroke': config.la_stroke_colour
@@ -123,6 +129,9 @@
           // Add the actual path element to the properties object, for easy access elsewhere.
           // (This is OK because the paths never get redrawn, only their properties are updated as the app changes.)
           data.properties.el = this;
+
+          // Also store it in a convenient lookup hash on the view
+          map_view.all_las_properties[data.properties.code] = data.properties;
         })
         .on('click', function (d, i) {
           app.set('selected_la', d.properties);
@@ -260,6 +269,8 @@
             }
           });
         }
+
+
       });
 
       // Listen for chnages to app:map_scale and update the appearance
@@ -288,6 +299,24 @@
 
         };
       })()) ;
+
+      // Update the map when a preset is selected
+      app.on('change:preset', function (app, preset) {
+        // console.log('preset', preset.title, (app.previous('preset') ? app.previous('preset').title : null));
+        console.log('preset', preset);
+
+        if (preset.translate_x) {
+          app.set('zoom_level', preset.zoom);
+          UKA.map_view.setLasGroupTransform({
+            translate_x: preset.translate_x,
+            translate_y: preset.translate_y
+          });
+        }
+
+        if (preset.select_la != null) {
+          app.set('selected_la', map_view.all_las_properties[preset.select_la]);
+        }
+      });
 
       // Append a little shadow effect along the top
       svg.append('rect').attr({
