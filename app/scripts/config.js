@@ -176,6 +176,7 @@ UKA.config = {
       map_centre: [50, 1],
       map_scale: 8,
       image_url: 'images/icon2.png',
+      select_la: 'E09000033',
       translate_x: 223,
       translate_y: -2435,
       zoom: 20
