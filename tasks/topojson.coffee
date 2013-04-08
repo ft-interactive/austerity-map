@@ -120,7 +120,7 @@ module.exports = (grunt) -> (target) ->
           grunt.log.ok "Written temporary GeoJSON file"
 
           # Convert to TopoJSON using CLI
-          topojson_command = "#{TOPOJSON_BINARY_PATH} -o #{OUTPUT_TOPOJSON_FILE} --properties --id-property code #{TEMP_GEOJSON_FILE}"
+          topojson_command = "#{TOPOJSON_BINARY_PATH} -o #{OUTPUT_TOPOJSON_FILE} --properties --id-property code --simplify-proportion 0.5 #{TEMP_GEOJSON_FILE}"
 
           grunt.log.ok "Running topojson command..."
 
