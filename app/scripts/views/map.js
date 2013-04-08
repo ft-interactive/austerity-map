@@ -196,7 +196,7 @@
         selected_la_path_el = selected_la.el;
         if (selected_la_path_el != null) {
           selected_la_group_el.appendChild(selected_la_path_el);
-          selected_la_path_el.setAttribute('stroke-width', stroke_width * 3);
+          selected_la_path_el.setAttribute('stroke-width', stroke_width * 2);
           selected_la_path_el.setAttribute('stroke', config.la_stroke_colour_selected);
         }
       });
