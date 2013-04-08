@@ -20,9 +20,8 @@ window.UKA.normaliseBucket = function (bucket_num, num_buckets) {
   half = num_buckets / 2;
 
   // Normalise so e.g. -1 becomes 0, -2 becomes -1
-  if (multiplier < 0) {
+  if (multiplier < 0)
     multiplier += 1;
-  }
 
   // Add half
   multiplier += half;

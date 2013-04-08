@@ -7,7 +7,8 @@ UKA.config = {
   min_map_transform_scale: 0.7,
 
   la_stroke_colour: '#fff',
-  la_stroke_colour_hover: '#333',
+  la_stroke_colour_hover: '#444',
+  la_stroke_colour_selected: '#222',
   la_stroke_width: 1,
 
   default_cut: 'BEDTAX',
@@ -151,6 +152,9 @@ UKA.config = {
       "label": "Number of individuals affected"
     }
   ],
+
+  min_luminosity: 25,
+  max_luminosity: 95,
 
   presets: [
     {
