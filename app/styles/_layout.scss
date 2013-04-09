@@ -7,7 +7,6 @@ html, body {
 // TODO: alter #area-stats and #presets to cope, then reduce this to 768px.
 $min-width: 972px ;
 
-
 #cont {
   // max-width: 1600px ;
   min-width: $min-width ;
@@ -17,11 +16,6 @@ $min-width: 972px ;
     @include box-sizing(content-box);
   }
 }
-
-  #ft-header {
-    height:34px;
-  }
-
 
   #main {
     margin: 20px 0 ;
@@ -44,11 +38,11 @@ $min-width: 972px ;
     }
 
     #area-stats {
-      padding: 12px 15px 40px 15px;
-      border-top: 4px solid $ft_warmGrey1;
-      border-bottom: 8px solid $ft_tint2;
+      padding: 12px 15px 40px 15px;      
       color: $ft_darkGrey;
       height: 450px;
+
+      width: $min-width ;
       margin: 0 auto ;
 
       .laName {
@@ -140,6 +134,9 @@ $min-width: 972px ;
   }
 	#ft-footer {		
 		color: $ft_warmGrey2;
+    border-top: 8px solid $ft_tint2;
+    padding-top: 30px ;
+
 		dl dt {
 		margin-bottom: .3em;
 		font-weight: 700;
