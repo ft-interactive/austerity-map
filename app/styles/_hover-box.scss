@@ -1,16 +1,42 @@
 #hover-box {
   position: absolute ;
-  padding: 8px 12px ;
   display: none ;
   left: -5000px ;
   top: 0 ;
 
   @include pointer-events(none) ;
-  @include transparentDarkGreyBackground ;
-  @include border-radius(3px) ;
+  // @include transparentDarkGreyBackground ;
+  @include border-radius(1px) ;
+  @include box-shadow(3px 3px 4px 3px rgba(0,0,0,0.1)) ;
+  border: 1px solid #999 ;
+
+  background-color: #fff ;
 
   &> h3 {
-    font: normal 16px BentonSans ;
-    margin: 0 ;
+    font: bold 14px BentonSans ;
+    margin: 8px 10px 0 10px ;
+    padding-bottom: 6px ;
+    border-bottom: 1px dotted #666 ;
   }
+
+
+  &> h4 {
+    font: normal 12px BentonSans ;
+    text-transform: uppercase;
+    color: #555 ;
+    margin: 10px 10px 0 10px ;
+  }
+  &> p {
+    color: #555 ;
+    font: normal 14px BentonSans ;
+    margin: 5px 10px 10px 30px ;
+  }
+  
+  &> .figure {
+    background-color: #F5F5F5 ;
+    padding: 8px 12px ;
+    font: normal 24px BentonSans ;
+    color: #222 ;
+  }
+
 }

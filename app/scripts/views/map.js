@@ -3,7 +3,7 @@
   The view that manages the svg#map element - one instance only, exported as `UKA.map_view`.
 */
 
-/*global UKA, Backbone, d3, $, topojson, DragSequence*/
+/*global UKA, Backbone, d3, $, topojson, DragSequence, _, numeral*/
 
 (function () {
   'use strict';
@@ -454,10 +454,26 @@
 
     // Hover box
     showHoverBox: function (path, data) {
+      console.log(data);
       var left_offset,
           top_offset,
           gap_above_cursor = 30,
-          p = data.properties;
+          p = data.properties,
+          selected_cut = app.attributes.selected_cut,
+          selected_measure = app.attributes.selected_measure,
+          cut_label = UKA.cut_labels[selected_cut],
+          measure = _.where(config.measures, {key: selected_measure})[0],
+          measure_label = measure.label,
+          figure_code = 'formatted_figure_' + selected_cut + '_' + selected_measure;
+
+      if (data.properties[figure_code] == null) {
+        var figure = data.properties.cuts[selected_cut][selected_measure][0];
+        data.properties[figure_code] = (
+          (measure.figure_prefix || '') +
+          numeral(figure).format('0,0') +
+          (measure.figure_suffix || '')
+        );
+      }
 
       hover_sequence = new DragSequence({
         threshold: 0,
@@ -468,7 +484,10 @@
           clearTimeout(hide_hover_box_timeout);
           $hover_box
             .html(
-              '<h3>' + p.name + '</h3>' + ''
+              '<h3>' + p.name + '</h3>' +
+              '<h4>' + cut_label + '</h4>' +
+              '<p>' + measure_label + '</p>' +
+              '<div class="figure">' + data.properties[figure_code] + '</div>'
             )
             .show();
           left_offset = Math.round($hover_box.outerWidth() / 2) ;

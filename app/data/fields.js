@@ -114,7 +114,9 @@
     },
     {
       "key": "£MILL",
-      "label": "Estimated loss per area, £m per year"
+      "label": "Estimated loss per area, £m per year",
+      "figure_prefix": "£",
+      "figure_suffix": "m"
     },
     {
       "key": "NO_P10000HH",
@@ -122,7 +124,8 @@
     },
     {
       "key": "£PWA",
-      "label": "Loss per working age adult, £ per year"
+      "label": "Loss per working age adult, £ per year",
+      "figure_prefix": "£"
     },
     {
       "key": "NO_P10000INDIVID",

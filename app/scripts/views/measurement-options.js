@@ -85,7 +85,7 @@
           measure = measures[i];
           input_value = measure.key;
           input_id = 'mo_' + input_value;
-          label = measure.label.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+          label = _.escape(measure.label);
           $el.append(
             '<div>' +
               '<label for="' + input_id + '">' +
