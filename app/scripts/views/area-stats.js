@@ -61,13 +61,7 @@
       new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:<br/>');
       new_html += ('<div class="mps"></div>');
       new_html += ('<div class= "politicalHolder"><span style="font-size:20px"><i>Economics</i></span>');
-      new_html += ('<br/>Gross domestic household income: ');
-      new_html += ('<div class="eco-fig1 claret-value"></div>');
-      new_html += ('Impact as a % of GDHI: ');
-      new_html += ('<div class="eco-fig2 claret-value"></div>');
-      new_html += ('Figure 3: ');
-      new_html += ('<div class="eco-fig3 claret-value"></div></div>');
-     
+      new_html += ('<div class="eco-fig1"></div></div>');     
       new_html += '</div></div>';
       view.$el.html(new_html);
       return this;
@@ -89,12 +83,11 @@
     view.$(".mps").text(selected_la.mpList);
     
     var nVal = Number(selected_la.nuts3gdhi);
-    var nNote = selected_la.nuts3note;
-    if(nNote=="null"){
+    var nNote = selected_la.nutsNote;
+    if(nNote==null){
       nNote="";
     }
-    /*view.$(".eco-fig1").text("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of £" + addCommas(nVal)); + " in 2010. The total £" + selected_la.nuts3totalImpact + "
-    in benefit changes the region faces amount to " + selected_la.nuts3_impactPerGdhi + " per cent of the region's disposable income, or approximately " + selected_la.nuts3growthYrs + " of regional growth. <br/>" + nNote);*/
+    view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + addCommas(nVal) + "</span> in 2010. The total <span class='claret-value'>£" + selected_la.nuts3TotalImpact.toFixed(2) + "</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
     view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
     view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
