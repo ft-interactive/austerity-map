@@ -25,4 +25,8 @@
     });
   };
 
+  UKA.loadDeviations = function (data) {
+    UKA.deviations = data;
+  };
+
 })();
