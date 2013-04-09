@@ -55,7 +55,10 @@
             <div id="decrease-zoom">−</div>
           </div>
 
-          <form id="postcode-search">Postcode</form>
+          <form id="postcode-form">
+            <input id="postcode-input" type="text" placeholder="Enter postcode">
+            <p id="postcode-hint"></p>
+          </form>
 
           <div id="control-panel">
             <select id="cut-types-dropdown">
@@ -111,6 +114,7 @@
     <script src="components/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="components/topojson/topojson.js"></script>
     <script src="components/dnd.js/dnd.js"></script>
+    <script src="scripts/vendor/uk-postcode.js"></script>
     <script src="scripts/vendor/request-animation-frame.js"></script>
 
     <script src="scripts/namespace.js"></script>
@@ -128,6 +132,7 @@
     <script src="scripts/views/measurement-options.js"></script>
     <script src="scripts/views/zoom-control.js"></script>
     <script src="scripts/views/preset.js"></script>
+    <script src="scripts/views/postcode-form.js"></script>
 
     <script src="scripts/main.js"></script>
 

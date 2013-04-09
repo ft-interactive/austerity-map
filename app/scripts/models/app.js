@@ -82,6 +82,11 @@
         el: document.getElementById('zoom-control')
       });
 
+      // Set up postcode form
+      new UKA.Views.PostcodeForm({
+        el: document.getElementById('postcode-form')
+      });
+
       return this;
     }
   });
