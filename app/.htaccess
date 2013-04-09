@@ -201,6 +201,11 @@ AddType text/x-vcard                        vcf
 # If you don't use filenames to version, lower the CSS and JS to something like
 # "access plus 1 week".
 
+
+# <IfModule mod_headers.c>
+Header set Cache-Control "public"
+# </IfModule>
+
 <IfModule mod_expires.c>
   ExpiresActive on
 
@@ -225,14 +230,14 @@ AddType text/x-vcard                        vcf
 ## Favicon (cannot be renamed)
 #  ExpiresByType image/x-icon              "access plus 1 week"
 #
-## Media: images, video, audio
-#  ExpiresByType audio/ogg                 "access plus 1 month"
-#  ExpiresByType image/gif                 "access plus 1 month"
-#  ExpiresByType image/jpeg                "access plus 1 month"
-#  ExpiresByType image/png                 "access plus 1 month"
-#  ExpiresByType video/mp4                 "access plus 1 month"
-#  ExpiresByType video/ogg                 "access plus 1 month"
-#  ExpiresByType video/webm                "access plus 1 month"
+# Media: images, video, audio
+  ExpiresByType audio/ogg                 "access plus 1 year"
+  ExpiresByType image/gif                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType video/mp4                 "access plus 1 year"
+  ExpiresByType video/ogg                 "access plus 1 year"
+  ExpiresByType video/webm                "access plus 1 year"
 #
 ## HTC files  (css3pie)
 #  ExpiresByType text/x-component          "access plus 1 month"
