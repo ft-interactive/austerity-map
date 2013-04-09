@@ -205,6 +205,8 @@
     "nuts3gdhi": "",
     "nuts3_impactPerGdhi": "",
     "nutsNote": "",
+    "nuts3avgYrsText": "",
+    "nuts3TotalImpact": "",
     "mpList": "",
     "GB_IMD_20%_ most_deprived_LSOAs": ""
   }
