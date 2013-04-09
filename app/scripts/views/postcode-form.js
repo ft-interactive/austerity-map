@@ -1,7 +1,5 @@
 /*
   PostcodeForm View
-
-  Manages the section under the map showing charts etc. relating to the selected feature.
 */
 
 /*global UKA, Backbone, $, UKPostcode*/
@@ -80,7 +78,6 @@
               }
             }
           );
-
         }
         else {
           // They either entered an invalid postcode, or just single-section (eg "SE1").

@@ -12,18 +12,16 @@
   width: 100% ;
   height: 12px ;
 
-
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.1)), to(rgba(0,0,0,0)));
   background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.1), rgba(0,0,0,0));
   background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.1), rgba(0,0,0,0));
   background-image:      -o-linear-gradient(top, rgba(0,0,0,0.1), rgba(0,0,0,0));
   background-image:         linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0));
-
 }
 
 #zoom-control {
   position: absolute ;
-  left: 15px ;
+  right: 15px ;
   top: 15px ;
   // width: 30px;
   padding: 8px;
@@ -57,13 +55,6 @@
     margin-bottom: 5px ;
   }
 
-#mag-glass{
-	position: absolute ;
-	top:100px;
-	z-index:100;
-	left: 30px;
-}
-
 #postcode-form,
 #control-panel {
   width: 240px ;
@@ -76,7 +67,7 @@
 
 #postcode-form {
   width: 205px ;
-  top: 90px ;
+  top: 15px ;
   // height: 38px ;
   font-size:20px;
   letter-spacing:1px;
@@ -110,11 +101,12 @@
   }
 
 #control-panel {
-  top: 164px ;
-	
+  top: 85px ;
+	color: #ddd ;
+  
   h3 {
     font-size: 12px ;
-    font-weight: normal ;
+    font-weight: 100 ;
   }
 }
   #cut-types-dropdown {
@@ -122,28 +114,39 @@
 
   #measurement-options {
     &> div {
-      margin-top: 4px ;
+      padding-top: 16px ;
+      clear: both ;
+
       &> label {
 
-        &> input {
-          margin-right: 18px ;
+        &> .radio-button-wrapper {
+          display: block ;
+          float: left ;
+          // outline: 1px solid blue ;
+          width: 30px ;
+          height: 30px ;
+          
+          background: url('images/inactive.png') no-repeat;
+          &.selected { background: url("images/active.png") no-repeat; }
+
+          &> input {
+            visibility: hidden ;
+          }
         }
 
-        &> span {
+        &> .label-text {
           font-size: 14px ;
+          display: block ;
+          width: 205px ;
+          // outline: 1px solid red ;
+          float: right ;
+          font-size: 13px ;
+          font-family: BentonSans;
+          font-weight: 100 ;
         }
       }
     }
-  }
-
-  input[type="radio"] {
-    visibility:hidden;
-  }
-  .unselected{
-    background: url("images/inactive.png") no-repeat;
-  }
-  .selected{
-    background: url("images/active.png")no-repeat;
+    padding-bottom: 30px ;
   }
 
 #filter-title{

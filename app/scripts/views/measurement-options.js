@@ -53,11 +53,12 @@
       var $radio_label = $el
         .find('[for=' + 'mo_' + app.get('selected_measure') + ']');
 
-      $('#measurement-options div label').removeClass('selected');
-      $('#measurement-options div label').addClass('unselected');
+      $('#measurement-options .radio-button-wrapper').removeClass('selected');
+      // $('#measurement-options div label').addClass('unselected');
+
       if ($radio_button.length) {
         $radio_button.prop('checked', true);
-        $radio_label.addClass('selected');
+        $radio_label.find('.radio-button-wrapper').addClass('selected');
       }
     },
 
@@ -88,8 +89,12 @@
           $el.append(
             '<div>' +
               '<label for="' + input_id + '">' +
-                '<input type="radio" name="measurement-option" value="' + input_value + '" id="' + input_id + '">' +
-                '<span>' + label + '</span>' +
+                '<span class="radio-button-wrapper">' +
+                  '<input type="radio" name="measurement-option" value="' + input_value + '" id="' + input_id + '">' +
+                '</span>' +
+                '<span class="label-text">' +
+                  label +
+                '</span>' +
               '</label>' +
             '</div>'
           );

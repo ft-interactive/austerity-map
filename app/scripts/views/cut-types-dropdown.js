@@ -1,6 +1,5 @@
 /*
   CutTypesDropdown View
-
   Manages the <select> element containing all the cut types (bedroom tax, housing benefit, etc).
 */
 

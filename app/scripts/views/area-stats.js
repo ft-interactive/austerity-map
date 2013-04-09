@@ -1,6 +1,5 @@
 /*
   AreaStats View
-
   Manages the section under the map showing charts etc. relating to the selected feature.
 */
 
