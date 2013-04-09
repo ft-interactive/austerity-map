@@ -7,7 +7,6 @@ html, body {
 // TODO: alter #area-stats and #presets to cope, then reduce this to 768px.
 $min-width: 972px ;
 
-
 #cont {
   // max-width: 1600px ;
   min-width: $min-width ;
@@ -17,48 +16,6 @@ $min-width: 972px ;
     @include box-sizing(content-box);
   }
 }
-
-  #ft-header {
-    font-family: "MillerDisplay";
-    color:$ft_white;
-    background: $ft_black;
-    padding: 7px 22px 7px 14px;
-    height:34px;
-    border-bottom: 2px solid $ft_claretFill;
-    -moz-box-shadow: 0px 1px 2px #000;
-    -webkit-box-shadow: 0px 1px 2px #000;
-    box-shadow: 0px 1px 2px #999;
-    .ftLogo{
-      background-color: #FDCBA3;
-      width:34px;
-      height:34px;
-      float:left;
-    }
-    .gTitle{
-      font-size: 22px;
-      margin-left:25px;
-      float:left;
-      color: $ft_white;
-      padding-top:2px;
-    }
-    .linksHolder{
-      float:right;
-      font-size: 14px;
-      .headerLinks{
-        float: left;
-        margin-left: 40px;
-        padding-top: 10px;
-        a{
-          color:$ft_white;
-          text-decoration: none;
-        }
-        a:hover{
-            color:$ft_claretText;
-          }
-      }
-    }
-  }
-
 
   #main {
     margin: 20px 0 ;
@@ -71,8 +28,8 @@ $min-width: 972px ;
 
     #map-cont {
       background: #fdd ;
-      border-left: 1px solid $ft_tint2 ;
-      border-right: 1px solid $ft_tint2 ;
+      // border-left: 1px solid $ft_tint2 ;
+      // border-right: 1px solid $ft_tint2 ;
       position: relative ;
       height: $map-height ;
       overflow: hidden ;
@@ -81,9 +38,10 @@ $min-width: 972px ;
     }
 
     #area-stats {
-      padding: 12px 15px 15px 15px;
+      padding: 12px 15px 40px 15px;      
       color: $ft_darkGrey;
-      height: 430px;
+      height: 450px;
+
       width: $min-width ;
       margin: 0 auto ;
 
@@ -96,31 +54,32 @@ $min-width: 972px ;
         border-right: 1px dotted $ft_warmGrey1;
         margin-top: 6px;
         padding-right: 14px;
-        height:390px;
+        height:408px;
         float: left;
+        visibility: hidden;
       }
       .donutTitle {
         font-size: 17px;
       }
       .donutHolder {
-        padding-left: 110px;
+        padding-left: 50px;
         position: relative;
-        top: -66px;
+        top: 20px;
       }
       .donutValue {
         position: relative;
-        font-size: 34px;
-        top: -230px;
-        left: 178px;
+        font-size: 38px;
+        top: -150px;
+        left: 124px;
         text-align: center;
         width: 100px;
-        line-height: 26px;
+        line-height: 28px;
 	    }
-      .nutsNote {
+      .imdNote{
         position: relative;
-        top: -100px;
+        top: -20px;
         font-size: 13px;
-        line-height: 16px;
+        line-height: 20px;
       }
   	  
     }
@@ -131,7 +90,7 @@ $min-width: 972px ;
     background-color: $ft_tint1;
 
     width: 453px;
-    height: 318px;
+    height: 368px;
     margin-left: 17px;
     margin-top: 6px;
     padding: 20px;
@@ -142,12 +101,20 @@ $min-width: 972px ;
       display: inline;
       font-size: 14px;
     }
+
     .politicalHolder {
       font-family: Clarion, serif ;
-      font-size: 14px;
-      line-height: 22px;
-      margin-top: 20px;
+      font-size: 12px;
+      line-height: 20px;
+      margin-top: 16px;
+
     }
+  }
+
+  .claret-value{
+      color:$ft_claretText;
+      font-size: 16px;
+      margin-bottom: 4px; 
   }
 
   .toolTip {
@@ -156,6 +123,7 @@ $min-width: 972px ;
     padding: 10px 10px 6px 10px;
     position: absolute;
     border: 1px solid $ft_warmGrey1;
+    color: $ft_darkGrey;
     opacity: 0;
     z-index: 11000;
     pointer-events: none;
@@ -165,8 +133,10 @@ $min-width: 972px ;
     }
   }
 	#ft-footer {		
-    border-top: 8px solid $ft_tint2;
 		color: $ft_warmGrey2;
+    border-top: 8px solid $ft_tint2;
+    padding-top: 30px ;
+
 		dl dt {
 		margin-bottom: .3em;
 		font-weight: 700;

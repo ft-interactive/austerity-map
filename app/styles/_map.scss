@@ -31,6 +31,7 @@
   @include user-select(none) ;
 
 }
+
   #increase-zoom,
   #decrease-zoom {
     background-color: transparentize(#ccc, 0.1);
@@ -54,7 +55,9 @@
   #increase-zoom {
     margin-bottom: 5px ;
   }
-
+  #reset-map{
+    margin-top: 8px;
+  }
 #postcode-form,
 #control-panel {
   width: 240px ;
@@ -102,7 +105,7 @@
 
 #control-panel {
   top: 85px ;
-	color: #ddd ;
+	color: #fff ;
   
   h3 {
     font-size: 12px ;
@@ -122,16 +125,18 @@
         &> .radio-button-wrapper {
           display: block ;
           float: left ;
-          // outline: 1px solid blue ;
           width: 30px ;
           height: 30px ;
-          
-          background: url('images/inactive.png') no-repeat;
-          &.selected { background: url("images/active.png") no-repeat; }
+          background: url('images/inactive.png') top center no-repeat ;
 
           &> input {
             visibility: hidden ;
           }
+        }
+
+        &:active > .radio-button-wrapper,
+        & > .radio-button-wrapper.selected {
+          background-image: url("images/active.png") ;
         }
 
         &> .label-text {

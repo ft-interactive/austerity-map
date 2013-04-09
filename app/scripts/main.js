@@ -29,4 +29,12 @@
     UKA.deviations = data;
   };
 
+
+  // Foundation stuff
+  $(document).foundation();
+
+  $(function () {
+    $(document.body).addClass('loaded');
+  });
+
 })();
