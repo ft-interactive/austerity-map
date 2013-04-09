@@ -13,6 +13,11 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    
   </head>
   <body class="no-shiz">
     <!-- begin: nav-bar -->
@@ -52,8 +57,7 @@
 
     <a id="data-btn" class="active" href="./"><span>Data Graphic</span></a>
     <!-- end: nav-bar -->
-    <header id="ft-header">
-    </header>
+   
     <div id="cont">
 
       <div id="main" role="main">
@@ -162,6 +166,18 @@
     <script src="data/local-authorities-topojson.js"></script>
     <script src="data/fields.js"></script>
     <script src="data/deviations.js"></script>
+    <script src="components/foundation/js/foundation/foundation.js"></script>
+    <script src="components/foundation/js/foundation/foundation.topbar.js"></script>
+
+    <script>
+
+    $(document).foundation();
+
+    $(function () {
+        $(document.body).addClass('loaded');
+    });
+
+    </script>
     <!-- endbuild -->
   </body>
 </html>

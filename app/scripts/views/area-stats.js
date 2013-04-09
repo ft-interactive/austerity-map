@@ -93,8 +93,6 @@
     var nNote = selected_la.nuts3note;
     if(nNote=="null"){
       nNote="";
-    }else{
-
     }
     /*view.$(".eco-fig1").text("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of £" + addCommas(nVal)); + " in 2010. The total £" + selected_la.nuts3totalImpact + "
     in benefit changes the region faces amount to " + selected_la.nuts3_impactPerGdhi + " per cent of the region's disposable income, or approximately " + selected_la.nuts3growthYrs + " of regional growth. <br/>" + nNote);*/
