@@ -291,7 +291,7 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('topojson', function (target) {
-    require('./tasks/topojson.coffee')(grunt).call(this, target);
+  grunt.registerTask('data', function (target) {
+    require('./tasks/data.coffee')(grunt).call(this, target);
   });
 };

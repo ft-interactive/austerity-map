@@ -5,3 +5,4 @@ dist
 app/components
 builds
 config/database-settings.coffee
+.DS_Store

@@ -1,24 +1,29 @@
 ###
-  This module exports a grunt task function that builds a static TopoJSON file at `app/data/local-authorities-topo.json`.
+  This module exports a grunt task function that builds the data files in `app/data/` (using source information in `data/` and in the database).
 
-  TODO:
-    - rename to `grunt data`
-    - also build a a file at `app/data/properties.js`, which gets added to UKA.config dynamically, consisting of the `cuts` and `measures` arrays (currently hard-coded in the config.js) built based on the central listing in `config/data-properties.coffee`.
-    - turn `local-authorities-topo.json` into a `.js` file and build it into bottom.js (but still keep it in `app/data` - this dir is for built JS that shouldn't be hand-edited).
+  It builds these JSONP files (which call functions with hard-coded names):
+    `app/data/data-properties.js` (the cuts, measures, and presets arrays, which get dynamically added to UKA.config)
+    `app/data/data-deviations.js` (the values needed to draw the histogram)
+    `app/data/local-authorities-topo.js` (The TopoJSON data)
 
+  These files subsequently get included 
 ###
 
-config = require '../config/database-settings'
-cuts   = require('../config/data-properties').cuts
-mysql  = require 'mysql'
-fs     = require 'fs'
-path   = require 'path'
-_      = require 'underscore'
+config          = require '../config/database-settings'
+data_properties = require '../config/data-properties'
+mysql           = require 'mysql'
+fs              = require 'fs'
+path            = require 'path'
+_               = require 'underscore'
 
-INPUT_GEOJSON_FILE   = path.resolve 'data/la-shapes.json'
-TEMP_GEOJSON_FILE    = path.resolve '.tmp/local-authorities.json'
-OUTPUT_TOPOJSON_FILE = path.resolve 'app/data/local-authorities-topo.json'
-TOPOJSON_BINARY_PATH = path.resolve 'node_modules/topojson/bin/topojson'
+INPUT_GEOJSON_FILE        = path.resolve 'data/la-shapes.json'
+TEMP_GEOJSON_FILE         = path.resolve '.tmp/local-authorities.json'
+OUTPUT_TOPOJSON_FILE      = path.resolve 'app/data/local-authorities-topojson.js'
+OUTPUT_DATA_FIELDS_FILE   = path.resolve 'app/data/fields.js'
+TOPOJSON_BINARY_PATH      = path.resolve 'node_modules/topojson/bin/topojson'
+
+cuts = data_properties.cuts
+extra_fields = data_properties.extra_fields
 
 connection = mysql.createConnection({
   host     : config.mysql_host
@@ -29,6 +34,26 @@ connection = mysql.createConnection({
 
 module.exports = (grunt) -> (target) ->
   grunt_task_completed = this.async()
+
+  ################################################
+  # STEP 1: Build app/data/properties.js
+  ################################################
+
+  fs.writeFileSync OUTPUT_DATA_FIELDS_FILE, (
+    ';UKA.loadFieldDefinitions(' +
+    JSON.stringify(data_properties, null, 2) +
+    ');'
+  )
+
+  ################################################
+  # STEP 2: Build app/data/deviations.js
+  ################################################
+
+  # TODO
+
+  ################################################
+  # STEP 3: Build app/data/local-authorities-topojson.js
+  ################################################
 
   # Connect to MySQL
   connection.connect()
@@ -57,12 +82,14 @@ module.exports = (grunt) -> (target) ->
         # Build the feature for this LA record
         output_properties = {}
 
-        for own db_field, target_name of config.properties_mapping
+        # Include the miscellaneous extra database fields for this LA
+        for own db_field, target_name of extra_fields
           if record[db_field] is undefined
-            throw "Field '#{db_field}' defined in config but not found in DB"
+            throw "Field '#{db_field}' defined in `data/data-properties.coffee` but not found in DB"
           target_name = db_field if not target_name
           output_properties[target_name] = record[db_field]
 
+        # Build an object containing all the cuts:measures data for this LA
         cut_values_for_feature = {}
         for cut in cuts
           cut_key = cut.key
@@ -120,7 +147,7 @@ module.exports = (grunt) -> (target) ->
           grunt.log.ok "Written temporary GeoJSON file"
 
           # Convert to TopoJSON using CLI
-          topojson_command = "#{TOPOJSON_BINARY_PATH} -o #{OUTPUT_TOPOJSON_FILE} --properties --id-property code --simplify-proportion 0.5 #{TEMP_GEOJSON_FILE}"
+          topojson_command = "#{TOPOJSON_BINARY_PATH} -o #{OUTPUT_TOPOJSON_FILE} --properties --id-property code --simplify-proportion 0.05 #{TEMP_GEOJSON_FILE}"
 
           grunt.log.ok "Running topojson command..."
 
@@ -132,6 +159,18 @@ module.exports = (grunt) -> (target) ->
               throw 'TopoJSONconversion failed.'
             else
               grunt.log.ok 'Success.'
+
+              # Prepend and append the file
+              fs.writeFileSync(
+                OUTPUT_TOPOJSON_FILE,
+                (
+                  ';UKA.loadTopoJson(' +
+                  fs.readFileSync(OUTPUT_TOPOJSON_FILE) +
+                  ');'
+                )
+              )
+
+              grunt.log.ok 'Added JSONP start and end to file.'
 
               # Delete the temporary TopoJSON file
               fs.unlink TEMP_GEOJSON_FILE, (err) ->
