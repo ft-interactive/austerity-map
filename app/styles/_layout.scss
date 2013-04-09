@@ -19,44 +19,7 @@ $min-width: 972px ;
 }
 
   #ft-header {
-    font-family: "MillerDisplay";
-    color:$ft_white;
-    background: $ft_black;
-    padding: 7px 22px 7px 14px;
     height:34px;
-    border-bottom: 2px solid $ft_claretFill;
-    -moz-box-shadow: 0px 1px 2px #000;
-    -webkit-box-shadow: 0px 1px 2px #000;
-    box-shadow: 0px 1px 2px #999;
-    .ftLogo{
-      background-color: #FDCBA3;
-      width:34px;
-      height:34px;
-      float:left;
-    }
-    .gTitle{
-      font-size: 22px;
-      margin-left:25px;
-      float:left;
-      color: $ft_white;
-      padding-top:2px;
-    }
-    .linksHolder{
-      float:right;
-      font-size: 14px;
-      .headerLinks{
-        float: left;
-        margin-left: 40px;
-        padding-top: 10px;
-        a{
-          color:$ft_white;
-          text-decoration: none;
-        }
-        a:hover{
-            color:$ft_claretText;
-          }
-      }
-    }
   }
 
 
