@@ -1,0 +1,77 @@
+$tiny-screen: emCalc(400px) !default;
+$tiny: "only screen and (max-width:"#{$tiny-screen}")" !default;
+
+
+@mixin hr-border{
+    border: 0 none;
+    border-top: $hr-border;
+}
+
+@mixin hr-fat-border{
+    @include hr-border;
+    border-top-width: 0.2em;
+    border-style: solid;
+    border-color: $color-tint-2;
+}
+
+@function ems($target, $context) {
+    @return ($target/$context)#{em};
+}
+
+@mixin pull-quotes($font-size, $opacity) {
+    $em-font: 10;
+    position: relative;
+    padding: ems($font-size, $font-size);
+    height: auto;
+    &:before,
+    &:after {
+        height: ems($font-size, $font-size);
+        opacity: $opacity;
+        position: absolute;
+        font-size: $font-size;
+        font-weight: bold;
+    }
+    &:before {
+        content: '“';
+        top: (($em-font * 1.4) * -1)#{px};
+        left: (($em-font * 1.7) * -1)#{px};
+    }
+    &:after {
+        content: '”';
+        bottom: (($em-font * 4.6) * -1)#{px};
+        right: (($em-font * 1.7) * -1)#{px};
+    }
+}
+
+@mixin dropcap($float: left, $font-size: 4em, $font-family: inherit, $text-indent: 0, $margin: inherit, $padding: inherit, $color: inherit, $lineHeight: 1, $bg: transparent) {
+    &:first-letter {
+        float: $float;
+        margin: $margin;
+        padding: $padding;
+        font-size: $font-size;
+        font-family: $font-family;
+        line-height: $lineHeight;
+        text-indent: $text-indent;
+        background: $bg;
+        color: $color;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+.hide-for-first-view{
+    display:none !important;
+    visibility: hidden !important;
+}
+
+.show-for-first-view{
+    display:inherit !important;
+    visibility: hidden !important;
+}
+
+@mixin scaled-bg{
+    background: none no-repeat 0 0 fixed; 
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto;
+}

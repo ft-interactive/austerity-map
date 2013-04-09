@@ -1,0 +1,227 @@
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+
+
+// Foundation Components
+// @import
+//   "foundation/scss/foundation/global",
+//   "foundation/scss/foundation/grid",
+//   "foundation/scss/foundation/visibility",
+//   "foundation/scss/foundation/block-grid",
+//   "foundation/scss/foundation/type",
+//   "foundation/scss/foundation/buttons",
+//   "foundation/scss/foundation/forms",
+//   "foundation/scss/foundation/custom-forms",
+//   "foundation/scss/foundation/button-groups",
+//   "foundation/scss/foundation/dropdown-buttons",
+//   "foundation/scss/foundation/split-buttons",
+//   "foundation/scss/foundation/flex-video",
+//   "foundation/scss/foundation/section",
+//   "foundation/scss/foundation/top-bar",
+//   "foundation/scss/foundation/orbit",
+//   "foundation/scss/foundation/reveal",
+//   "foundation/scss/foundation/joyride",
+//   "foundation/scss/foundation/clearing",
+//   "foundation/scss/foundation/alert-boxes",
+//   "foundation/scss/foundation/breadcrumbs",
+//   "foundation/scss/foundation/keystrokes",
+//   "foundation/scss/foundation/labels",
+//   "foundation/scss/foundation/inline-lists",
+//   "foundation/scss/foundation/pagination",
+//   "foundation/scss/foundation/panels",
+//   "foundation/scss/foundation/pricing-tables",
+//   "foundation/scss/foundation/progress-bars",
+//   "foundation/scss/foundation/side-nav",
+//   "foundation/scss/foundation/sub-nav",
+//   "foundation/scss/foundation/switch",
+//   "foundation/scss/foundation/magellan",
+//   "foundation/scss/foundation/tables",
+//   "foundation/scss/foundation/thumbs",
+//   "foundation/scss/foundation/tooltips",
+//   "foundation/scss/foundation/dropdown";
+
+$data-btn-size: 100px;
+
+#nav-container{
+    transition: top .3s ease-in;
+    top: -50px;
+    display: none;
+}
+
+.no-shiz{
+    #nav-container{
+        top: 0px;
+        display: block;
+    }
+}
+
+.data-btn{
+    border-color: $color-claret-fill;
+    border-style: solid;
+    background-color: $color-claret-fill;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: $font-family-header;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    text-rendering: optimizeLegibility;
+}
+
+body{
+    padding-top: 0 !important;
+}
+
+.top-bar{
+    font-family: $font-family-header;
+    -webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    margin-bottom:0;
+    background: -moz-linear-gradient(top,  $topbar-bg 0%, $topbar-bg 96%, $color-claret-fill 96%, $color-claret-fill 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $topbar-bg), color-stop(96%, $topbar-bg), color-stop(96%, $color-claret-fill), color-stop(100%, $color-claret-fill)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $topbar-bg 0%,$topbar-bg 96%, $color-claret-fill 96%, $color-claret-fill#ff0000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $topbar-bg 0%,$topbar-bg 96%, $color-claret-fill 96%, $color-claret-fill 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  $topbar-bg 0%,$topbar-bg 96%, $color-claret-fill 96%, $color-claret-fill 100%); /* W3C */
+    .name{
+        line-height: 45px;
+        a{
+            color: rgba(255, 255, 255, 1);
+            text-shadow:0 0 7px rgba(0, 0, 0, 0.8);
+        }
+    }
+    .toggle-topbar.menu-icon a{
+        width:100px;
+        //color:transparent;
+        &:after{
+            text-shadow:0 0 2px #000;
+        }
+    }
+}
+
+.top-bar-section > ul > .divider{
+    height: 44px;
+    border-right: solid 1px #494344;
+    border-left: solid 1px #090808;
+}
+
+.top-bar-section > ul > .label{
+    background-color: $topbar-bg;
+    padding: 0;
+    font-weight: normal;
+    cursor: default;
+    & > label{
+        background-color: $topbar-bg;
+        line-height: 44px;
+        cursor: default;
+        font-weight: normal;
+        margin:0;
+        padding-right: 5px;
+        text-transform: none;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: .875em;
+    }
+}
+
+#data-btn {
+    display: none;
+    opacity: 0;
+    z-index:100;
+    display:none;
+    transition: opacity .2s .7s ease-in;
+    @extend .data-btn;
+    @include radius(100%);
+    width: $data-btn-size;
+    height: $data-btn-size;
+    position: fixed;
+    top:10px;
+    right:40px;
+    font-size: 0.95em;
+    z-index:100;
+    border-width: 5px;
+    span{
+        position: relative;
+        top: 50%;
+        line-height: 20px;
+        display: block;
+        height: auto;
+        margin:-25% 5% 0 5%;
+    }
+    &:hover{
+        border-color: saturate($color-claret-fill, 20%);
+        background-color: saturate($color-claret-fill, 20%);
+    }
+    &.active {
+        cursor: default;
+        &:hover{
+            border-color: $color-claret-fill;
+            background-color: $color-claret-fill;
+            cursor: default;
+        }
+    }
+}
+
+.no-shiz{
+    #data-btn{
+        display: block;
+        opacity: 1;
+    }
+}
+
+$small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
+
+@media #{$small-topbar} {
+    #data-btn{
+        display: none !important;
+        visibility: hidden !important;
+    } 
+}
+
+
+@media #{$small} {
+    .top-bar-section{
+        margin-right: $data-btn-size + 55px;
+        ul, ul li > a:not(.button){
+            text-transform: uppercase;
+            //background-color: transparent;
+            line-height: 45px !important;
+            &:hover{
+                //background-color: transparent;
+            }
+            &.active{
+                color: lighten($color-claret-text, 30%);
+            }
+        }
+    }
+}
+
+#nav-title{
+    font-size: emCalc(19px);
+    padding: emCalc(10px) emCalc(20px) emCalc(10px) emCalc(5px);
+}
+
+#top-logo{
+    text-align: left;
+    font-family: "ft-icons";
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    @extend .antialiased;
+    padding: emCalc(9px);
+    padding-right: emCalc(5px);
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+}
+
+#top-logo:before{
+    text-decoration: inherit;
+    vertical-align: -2%;
+    display: inline-block;
+    speak: none;
+    content: "\0030";
+    font-size: emCalc(27px);
+}
+
+.top-bar-section > ul > li > a{
+    height:45px !important;
+}
