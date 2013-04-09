@@ -37,4 +37,4 @@ SELECT 'IB_ESA_£PWA' AS `var`, MIN(`IB_ESA_£PWA_quintile`) AS `min`, MAX(`IB_E
 SELECT '1%UPRATE_£MILL' AS `var`, MIN(`1%UPRATE_£MILL_quintile`) AS `min`, MAX(`1%UPRATE_£MILL_quintile`) AS `max`, AVG(`1%UPRATE_£MILL`) AS `mean`, STD(`1%UPRATE_£MILL`) AS `sd` FROM `uk_austerityV7` UNION
 SELECT '1%UPRATE_£PWA' AS `var`, MIN(`1%UPRATE_£PWA_quintile`) AS `min`, MAX(`1%UPRATE_£PWA_quintile`) AS `max`, AVG(`1%UPRATE_£PWA`) AS `mean`, STD(`1%UPRATE_£PWA`) AS `sd` FROM `uk_austerityV7` UNION
 SELECT 'TOTAL_IMPACT_£MILL' AS `var`, MIN(`TOTAL_IMPACT_£MILL_quintile`) AS `min`, MAX(`TOTAL_IMPACT_£MILL_quintile`) AS `max`, AVG(`TOTAL_IMPACT_£MILL`) AS `mean`, STD(`TOTAL_IMPACT_£MILL`) AS `sd` FROM `uk_austerityV7` UNION
-SELECT 'TOTAL_IMPACT_£PWA' AS `var`, MIN(`TOTAL_IMPACT_£PWA_quintile`) AS `min`, MAX(`TOTAL_IMPACT_£PWA_quintile`) AS `max`, AVG(`TOTAL_IMPACT_£PWA`) AS `mean`, STD(`TOTAL_IMPACT_£PWA`) AS `sd` FROM `uk_austerityV7`;
+SELECT 'TOTAL_IMPACT_£PWA' AS `var`, MIN(`TOTAL_IMPACT_£PWA_quintile`) AS `min`, MAX(`TOTAL_IMPACT_£PWA_quintile`) AS `max`, AVG(`TOTAL_IMPACT_£PWA`) AS `mean`, STD(`TOTAL_IMPACT_£PWA`) AS `sd` FROM `uk_austerityV8`;
