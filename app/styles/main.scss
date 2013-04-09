@@ -14,8 +14,11 @@
 	"foundation/scss/foundation/components/type",
 	"foundation/scss/foundation/components/top-bar",
 	"foundation/scss/foundation/components/labels",
-	"foundation/scss/foundation/components/dropdown";
-/*
+	"foundation/scss/foundation/components/sub-nav",
+	"foundation/scss/foundation/components/side-nav",
+	"foundation/scss/foundation/components/block-grid",
+	"foundation/scss/foundation/components/dropdown",
+
    "foundation/scss/foundation/components/global",
    "foundation/scss/foundation/components/grid",
    "foundation/scss/foundation/components/visibility",
@@ -31,7 +34,7 @@
    "foundation/scss/foundation/components/section",
    "foundation/scss/foundation/components/top-bar",
    "foundation/scss/foundation/components/orbit",
-   "foundation/scss/foundation/components/reveal",
+   
    "foundation/scss/foundation/components/joyride",
    "foundation/scss/foundation/components/clearing",
    "foundation/scss/foundation/components/alert-boxes",
@@ -49,9 +52,7 @@
    "foundation/scss/foundation/components/magellan",
    "foundation/scss/foundation/components/tables",
    "foundation/scss/foundation/components/thumbs",
-   "foundation/scss/foundation/components/tooltips",
-   
-*/
+   "foundation/scss/foundation/components/tooltips";
 
 // Mixins & utility classes
 @import "sass-bootstrap/lib/mixins";

@@ -13,6 +13,11 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    
   </head>
   <body class="no-shiz">
     <!-- begin: nav-bar -->
@@ -21,7 +26,7 @@
             <ul class="title-area">
                 <li class="name">
                     <a id="top-logo" href="http://www.ft.com/"></a>
-                    <a id="nav-title" href="/#overview">Austerity in the UK</a>
+                    <a id="nav-title" href="/austerity-in-the-uk/#overview">Austerity in the UK</a>
                 </li>
                 <li class="toggle-topbar menu-icon">
                     <a><span>Menu</span></a>
@@ -30,30 +35,29 @@
             <section class="top-bar-section">
                 <ul class="right">
                     <li class="label hide-for-small"><label>in context:</label></li>
-                    <li><a href="/#policy">Policy</a></li>
-                    <li><a href="/#business">Business</a></li>
-                    <li><a href="/#jobs">Jobs</a></li>
-                    <li><a href="/#politics">Politics</a></li>
+                    <li><a href="/austerity-in-the-uk/#policy">Policy</a></li>
+                    <li><a href="/austerity-in-the-uk/#business">Business</a></li>
+                    <li><a href="/austerity-in-the-uk/#jobs">Jobs</a></li>
+                    <li><a href="/austerity-in-the-uk/#politics">Politics</a></li>
                     <li class="divider hide-for-small"></li>
                     <li class="has-dropdown"><a href="#case-studies">Case Studies</a>
 
                         <ul class="dropdown">
-                            <li><a href="/#blackpool">Blackpool</a></li>
-                            <li><a href="/#guildford">Guildford</a></li>
-                            <li><a href="/#merthyr-tydfil">Merthyr Tydfil</a></li>
+                            <li><a href="/austerity-in-the-uk/#blackpool">Blackpool</a></li>
+                            <li><a href="/austerity-in-the-uk/#guildford">Guildford</a></li>
+                            <li><a href="/austerity-in-the-uk/#merthyr-tydfil">Merthyr Tydfil</a></li>
                         </ul>
                     </li>
-                    <li class="data-graphic show-for-small"><a href="/_other/callum/uk-austerity/build16/">Explore the data</a></li>
+                    <li class="data-graphic show-for-small"><a href="./">Explore the data</a></li>
                 </ul>
             </section>
         </nav>
         
     </div>
 
-    <a id="data-btn" class="active" href="/_other/callum/uk-austerity/build16/"><span>Data Graphic</span></a>
+    <a id="data-btn" class="active" href="./"><span>Data Graphic</span></a>
     <!-- end: nav-bar -->
-    <header id="ft-header">
-    </header>
+   
     <div id="cont">
 
       <div id="main" role="main">
@@ -162,6 +166,18 @@
     <script src="data/local-authorities-topojson.js"></script>
     <script src="data/fields.js"></script>
     <script src="data/deviations.js"></script>
+    <script src="components/foundation/js/foundation/foundation.js"></script>
+    <script src="components/foundation/js/foundation/foundation.topbar.js"></script>
+
+    <script>
+
+    $(document).foundation();
+
+    $(function () {
+        $(document.body).addClass('loaded');
+    });
+
+    </script>
     <!-- endbuild -->
   </body>
 </html>
