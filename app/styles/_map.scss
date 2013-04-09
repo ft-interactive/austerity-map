@@ -31,6 +31,7 @@
   @include user-select(none) ;
 
 }
+
   #increase-zoom,
   #decrease-zoom {
     background-color: transparentize(#ccc, 0.1);
@@ -54,7 +55,9 @@
   #increase-zoom {
     margin-bottom: 5px ;
   }
-
+  #reset-map{
+    margin-top: 8px;
+  }
 #postcode-form,
 #control-panel {
   width: 240px ;
