@@ -48,7 +48,7 @@
 	left: 30px;
 }
 
-#postcode-search,
+#postcode-form,
 #control-panel {
   width: 240px ;
   @include border-radius(5px) ;
@@ -58,20 +58,43 @@
   padding: 20px ;
 }
 
-#postcode-search {
+#postcode-form {
   width: 210px ;
   top: 90px ;
-  height: 20px ;
+  // height: 38px ;
   font-size:20px;
   letter-spacing:1px;
-  padding: 10px 20px 18px 50px;
+  padding: 6px 20px 6px 50px;
   background-image: url('images/mag-glass.png');
-  background-position: 15px center;
+  background-position: 15px 8px;
   background-repeat: no-repeat;
 }
+  #postcode-input {
+    width: 170px ;
+    background-color: rgba(0,0,0,0.5);
+    font-family: BentonSans ;
+    font-style: italic ;
+    font-weight: 100 !important;
+    font-size: 18px ;
+    border-width: 0 ;
+    color: #bbb ;
+    padding: 5px 10px 5px 10px ;
+    @include border-radius(4px);
+
+    color: white ;
+  }
+  #postcode-hint {
+    display: none ;
+    margin: 4px 0 0 0 ;
+    font-family: BentonSans ;
+    // font-style: italic ;
+    // font-weight: 100 ;
+    font-size: 11px ;
+    color: #a33 ;
+  }
 
 #control-panel {
-  top: 144px ;
+  top: 164px ;
 	
   h3 {
     font-size: 12px ;
