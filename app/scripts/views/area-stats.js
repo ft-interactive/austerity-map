@@ -40,10 +40,16 @@
       var new_html = '<div>';
       new_html += ('<div class="laName"></div>');
       new_html += ('<div class="areaLeftHolder"><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div><div class="nutsNote"></div></div>');
-      new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class=politicalHolder><span style="font-size:22px"><i>Political</i></span>');
+      new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:22px"><i>Political</i></span>');
       new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:<br/>');
-      new_html += ('<div class="mps"></div></div></div>');
-      new_html += '</div>';
+      new_html += ('<div class="mps"></div>');
+      new_html += ('<div class= "politicalHolder"><span style="font-size:22px"><i>Economics</i></span>');
+      new_html += ('<br/>Impact ...: ');
+      new_html += ('<div class="impact"></div></div>');
+      new_html += ('<div class= "politicalHolder"><span style="font-size:22px"><i>Deprivation</i></span>');
+      new_html += ('<br/>Proportion of neighbourhoods with the local authority that fall within the poorest 20% in Britain: ');
+      new_html += ('<div class="imd"></div></div>');
+      new_html += '</div></div>';
       view.$el.html(new_html);
   	  return this;
     },
@@ -56,16 +62,19 @@
 	  var cutsLabels = UKA.config.cuts
 	  var donut_values =[];
 	  var donut_labels =[];
+    console.log(selected_la)
     view.$(".laName").text(selected_la.name);
     view.$(".donutTitle").html("Annual impact<br/>per working<br/>age adult");
     view.$(".areaRightHolder").css("visibility","visible")
-    if(selected_la.nutsNote==null){
+    /*if(selected_la.nutsNote==null){
       view.$(".nutsNote").empty()
     }else{
     view.$(".nutsNote").text(selected_la.nutsNote);
-    }
+    }*/
     
     view.$(".mps").text(selected_la.mpList);
+    view.$(".impact").text(selected_la.nuts3_impactPerGdhi);
+    view.$(".imd").text(selected_la.nuts3_impactPerGdhi + "%");
     
     for (var cut in cuts) {
       var dVal = Number(cuts[cut]['£PWA'][0]) 
@@ -138,11 +147,11 @@
 				);
 		  }
 			  
-		  $('#cont').bind("mousemove", hoverHandler);
+		  $('#area-stats').bind("mousemove", hoverHandler);
 	
 		  function hoverHandler(e){
 			  //console.log(e);
-			  $('.toolTip').css("left", e.pageX + (20-leftPos.left)).css("top", e.pageY -60);
+			  $('.toolTip').css("left", e.pageX + Number(20 - leftPos.left)).css("top", e.pageY -60);
 		  }
 
 	 //change();
