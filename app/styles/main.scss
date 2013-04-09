@@ -4,7 +4,6 @@
 @import "dimensions";
 @import "var";
 
-
 // Foundation
 @import "foundation/scss/foundation/foundation-global";
 
@@ -54,9 +53,10 @@
    
 */
 
-// Mixins
+// Mixins & utility classes
 @import "sass-bootstrap/lib/mixins";
 @import "misc-mixins";
+@import "util";
 
 // Start fonts downloading ASAP
 @import "ft-fonts";
@@ -66,11 +66,9 @@
 
 // Styles
 @import "type-and-colour";
-@import "fontface";
 @import "nav";
 @import "layout";
 @import "map";
 @import "hover-box";
 @import "footerbranding";
 @import "presets";
-@import "util";

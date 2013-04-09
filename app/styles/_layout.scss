@@ -4,10 +4,18 @@ html, body {
   padding: 0 ;
 }
 
+// TODO: alter #area-stats and #presets to cope, then reduce this to 768px.
+$min-width: 972px ;
+
+
 #cont {
-  width: 972px ;
+  // max-width: 1600px ;
+  min-width: $min-width ;
   margin: 0 auto ;
   position: relative ;
+  &, * {
+    @include box-sizing(content-box);
+  }
 }
 
   #ft-header {
@@ -62,21 +70,24 @@ html, body {
     }
 
     #map-cont {
-      // background: #fdd ;
+      background: #fdd ;
       border-left: 1px solid $ft_tint2 ;
       border-right: 1px solid $ft_tint2 ;
       position: relative ;
       height: $map-height ;
       overflow: hidden ;
+      border-bottom: 4px solid $ft_warmGrey1;
+
     }
 
     #area-stats {
-
       padding: 12px 15px 40px 15px;
       border-top: 4px solid $ft_warmGrey1;
       border-bottom: 8px solid $ft_tint2;
       color: $ft_darkGrey;
       height: 510px;
+      margin: 0 auto ;
+
       .laName {
         font-family: Clarion, serif ;
         font-size: 32px;  		
@@ -164,6 +175,7 @@ html, body {
     }
   }
 	#ft-footer {		
+    border-top: 8px solid $ft_tint2;
 		color: $ft_warmGrey2;
 		dl dt {
 		margin-bottom: .3em;

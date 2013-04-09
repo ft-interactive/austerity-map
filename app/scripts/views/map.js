@@ -79,8 +79,8 @@
     render: function () {
       // Get the SVG and set its dimensions
       svg = d3.select(map_view.el)
-        .attr('width', width)
-        .attr('height', height)
+        // .attr('width', width)
+        // .attr('height', height)
       ;
 
       // Append group elements
@@ -319,14 +319,14 @@
       });
 
       // Append a little shadow effect along the top
-      svg.append('rect').attr({
-        id: 'inset-shadow',
-        x: 0,
-        y: 0,
-        width: width,
-        height: 15,
-        fill: 'url(#inset-shadow-gradient)'
-      });
+      // svg.append('rect').attr({
+      //   id: 'inset-shadow',
+      //   x: 0,
+      //   y: 0,
+      //   width: '100%',
+      //   height: 15,
+      //   fill: 'url(#inset-shadow-gradient)'
+      // });
 
       // Return for chaining
       return this ;
