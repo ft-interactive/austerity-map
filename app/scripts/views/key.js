@@ -26,7 +26,7 @@
 
       $bars = $('#bars');
 
-      console.log('KEY', view.el, UKA.deviations);
+      // console.log('KEY', view.el, UKA.deviations);
 
       // Set up key
 
@@ -54,42 +54,62 @@
 
     refresh: function () {
       var values = deviations[app.attributes.selected_cut + '_' + app.attributes.selected_measure];
-      console.log('Refreshing key', values);
+      // console.log('Refreshing key', values);
 
-      var bars_html   = '<div class="the-bars">';
-      var labels_html = '<div class="the-labels">';
+
 
       var min = (values.min < -4? -4 : values.min) ;
       var max = (values.max >  4?  4 : values.max) ;
 
       var num_bars = max - min ;
-      var pct_width = (100 / num_bars) + '%';
-      console.log('num_bars', num_bars);
+      var pct_width = (100 / num_bars);
+      // console.log('num_bars', num_bars);
+
+      var bars_html   = '<div class="the-bars">';
+      var labels_html = '<div class="the-labels" style="left:-'+(pct_width/2)+'%">';
 
       for (var i = min; i < max; i++) {
-        console.log(i, values.mean + (i * values.sd));
+        // console.log(i, values.mean + (i * values.sd));
 
-        var from = Math.round(values.mean + (i * values.sd));
-        var to = Math.round(values.mean + ((i+1) * values.sd));
+        var from = numeral(
+          Math.max(Math.round(values.mean + (i * values.sd)), 0)
+        ).format('0,0');
+
+        var to = numeral(
+          Math.round(values.mean + ((i+1) * values.sd))
+        ).format('0,0');
 
         var colour = UKA.map_view.getLaColour(i);
 
         bars_html += (
           '<div class="bar" style="' +
-            'width:' + pct_width + ';' +
+            'width:' + pct_width + '%;' +
             // 'height:10px;' +
             'background-color:' + colour + ';' +
-          '" title="'+ from + ' - ' + to +'"></div>'
+            '"' +
+            // ' title="'+ from + ' - ' + to +'"' +
+          '></div>'
         ) ;
 
+        labels_html += (
+          '<div class="key-label" style="' +
+            'width:' + pct_width + '%;' +
+          '">'+from+'</div>'
+        ) ;
       }
+
+      labels_html += (
+        '<div class="key-label" style="' +
+          'width:' + pct_width + '%;' +
+        '">'+to+'</div>'
+      ) ;
 
       bars_html   += '</div>';
       labels_html += '</div>';
 
       // First, 
 
-      $bars.empty().append(bars_html);
+      $bars.empty().append(bars_html).append(labels_html);
     }
   });
 

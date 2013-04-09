@@ -75,7 +75,7 @@
 	  var cutsLabels = UKA.config.cuts
 	  var donut_values =[];
 	  var donut_labels =[];
-    console.log(selected_la)
+    // console.log(selected_la)
     view.$(".laName").text(selected_la.name);
     view.$(".donutTitle").html("Annual impact per working age adult");
     view.$(".areaRightHolder").css("visibility","visible")

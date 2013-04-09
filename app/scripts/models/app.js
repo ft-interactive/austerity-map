@@ -3,7 +3,7 @@
   Instantiated once only, as UKA.app, the model instance that holds the application's state.
 */
 
-/*global UKA, Backbone*/
+/*global UKA, Backbone, $*/
 
 (function () {
   'use strict';
@@ -28,6 +28,21 @@
         throw 'Cannot instantiate App Model more than once';
       app = this;
 
+      // Update num_buckets whenever a new valid cut:measure combo is selected
+      app.on('change:selected_cut change:selected_measure', function () {
+        $.each(config.cuts, function (i, cut) {
+          if (
+            cut.key === app.attributes.selected_cut &&
+            cut.measures.indexOf(app.attributes.selected_measure) > -1
+          ) {
+            app.updateNumBuckets();
+            return false;
+          }
+        });
+      });
+      app.updateNumBuckets();
+
+
       // Update zoom level to reflect scale
       // 10 is an acceptable maximum scale
       app.on('change:zoom_level', function () {
@@ -47,6 +62,15 @@
       });
 
       return this;
+    },
+
+    updateNumBuckets: function () {
+      var values = UKA.deviations[app.attributes.selected_cut + '_' + app.attributes.selected_measure];
+      var min = (values.min < -4? -4 : values.min) ;
+      var max = (values.max >  4?  4 : values.max) ;
+      var num_buckets = max - min ;
+
+      app.set('num_buckets', num_buckets);
     },
 
     start: function () {

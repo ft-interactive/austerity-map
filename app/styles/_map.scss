@@ -179,4 +179,17 @@
         outline: 1px solid rgba(255,255,255,0.5) ;
         height: 15px ;
       }
+    .the-labels {
+      // outline: 1px solid blue ;
+      position: relative ;
+      white-space: nowrap;
+    }
+      .key-label {
+        // outline: 1px solid pink ;
+        display: inline-block ;
+        overflow: hidden ;
+        font-size: 10px ;
+        font-family: verdana ;
+        text-align: center ;
+      }
   }
