@@ -17,9 +17,14 @@
       las_group_outer,
       las_group_wrapper,
       las_group,
+      selected_la_group,
+      unselected_las_group,
       la_paths,
 
       las_group_el,
+      selected_la_group_el,
+      unselected_las_group_el,
+      selected_la_path_el,
 
       las_natural_width,
       las_natural_height,
@@ -44,6 +49,9 @@
 
   // Declare the Map View class, to be instantiated after DOM ready
   UKA.Views.Map = Backbone.View.extend({
+
+    all_las_properties: {},
+
     initialize: function () {
       if (map_view)
         throw 'Cannot instantiate Map View more than once';
@@ -75,11 +83,16 @@
         .attr('height', height)
       ;
 
-      // Append a group element
+      // Append group elements
       las_group_outer = svg.append('g').attr('id', 'las-group-outer');
       las_group_wrapper = las_group_outer.append('g').attr('id', 'las-group-wrapper');
       las_group = las_group_wrapper.append('g').attr('id', 'las-group');
       las_group_el = las_group[0][0];
+
+      unselected_las_group = las_group.append('g').attr('id', 'unselected-las-group');
+      unselected_las_group_el = unselected_las_group[0][0];
+      selected_la_group = las_group.append('g').attr('id', 'selected-la-group');
+      selected_la_group_el = selected_la_group[0][0];
 
       // Add a centre marker (for debugging)
       // svg.append('rect')
@@ -100,14 +113,25 @@
       ;
 
       // Append and draw the features
-      la_paths = las_group.selectAll('.la')
+      la_paths = unselected_las_group.selectAll('.la')
         .data(geojson_data.geometries)
         .enter()
         .append('path')
         .attr({
+          // 'id': function (d) {
+          //   return 'la_' + d.properties.code;
+          // },
           'class': 'la',
           'stroke-width': getStrokeWidth(),
           'stroke': config.la_stroke_colour
+        })
+        .each(function (data) {
+          // Add the actual path element to the properties object, for easy access elsewhere.
+          // (This is OK because the paths never get redrawn, only their properties are updated as the app changes.)
+          data.properties.el = this;
+
+          // Also store it in a convenient lookup hash on the view
+          map_view.all_las_properties[data.properties.code] = data.properties;
         })
         .on('click', function (d, i) {
           app.set('selected_la', d.properties);
@@ -116,8 +140,11 @@
           if (panning_sequence)
             return;
 
+          if (app.attributes.selected_la === d.properties)
+            return;
+
           // Move hovered LA to end so it appears on top
-          las_group_el.appendChild(this);
+          unselected_las_group_el.appendChild(this);
           this.setAttribute('stroke-width', 2*getStrokeWidth());
           this.setAttribute('stroke', config.la_stroke_colour_hover);
 
@@ -125,6 +152,9 @@
         })
         .on('mouseout', function  (d, i) {
           if (panning_sequence)
+            return;
+
+          if (app.attributes.selected_la === d.properties)
             return;
 
           this.setAttribute('stroke-width', getStrokeWidth());
@@ -157,6 +187,27 @@
             return false;
           }
         });
+      });
+
+      // Set the stroke on whatever county is selected
+      app.on('change:selected_la', function (app, selected_la, options) {
+
+        var stroke_width = getStrokeWidth();
+
+        // Remove thick stroke from previous LA path
+        if (selected_la_path_el != null) {
+          unselected_las_group_el.appendChild(selected_la_path_el);
+          selected_la_path_el.setAttribute('stroke-width', stroke_width);
+          selected_la_path_el.setAttribute('stroke', config.la_stroke_colour);
+        }
+
+        // Add thick stroke to new one, if any
+        selected_la_path_el = selected_la.el;
+        if (selected_la_path_el != null) {
+          selected_la_group_el.appendChild(selected_la_path_el);
+          selected_la_path_el.setAttribute('stroke-width', stroke_width * 2);
+          selected_la_path_el.setAttribute('stroke', config.la_stroke_colour_selected);
+        }
       });
 
       // Listen for mousewheel, and update app:map_scale property
@@ -218,6 +269,8 @@
             }
           });
         }
+
+
       });
 
       // Listen for chnages to app:map_scale and update the appearance
@@ -246,6 +299,34 @@
 
         };
       })()) ;
+
+      // Update the map when a preset is selected
+      app.on('change:preset', function (app, preset) {
+        // console.log('preset', preset.title, (app.previous('preset') ? app.previous('preset').title : null));
+        console.log('preset', preset);
+
+        if (preset.translate_x) {
+          app.set('zoom_level', preset.zoom);
+          UKA.map_view.setLasGroupTransform({
+            translate_x: preset.translate_x,
+            translate_y: preset.translate_y
+          });
+        }
+
+        if (preset.select_la != null) {
+          app.set('selected_la', map_view.all_las_properties[preset.select_la]);
+        }
+      });
+
+      // Append a little shadow effect along the top
+      svg.append('rect').attr({
+        id: 'inset-shadow',
+        x: 0,
+        y: 0,
+        width: width,
+        height: 15,
+        fill: 'url(#inset-shadow-gradient)'
+      });
 
       // Return for chaining
       return this ;
@@ -354,12 +435,19 @@
       if (!data || data.length !== 2)
         throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
 
-      // Return a number
-      var bucket_num = data[1];
-      var multiplier = UKA.normaliseBucket(bucket_num, config.num_buckets);
+      // Return an HSL with a luminosity reflecting the bucket number
+      var standard_deviation = data[1];
+      var bucket_number = UKA.normaliseBucket(standard_deviation, config.num_buckets);
 
-      var divisions = 50 / multiplier;
-      var luminosity = 75 - (divisions * bucket_num);
+      var luminosity_range = config.max_luminosity - config.min_luminosity;
+      var num_divisions = luminosity_range / config.num_buckets;
+      var luminosity = Math.round(
+        config.max_luminosity - (num_divisions * bucket_number)
+      );
+
+      // if (luminosity < config.min_luminosity ||luminosity > config.max_luminosity) {
+      //   throw error 'Should not happen';
+      // }
 
       return 'hsl(0,50%,'+ luminosity +'%)';
     },

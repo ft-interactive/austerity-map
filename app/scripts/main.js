@@ -1,19 +1,23 @@
-/*global UKA, $*/
-(function (window) {
+/*global UKA, $, _*/
+(function () {
   'use strict';
 
-  // Make a convenient lookup hash out of the config
-  var cut_labels = {},
-      cuts = UKA.config.cuts,
-      cut, i;
-  for (i = 0; i < cuts.length; i++) {
-    cut = cuts[i];
-    cut_labels[cut.key] = cut.label;
-  };
-  UKA.cut_labels = cut_labels;
+  UKA.loadFieldDefinitions = function (properties) {
+    _.extend(UKA.config, properties);
 
-  // Instantiate the app when data downloaded
-  window.loadBritainJSON = function (data) {
+    // Make a convenient lookup hash out of the config
+    var cut_labels = {},
+        cuts = UKA.config.cuts,
+        cut, i;
+
+    for (i = 0; i < cuts.length; i++) {
+      cut = cuts[i];
+      cut_labels[cut.key] = cut.label;
+    }
+    UKA.cut_labels = cut_labels;
+  };
+
+  UKA.loadTopoJson = function (data) {
     UKA.data = data;
     $(function () {
       UKA.app = new UKA.Models.App();
@@ -21,6 +25,4 @@
     });
   };
 
-  $.getJSON('data/local-authorities-topo.json', window.loadBritainJSON);
-
-})(window);
+})();

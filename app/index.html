@@ -19,24 +19,46 @@
     <!-- endbuild -->
   </head>
   <body>
+    <header id="ft-header">
+      <div class="ftLogo"></div>
+      <div class="gTitle">Austerity in the UK</div>
+      <div class="linksHolder">
+        <div class="headerLinks">
+          <a href="#">BLACKPOOL</a>
+        </div>
+        <div class="headerLinks">
+          <a href="#">GUILDFORD</a>
+        </div>
+        <div class="headerLinks">
+          <a href="#">OVERVIEW</a>
+        </div>
+        <div class="headerLinks">
+          <a href="#">METHODOLOGY</a>
+        </div>
+      </div>
+    </header>
     <div id="cont">
-      <header id="ft-header">
-        
-      </header>
 
       <div id="main" role="main">
         <section id="presets">
-          PRESETS
         </section>
 
         <section id="map-cont">
-          <svg id="map"></svg>
+          <svg id="map">
+            <defs>
+              <linearGradient id="inset-shadow-gradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" style="stop-color:#000;stop-opacity:0.1"></stop>
+                <stop offset="50%" style="stop-color:#000;stop-opacity:0.015"></stop>
+                <stop offset="100%" style="stop-color:#000;stop-opacity:0"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
 
           <div id="zoom-control">
             <div id="increase-zoom">+</div>
             <div id="decrease-zoom">−</div>
           </div>
-			<div id="mag-glass"><img src="_media/magGlass.png" width="22" height="26" alt="Search"></div>
+
           <form id="postcode-search">Postcode</form>
 
           <div id="control-panel">
@@ -103,14 +125,18 @@
 
     <script src="scripts/models/app.js"></script>
     <script src="scripts/models/preset.js"></script>
-    <script src="scripts/views/ft-header.js"></script>
+
     <script src="scripts/views/map.js"></script>
     <script src="scripts/views/area-stats.js"></script>
     <script src="scripts/views/cut-types-dropdown.js"></script>
     <script src="scripts/views/measurement-options.js"></script>
     <script src="scripts/views/zoom-control.js"></script>
+    <script src="scripts/views/preset.js"></script>
 
     <script src="scripts/main.js"></script>
+
+    <script src="data/local-authorities-topojson.js"></script>
+    <script src="data/fields.js"></script>
     <!-- endbuild -->
   </body>
 </html>

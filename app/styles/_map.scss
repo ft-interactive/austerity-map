@@ -1,4 +1,5 @@
 #map {
+  background-color: $ft_tint1;
 }
 
   // .la {
@@ -64,6 +65,9 @@
   font-size:20px;
   letter-spacing:1px;
   padding: 10px 20px 18px 50px;
+  background-image: url('images/mag-glass.png');
+  background-position: 15px center;
+  background-repeat: no-repeat;
 }
 
 #control-panel {
@@ -96,12 +100,11 @@
   input[type="radio"] {
     visibility:hidden;
   }
-
   .unselected{
-    background: url("../_media/inactive.png") no-repeat;
+    background: url("images/inactive.png") no-repeat;
   }
   .selected{
-    background: url("../_media/active.png")no-repeat;
+    background: url("images/active.png")no-repeat;
   }
 
 #filter-title{

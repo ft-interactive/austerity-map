@@ -17,8 +17,8 @@ html, body {
     padding: 7px 22px 7px 14px;
     height:34px;
     border-bottom: 2px solid $ft_claretFill;
-    moz-box-shadow: 0px 1px 2px #000;
-    webkit-box-shadow: 0px 1px 2px #000;
+    -moz-box-shadow: 0px 1px 2px #000;
+    -webkit-box-shadow: 0px 1px 2px #000;
     box-shadow: 0px 1px 2px #999;
     .ftLogo{
       background-color: #FDCBA3;
@@ -57,8 +57,8 @@ html, body {
   }
 
     #presets {
-      background: #9a9 ;
-      padding: 100px 0 ;
+      // background: #9a9 ;
+      // padding: 100px 0 ;
     }
 
     #map-cont {
@@ -71,16 +71,17 @@ html, body {
     }
 
     #area-stats {
-      padding:12px 15px 15px 15px;
-      border-top:4px solid $ft_warmGrey1;
-      border-bottom:8px solid $ft_tint2;
-      color:$ft_darkGrey;
-      height:462px;
-      .laName{
+
+      padding: 12px 15px 15px 15px;
+      border-top: 4px solid $ft_warmGrey1;
+      border-bottom: 8px solid $ft_tint2;
+      color: $ft_darkGrey;
+      height: 430px;
+      .laName {
         font-family: Clarion, serif ;
-        font-size:32px;  		
+        font-size: 32px;  		
       }
-      .areaLeftHolder{
+      .areaLeftHolder {
       	width: 410px;
         border-right: 1px dotted $ft_warmGrey1;
         margin-top: 6px;
@@ -88,49 +89,50 @@ html, body {
         height:390px;
         float: left;
       }
-      .donutTitle{
-        font-size:17px;
+      .donutTitle {
+        font-size: 17px;
       }
-      .donutHolder{
+      .donutHolder {
         padding-left: 110px;
         position: relative;
         top: -66px;
       }
-      .donutValue{
-        position:relative;
-        font-size:34px;
-        top:-230px;
-        left:178px;
-        text-align:center;
-        width:100px;
-        line-height:26px;
+      .donutValue {
+        position: relative;
+        font-size: 34px;
+        top: -230px;
+        left: 178px;
+        text-align: center;
+        width: 100px;
+        line-height: 26px;
 	    }
-      .nutsNote{
-        position:relative;
-        top:-100px;
+      .nutsNote {
+        position: relative;
+        top: -100px;
         font-size: 13px;
         line-height: 16px;
       }
   	  
     }
 	
-  .areaRightHolder{
+  .areaRightHolder {
     visibility: hidden;
-    float:left;
+    float: left;
     background-color: $ft_tint1;
-    width:453px;
-    height:350px;
+
+    width: 453px;
+    height: 318px;
     margin-left: 17px;
     margin-top: 6px;
     padding: 20px;
-    .areaContext{
-      color:$ft_white;
+    .areaContext {
+      color: $ft_white;
       background-color: $ft_darkGrey;
-      padding:1px 4px 0px 4px;
+      padding: 1px 4px 0px 4px;
       display: inline;
       font-size: 14px;
     }
-    .politicalHolder{
+    .politicalHolder {
       font-family: Clarion, serif ;
       font-size: 14px;
       line-height: 22px;
@@ -138,22 +140,21 @@ html, body {
     }
   }
 
-  .toolTip
-  {
+  .toolTip {
     background-color: $ft_white;
-    font-size:14px;
-    padding:10px 10px 6px 10px;
+    font-size: 14px;
+    padding: 10px 10px 6px 10px;
     position: absolute;
     border: 1px solid $ft_warmGrey1;
-    opacity:0;
-    z-index:11000;
-    pointer-events:none;
-    max-width:130px;
-    .bigNumber{
+    opacity: 0;
+    z-index: 11000;
+    pointer-events: none;
+    max-width: 130px;
+    .bigNumber {
       font-size: 40px;
     }
   }
-	#ft-footer{		
+	#ft-footer {		
 		color: $ft_warmGrey2;
 		dl dt {
 		margin-bottom: .3em;
@@ -162,7 +163,7 @@ html, body {
 		padding: 0;
 		direction: ltr;
 		}
-		.byline{
+		.byline {
 			font-size: .75em;
 		}
 		dl {
@@ -170,9 +171,9 @@ html, body {
 			line-height: 1.6;
 			list-style-position: outside;
 		}
-		dd{
+		dd {
 		display: block;
-		-webkit-margin-start:0px;
+		-webkit-margin-start: 0px;
 		}
 		dl dd {
 		margin-bottom: .75em;

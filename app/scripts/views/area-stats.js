@@ -4,26 +4,28 @@
   Manages the section under the map showing charts etc. relating to the selected feature.
 */
 
-/*global UKA, Backbone, d3*/
+/*global UKA, Backbone, d3, $*/
 
 (function () {
   'use strict';
 
   var view = null,
       app,
-	  pie,
-	  svg,
-	  arc,
-	  color,
-	  path,
-	  leftPos;
-	  $.fn.moveTop = function(){
-	  	for(var i = 0; i < $("." + $(this).attr("class")).length; i++){
-	  		$.each(this, function(){
-	  			$(this).before($(this).next());   
-	  		});
-	  	}
-	  }
+      pie,
+      svg,
+      arc,
+      color,
+      path,
+      leftPos;
+
+  $.fn.moveTop = function () {
+    for (var i = 0; i < $('.' + $(this).attr('class')).length; i++) {
+      $.each(this, function () {
+        $(this).before($(this).next());
+      });
+    }
+  };
+
   UKA.Views.AreaStats = Backbone.View.extend({
     initialize: function () {
       if (view)
@@ -31,7 +33,7 @@
       view = this;
 
       app = UKA.app;
-      
+
       app.on('change:selected_la', this.updateChart);
       return this;
     },
@@ -51,7 +53,7 @@
       new_html += ('<div class="imd"></div></div>');
       new_html += '</div></div>';
       view.$el.html(new_html);
-  	  return this;
+      return this;
     },
 	
 	updateChart: function(){
@@ -173,6 +175,7 @@
 	  }
 		
 	}
+
   });
 
 })();
