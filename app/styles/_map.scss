@@ -125,16 +125,18 @@
         &> .radio-button-wrapper {
           display: block ;
           float: left ;
-          // outline: 1px solid blue ;
           width: 30px ;
           height: 30px ;
-          
-          background: url('images/inactive.png') no-repeat;
-          &.selected { background: url("images/active.png") no-repeat; }
+          background: url('images/inactive.png') top center no-repeat ;
 
           &> input {
             visibility: hidden ;
           }
+        }
+
+        &:active > .radio-button-wrapper,
+        & > .radio-button-wrapper.selected {
+          background-image: url("images/active.png") ;
         }
 
         &> .label-text {
