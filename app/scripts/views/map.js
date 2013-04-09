@@ -457,7 +457,7 @@
       console.log(data);
       var left_offset,
           top_offset,
-          gap_above_cursor = 30,
+          gap_above_cursor = 70,
           p = data.properties,
           selected_cut = app.attributes.selected_cut,
           selected_measure = app.attributes.selected_measure,
