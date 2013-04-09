@@ -85,7 +85,7 @@ $min-width: 972px ;
       border-top: 4px solid $ft_warmGrey1;
       border-bottom: 8px solid $ft_tint2;
       color: $ft_darkGrey;
-      height: 510px;
+      height: 450px;
       margin: 0 auto ;
 
       .laName {
@@ -133,7 +133,7 @@ $min-width: 972px ;
     background-color: $ft_tint1;
 
     width: 453px;
-    height: 408px;
+    height: 368px;
     margin-left: 17px;
     margin-top: 6px;
     padding: 20px;
@@ -175,7 +175,6 @@ $min-width: 972px ;
     }
   }
 	#ft-footer {		
-    border-top: 8px solid $ft_tint2;
 		color: $ft_warmGrey2;
 		dl dt {
 		margin-bottom: .3em;
