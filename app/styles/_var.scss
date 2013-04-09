@@ -1,0 +1,143 @@
+/* colors */
+$color-salmon:              #fff1e0;
+$color-blue-fill:           #4781aa;
+$color-blue-text:           #2e6e9e;
+$color-claret-text:         #9b164f;
+$color-claret-fill:         #9e2f50;
+$color-skyline:             #e3dfca;
+$color-orange:              #d66d06;
+$color-black:               #000000;
+
+// almost black
+$color-blackish-1:          #111111;
+$color-blackish-2:          #333333;
+$color-blackish-3:          #231F20;
+
+// greys
+$color-warmgrey-1:          #a7a59b;
+$color-warmgrey-2:          #74736c;
+$color-warmgrey-3:          #777777;
+$color-warmgrey-4:          #dfded8;
+$color-warmgrey-5:          #43423e;
+
+// tints
+$color-tint-1:              #f6e9d8;
+$color-tint-2:              #e9decf;
+$color-tint-3:              #cec6b9;
+
+/* text colors */
+$text-color-muted-dark:         #505050;
+$text-color-muted-mid:          #74736C;
+$text-color-muted-light:        #999999;
+
+$text-color-header:             $color-blackish-2;
+$text-color-header-main:        $color-black;
+$text-color-header-inverse:     #ffffff;
+$text-color-header-main-inverse:#ffffff;
+$text-color-subheader:          $text-color-muted-dark;
+$text-color-body:               $color-warmgrey-2;
+$text-color-rail:               darken($text-color-body, 11%);
+$text-color-link:               #4781aa;
+$text-color-link-hover:         darken($text-color-link, 7%);
+
+
+/* font families */
+$font-family-serif: 'Clarion', 'Georgia', serif;
+$font-family-sans: 'BentonSans', 'Helvetica', 'Arial', sans-serif;
+
+/* Family uses */
+$font-family-body: $font-family-serif;
+$font-family-header: 'MillerDisplay', $font-family-serif;
+
+$font-family-ui: $font-family-sans;
+$font-family-alt: $font-family-sans;
+
+/* article elements */
+$text-color-byline:     $text-color-muted-mid;
+$font-family-byline:    $font-family-alt;
+
+/* ratios */
+$ratio-1-1: 1;
+$ratio-4-3: 1.33;
+$ratio-3-2: 1.5;
+$ratio-16-9: 1.77;
+$ratio-16-10: 1.61803;
+$ratio-iso-216: 1.41;
+
+/* ratios - common names */
+$ratio-square: $ratio-1-1;
+$ratio-golden: $ratio-16-10;
+$ratio-a4paper: $ratio-iso-216;
+$ratio-monitor: $ratio-4-3;
+$ratio-35mm: $ratio-3-2;
+$ratio-hdtv: $ratio-16-9;
+$ratio-cinema: 1.85;
+$ratio-cinema-wide: 2.39;
+$ratio-cinema-panavision: 2.75;
+$ratio-cinema-polyvision: 4.00;
+
+/*
+    todo: define functions 
+    for letterboxing (proportional space above and below)
+    and pillarboxing (proportionalspace left and right)
+*/
+
+/* misc */
+$hr-border: 1px dotted $color-warmgrey-1;
+$indent-val: 1em;
+
+$em-base: 16px; 
+
+// Working in ems is annoying. Think in pixels by using this handy function, emCalc(#px)
+@function emCalc($pxWidth) {
+  @return $pxWidth / $em-base * 1em;
+}
+
+// Creating rems and pixels
+@function remCalc($pxWidth) {
+  @return $pxWidth / $em-base * 1rem;
+}
+
+// Grid Calculation for Percentages
+@function gridCalc($colNumber, $totalColumns) {
+  @return percentage(($colNumber / $totalColumns));
+}
+
+/* Foundation overrides */
+$small-screen: emCalc(768px);
+$medium-screen: emCalc(1280px);
+$large-screen: emCalc(1440px);
+
+$body-bg: $color-salmon;
+$body-font-color: $text-color-body;
+$body-font-family: $font-family-body;
+
+$header-font-family: $font-family-header;
+$header-font-color: $text-color-header;
+
+$small-font-color: $text-color-muted-mid;
+$header-font-weight: normal;
+$behavior: collapse;
+
+$topbar-bg: $color-blackish-3;
+$topbar-height: 47px;
+$topbar-title-weight: normal;
+$topbar-title-font-size: 19px;
+$topbar-link-font-size: 14px;
+$topbar-link-weight: normal;
+$paragraph-font-size: 0.9em;
+$paragraph-line-height: 1.6;
+
+$anchor-font-color: $text-color-link;
+$anchor-font-color-hover: $text-color-link-hover;
+//$topbar-breakpoint: emCalc(769px);
+//$column-gutter:0;
+
+$input-font-family: $font-family-sans;
+//$label-font-size: 16;
+//$input-font-size: 16;
+
+$row-width:     emCalc(1100px);
+$column-gutter: emCalc(32px);
+$total-columns: 16;
+
