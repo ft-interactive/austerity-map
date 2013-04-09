@@ -422,21 +422,21 @@
       // console.log('updating map colours');
 
       la_paths.attr('fill', function (d, i) {
-        return map_view.getLaColour(d.properties);
+        return map_view.getLaColour(d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1]);
       });
     },
 
-    getLaColour: function (properties) {
+    getLaColour: function (standard_deviation) {
       // Returns the correct colour for the given properties.
 
       // See what property we need to base this on
-      var data = properties.cuts[app.get('selected_cut')][app.get('selected_measure')];
+      // var data = properties.cuts[app.get('selected_cut')][app.get('selected_measure')];
 
-      if (!data || data.length !== 2)
-        throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
+      // if (!data || data.length !== 2)
+      //   throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
 
       // Return an HSL with a luminosity reflecting the bucket number
-      var standard_deviation = data[1];
+      // var standard_deviation = data[1];
       var bucket_number = UKA.normaliseBucket(standard_deviation, config.num_buckets);
 
       var luminosity_range = config.max_luminosity - config.min_luminosity;

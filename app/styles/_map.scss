@@ -154,9 +154,24 @@
 	font-size:12px;
 }
 
-#histogram-cont {
+#key {
+  margin-top: 20px ;
 }
   #histogram {
     height: 160px ;
     background-color: #555 ;
+  }
+  
+  #bars {
+
+    .the-bars {
+      position: relative ;
+      width: 235px ;
+      margin-top: 10px ;
+    }
+      .bar {
+        display: inline-block ;
+        outline: 1px solid rgba(255,255,255,0.5) ;
+        height: 15px ;
+      }
   }

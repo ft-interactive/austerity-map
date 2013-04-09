@@ -87,6 +87,11 @@
         el: document.getElementById('postcode-form')
       });
 
+      // Set up histogram-style key
+      new UKA.Views.Key({
+        el: document.getElementById('key')
+      });
+
       return this;
     }
   });
