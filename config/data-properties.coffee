@@ -99,7 +99,7 @@ measures = [
 presets = [
   id          : "blackpool"
   title       : "Blackpool"
-  description : "Overall most affected area"
+  description : "The seaside town will be hardest hit overall, losing £914 per working-age adult, nearly 5 per cent of local disposable income."
   map_centre  : [50, 1]
   map_scale   : 8
   image_url   : "images/icon1.png"
@@ -110,7 +110,7 @@ presets = [
 ,
   id          : "london"
   title       : "London"
-  description : "Housing benefit cap"
+  description : "The household benefit cap will be felt largely in the capital. London boroughs take the top five places for the worst affected areas."
   map_centre  : [50, 1]
   map_scale   : 8
   image_url   : "images/icon2.png"
@@ -121,7 +121,7 @@ presets = [
 ,
   id          : "neath-port-talbot"
   title       : "Neath Port Talbot"
-  description : "Incapacity benefit"
+  description : "Incapacity benefit changes be felt most in the Welsh Valleys. Neath Port Talbot stands to lose £256 per working age each year."
   map_centre  : [50, 1]
   map_scale   : 8
   image_url   : "images/icon3.png"
@@ -132,7 +132,7 @@ presets = [
 ,
   id          : "st-albans"
   title       : "St Albans"
-  description : "Child benefit"
+  description : "Limiting child benefit for wealthier households is one change that will hit affluent areas. St Albans will lose £102 for each working-age adult."
   map_centre  : [50, 1]
   map_scale   : 8
   image_url   : "images/icon4.png"
