@@ -229,7 +229,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'data/*',
             'styles/fonts/*',
-            'styles/images/*'
+            'styles/images/*',
+            'images/*.svg'
           ]
         }]
       }
