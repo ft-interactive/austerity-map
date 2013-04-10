@@ -160,7 +160,7 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
     }
 }
 
-top-bar-section{
+.top-bar-section{
     ul li > a:not(.button){
         &.tomorrow{
             cursor: default !important;
