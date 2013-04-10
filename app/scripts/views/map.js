@@ -199,25 +199,22 @@
 
       // Listen for mousewheel, and update app:map_scale property
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
+        // Don't do anything special for horizontal scrolling
         if (!delta_y)
           return;
 
+        // Prevent the page scrolling
         event.preventDefault();
 
+        // Deterimine which way to zoom
         var zoom_adjustment;
         if (delta_y > 0)
           zoom_adjustment = 1;
         else if (delta_y < 0)
           zoom_adjustment = -1;
 
-        // console.log('zooming', zoom_adjustment);
-
-        var old_zoom_level = app.attributes.zoom_level;
-
-        app.set('zoom_level', old_zoom_level + zoom_adjustment);
-
-        // if (app.attributes.zoom_level === old_zoom_level)
-        //   return ;
+        // Adjust the zoom level
+        app.set('zoom_level', app.attributes.zoom_level + zoom_adjustment);
       }) ;
 
       // Listen for mousedown and start a drag interaction
