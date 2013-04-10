@@ -303,7 +303,7 @@
       // Update the map when a preset is selected
       app.on('change:preset', function (app, preset) {
         // console.log('preset', preset.title, (app.previous('preset') ? app.previous('preset').title : null));
-        console.log('preset', preset);
+        // console.log('preset', preset);
 
         if (preset.translate_x) {
           app.set('zoom_level', preset.zoom);
@@ -422,42 +422,35 @@
       // console.log('updating map colours');
 
       la_paths.attr('fill', function (d, i) {
-        return map_view.getLaColour(d.properties);
+        return map_view.getLaColour(
+          d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1]
+        );
       });
     },
 
-    getLaColour: function (properties) {
-      // Returns the correct colour for the given properties.
-
-      // See what property we need to base this on
-      var data = properties.cuts[app.get('selected_cut')][app.get('selected_measure')];
-
-      if (!data || data.length !== 2)
-        throw 'Missing data for cut ' + app.get('selected_cut') + ' and measure ' + app.get('selected_measure');
+    getLaColour: function (sd_unit) {
+      // Returns the correct colour for the given SD number.
 
       // Return an HSL with a luminosity reflecting the bucket number
-      var standard_deviation = data[1];
-      var bucket_number = UKA.normaliseBucket(standard_deviation, config.num_buckets);
 
+      var num_buckets = app.get('num_buckets');
+
+      var bucket_number = UKA.normaliseBucket(sd_unit, num_buckets);
       var luminosity_range = config.max_luminosity - config.min_luminosity;
-      var num_divisions = luminosity_range / config.num_buckets;
+      var num_divisions = luminosity_range / num_buckets;
       var luminosity = Math.round(
         config.max_luminosity - (num_divisions * bucket_number)
       );
-
-      // if (luminosity < config.min_luminosity ||luminosity > config.max_luminosity) {
-      //   throw error 'Should not happen';
-      // }
 
       return 'hsl(0,50%,'+ luminosity +'%)';
     },
 
     // Hover box
     showHoverBox: function (path, data) {
-      console.log(data);
+      // console.log(data);
       var left_offset,
           top_offset,
-          gap_above_cursor = 30,
+          gap_above_cursor = 70,
           p = data.properties,
           selected_cut = app.attributes.selected_cut,
           selected_measure = app.attributes.selected_measure,

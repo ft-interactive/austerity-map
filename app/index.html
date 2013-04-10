@@ -22,41 +22,40 @@
     </script>
   </head>
   <body class="no-shiz">
+
     <!-- begin: nav-bar -->
     <div id="nav-container" class="fixed">
-        <nav class="top-bar">
-            <ul class="title-area">
-                <li class="name">
-                    <a id="top-logo" href="http://www.ft.com/"></a>
-                    <a id="nav-title" href="/austerity-in-the-uk/#overview">Austerity in the UK</a>
-                </li>
-                <li class="toggle-topbar menu-icon">
-                    <a><span>Menu</span></a>
-                </li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="right">
-                    <li class="label hide-for-small"><label>in context:</label></li>
-                    <li><a href="/austerity-in-the-uk/#policy">Policy</a></li>
-                    <li><a href="/austerity-in-the-uk/#business">Business</a></li>
-                    <li><a href="/austerity-in-the-uk/#jobs">Jobs</a></li>
-                    <li><a href="/austerity-in-the-uk/#politics">Politics</a></li>
-                    <li class="divider hide-for-small"></li>
-                    <li class="has-dropdown"><a href="#case-studies">Case Studies</a>
-
-                        <ul class="dropdown">
-                            <li><a href="/austerity-in-the-uk/#blackpool">Blackpool</a></li>
-                            <li><a href="/austerity-in-the-uk/#guildford">Guildford</a></li>
-                            <li><a href="/austerity-in-the-uk/#merthyr-tydfil">Merthyr Tydfil</a></li>
-                        </ul>
-                    </li>
-                    <li class="data-graphic show-for-small"><a href="./">Explore the data</a></li>
-                </ul>
-            </section>
-        </nav>
-        
+      <nav class="top-bar">
+        <ul class="title-area">
+          <li class="name">
+            <a id="top-logo" href="http://www.ft.com/"></a>
+            <a id="nav-title" href="/austerity-in-the-uk/#overview">Austerity in the UK</a>
+          </li>
+          <li class="toggle-topbar menu-icon">
+            <a><span>Menu</span></a>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="label hide-for-small"><label>in context:</label></li>
+            <li><a href="/austerity-in-the-uk/#policy">Policy</a></li>
+            <li><a href="/austerity-in-the-uk/#business">Business</a></li>
+            <li><a href="/austerity-in-the-uk/#jobs">Jobs</a></li>
+            <li><a href="/austerity-in-the-uk/#politics">Politics</a></li>
+            <li class="divider hide-for-small"></li>
+            <li class="has-dropdown">
+              <a href="#case-studies">Case Studies</a>
+              <ul class="dropdown">
+                <li><a href="/austerity-in-the-uk/#blackpool">Blackpool</a></li>
+                <li><a href="/austerity-in-the-uk/#guildford">Guildford</a></li>
+                <li><a href="/austerity-in-the-uk/#merthyr-tydfil">Merthyr Tydfil</a></li>
+              </ul>
+            </li>
+            <li class="data-graphic show-for-small"><a href="./">Explore the data</a></li>
+          </ul>
+        </section>
+      </nav>
     </div>
-    <header id="ft-header"></header>
     <a id="data-btn" class="active" href="./"><span>Data Graphic</span></a>
     <!-- end: nav-bar -->
    
@@ -82,7 +81,7 @@
           <div id="zoom-control">
             <div id="increase-zoom">+</div>
             <div id="decrease-zoom">−</div>
-            <div id="reset-map"><img src="../images/resetMap.png" alt="Reset map view" width="23px" height="40px"></div>
+            <div id="reset-map" style="width:20px"><img src="images/resetMap.png" alt="Reset map view" width="23px" height="40px"></div>
           </div>
 
           <form id="postcode-form">
@@ -97,9 +96,9 @@
             <div id="measurement-options">
             </div>
 
-            <div id="histogram-cont">
-              <h3></h3>
-              <div id="histogram">Histogram</div>
+            <div id="key">
+              <!-- <div id="histogram"></div> -->
+              <div id="bars"></div>
             </div>
 
           </div>
@@ -166,6 +165,7 @@
     <script src="scripts/views/zoom-control.js"></script>
     <script src="scripts/views/preset.js"></script>
     <script src="scripts/views/postcode-form.js"></script>
+    <script src="scripts/views/key.js"></script>
 
     <script src="scripts/main.js"></script>
 

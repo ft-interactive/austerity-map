@@ -159,9 +159,37 @@
 	font-size:12px;
 }
 
-#histogram-cont {
+#key {
+  margin-top: 20px ;
 }
   #histogram {
     height: 160px ;
     background-color: #555 ;
+  }
+  
+  #bars {
+
+    .the-bars {
+      position: relative ;
+      width: 235px ;
+      margin-top: 10px ;
+    }
+      .bar {
+        display: inline-block ;
+        outline: 1px solid rgba(255,255,255,0.5) ;
+        height: 15px ;
+      }
+    .the-labels {
+      // outline: 1px solid blue ;
+      position: relative ;
+      white-space: nowrap;
+    }
+      .key-label {
+        // outline: 1px solid pink ;
+        display: inline-block ;
+        overflow: hidden ;
+        font-size: 10px ;
+        font-family: verdana ;
+        text-align: center ;
+      }
   }

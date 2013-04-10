@@ -26,7 +26,7 @@
       var a = this.model.attributes;
 
       this.$el.html(
-        '<img src="' + a.image_url + '">' +
+        '<img src="' + a.image_url + '" draggable="false">' +
         '<h4>' + _.escape(a.title) + '</h4>' +
         '<p>' + _.escape(a.description) + '</p>'
       );
