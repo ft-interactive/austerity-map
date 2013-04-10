@@ -137,18 +137,19 @@
           app.set('selected_la', d.properties);
         })
         .on('mouseover', function (d, i) {
+          // Do nothing if this is during a pan
           if (panning_sequence)
             return;
 
-          if (app.attributes.selected_la === d.properties)
-            return;
-
-          // Move hovered LA to end so it appears on top
-          unselected_las_group_el.appendChild(this);
-          this.setAttribute('stroke-width', 2*getStrokeWidth());
-          this.setAttribute('stroke', config.la_stroke_colour_hover);
-
+          // Show the hover box regardless
           map_view.showHoverBox(this, d);
+
+          // Unless this LA is actually selected, give it the hover effect
+          if (app.attributes.selected_la !== d.properties) {
+            unselected_las_group_el.appendChild(this);
+            this.setAttribute('stroke-width', 2*getStrokeWidth());
+            this.setAttribute('stroke', config.la_stroke_colour_hover);
+          }
         })
         .on('mouseout', function  (d, i) {
           if (panning_sequence)
