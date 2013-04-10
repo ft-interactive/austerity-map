@@ -61,30 +61,38 @@
       bars_html   += '</div>';
 
       // Build the labels HTML
+      function formatFigure(figure) {
+        if (figure > 10000)
+          return numeral(figure).format('0a');
+        if (figure > 1000)
+          return numeral(figure).format('0.0a');
+        return numeral(figure).format('0,0');
+      }
+
       var labels_html = '<div class="the-labels" style="left:-'+(pct_width/2)+'%">';
       for (i = min; i < max; i++) {
         // Building the label aligned with the left edge of the corresponding bucket.
 
         var label_value = Math.round(values.mean + (i * values.sd));
 
-        var from = numeral(
+        var from = (
           i === min ?
           values.min_val :
           label_value
-        ).format('0,0');
+        );
 
         labels_html += (
           '<div class="key-label" style="' +
             'width:' + pct_width + '%;' +
             // (i===0? 'color:blue;' : '') +
-          '">'+from+'</div>'
+          '">'+ formatFigure(from) +'</div>'
         ) ;
       }
       // Add the extra label at the end
       labels_html += (
         '<div class="key-label" style="' +
           'width:' + pct_width + '%;' +
-        '">'+ values.max_val +'</div>'
+        '">'+ formatFigure(values.max_val) +'</div>'
       ) ;
       labels_html += '</div>';
 
