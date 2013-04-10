@@ -3,7 +3,7 @@
   Manages the dynamic histogram key.
 */
 
-/*global UKA, Backbone, $*/
+/*global UKA, Backbone, $, numeral*/
 
 (function () {
   'use strict';
@@ -26,90 +26,72 @@
 
       $bars = $('#bars');
 
-      // console.log('KEY', view.el, UKA.deviations);
-
-      // Set up key
-
-
-      // Refresh the key whenever a new (valid) cut/measure combination is selected
-      app.on('change:selected_cut change:selected_measure', function () {
-        // If the current combination of cut and measure is valid, update the key
-        $.each(config.cuts, function (i, cut) {
-          if (
-            cut.key === app.attributes.selected_cut &&
-            cut.measures.indexOf(app.attributes.selected_measure) > -1
-          ) {
-            view.refresh();
-            return false;
-          }
-        });
-      });
-
-
-      view.refresh();
-
+      // Render the key once at start, and whenever a new (valid) cut/measure combination is selected
+      view.render();
+      app.on('change:selected_combo', view.render);
 
       return view;
     },
 
-    refresh: function () {
-      var values = deviations[app.attributes.selected_cut + '_' + app.attributes.selected_measure];
-      // console.log('Refreshing key', values);
+    render: function () {
+      var values = deviations[app.attributes.selected_cut + '_' + app.attributes.selected_measure],
 
+          min = app.get('clamped_min_sdu'),
+          max = app.get('clamped_max_sdu'),
+          num_bars = max-min,
+          pct_width = (100 / num_bars);
 
-
-      var min = (values.min < -4? -4 : values.min) ;
-      var max = (values.max >  4?  4 : values.max) ;
-
-      var num_bars = max - min ;
-      var pct_width = (100 / num_bars);
-      // console.log('num_bars', num_bars);
-
+      // Build the bars HTML
       var bars_html   = '<div class="the-bars">';
-      var labels_html = '<div class="the-labels" style="left:-'+(pct_width/2)+'%">';
-
-      for (var i = min; i < max; i++) {
-        // console.log(i, values.mean + (i * values.sd));
-
-        var from = numeral(
-          Math.max(Math.round(values.mean + (i * values.sd)), 0)
-        ).format('0,0');
-
-        var to = numeral(
-          Math.round(values.mean + ((i+1) * values.sd))
-        ).format('0,0');
+      for (var i = min; i <= max; i++) {
+        // There is no "zero" bar.
+        if (i === 0)
+          continue;
 
         var colour = UKA.map_view.getLaColour(i);
 
         bars_html += (
           '<div class="bar" style="' +
             'width:' + pct_width + '%;' +
-            // 'height:10px;' +
             'background-color:' + colour + ';' +
             '"' +
-            // ' title="'+ from + ' - ' + to +'"' +
-          '></div>'
+          '>' + /*i +*/ '</div>'
         ) ;
+      }
+      bars_html   += '</div>';
+
+      // Build the labels HTML
+      var labels_html = '<div class="the-labels" style="left:-'+(pct_width/2)+'%">';
+      for (i = min; i < max; i++) {
+        // Building the label aligned with the left edge of the corresponding bucket.
+
+        var label_value = Math.round(values.mean + (i * values.sd));
+
+        var from = numeral(
+          i === min ?
+          values.min_val :
+          label_value
+        ).format('0,0');
 
         labels_html += (
           '<div class="key-label" style="' +
             'width:' + pct_width + '%;' +
+            // (i===0? 'color:blue;' : '') +
           '">'+from+'</div>'
         ) ;
       }
-
+      // Add the extra label at the end
       labels_html += (
         '<div class="key-label" style="' +
           'width:' + pct_width + '%;' +
-        '">'+to+'</div>'
+        '">'+ values.max_val +'</div>'
       ) ;
-
-      bars_html   += '</div>';
       labels_html += '</div>';
 
-      // First, 
-
+      // Render
       $bars.empty().append(bars_html).append(labels_html);
+
+      return view;
     }
   });
 

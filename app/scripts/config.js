@@ -14,8 +14,10 @@ UKA.config = {
   default_cut: 'TOTAL_IMPACT',
   default_measure: '£PWA',
 
-  // num_buckets: 8,
+  max_buckets: 8,
 
-  min_luminosity: 25,
-  max_luminosity: 95
+  hue: 0,
+  saturation: 50,
+  min_luminosity: 20,
+  max_luminosity: 87
 };
