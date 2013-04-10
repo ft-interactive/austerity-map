@@ -1,3 +1,10 @@
+# Use server-side includes
+Options +IncludesNOEXEC
+AddHandler server-parsed .html
+AddType text/html .html
+AddOutputFilter INCLUDES .html
+
+
 # Apache configuration file
 # httpd.apache.org/docs/2.2/mod/quickreference.html
 
