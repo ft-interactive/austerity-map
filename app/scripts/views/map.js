@@ -30,12 +30,12 @@
       las_natural_height,
 
       width = 972,
-      height = 680,
+      height = 550,
 
       projection = d3.geo.mercator()
         // .scale( 16000 )
         .center( [0, 55.4] )
-        .translate( [(width/2) + 200, height/2] ),
+        .translate( [(width/2) + 200, height/2 - 40] ),
 
       projectPath = d3.geo.path()
         .projection(projection),

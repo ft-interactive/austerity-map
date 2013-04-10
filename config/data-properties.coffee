@@ -104,8 +104,8 @@ presets = [
   map_scale   : 8
   image_url   : "images/icon1.png"
   select_la   : "E06000009"
-  translate_x : 1323
-  translate_y : -1013
+  translate_x : 1330
+  translate_y : 0
   zoom        : 20
 ,
   id          : "london"
@@ -115,8 +115,8 @@ presets = [
   map_scale   : 8
   image_url   : "images/icon2.png"
   select_la   : "E09000033"
-  translate_x : 223
-  translate_y : -2435
+  translate_x : 215
+  translate_y : -1389
   zoom        : 20
 ,
   id          : "neath-port-talbot"
@@ -126,8 +126,8 @@ presets = [
   map_scale   : 8
   image_url   : "images/icon3.png"
   select_la   : "W06000012"
-  translate_x : 499
-  translate_y : -920
+  translate_x : 500
+  translate_y : -535
   zoom        : 7
 ,
   id          : "st-albans"
@@ -138,7 +138,7 @@ presets = [
   image_url   : "images/icon4.png"
   select_la   : "E07000240"
   translate_x : 96
-  translate_y : -1500
+  translate_y : -840
   zoom        : 13
 ]
 
