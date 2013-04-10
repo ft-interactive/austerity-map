@@ -175,6 +175,9 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
     }
 }
 
+.top-bar-section ul li.has-dropdown a:not(.button).tomorrow:hover {
+    background-color: #312B2C !important;
+}
 
 #nav-title{
     font-size: emCalc(19px);
