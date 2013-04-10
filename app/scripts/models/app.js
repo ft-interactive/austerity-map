@@ -93,8 +93,6 @@
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
       'map_transform_scale': 1,
-      'map_translate_x': 0,
-      'map_translate_y': 0,
       'zoom_level': 1,
 
       'selected_la': null,
