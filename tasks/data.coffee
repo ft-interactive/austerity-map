@@ -42,7 +42,7 @@ module.exports = (grunt) -> (target) ->
   connection.connect()
 
   ################################################
-  # STEP 1: Build app/data/properties.js
+  # STEP 1: Build app/data/fields.js
   ################################################
 
   fs.writeFileSync OUTPUT_DATA_FIELDS_FILE, (
@@ -50,6 +50,8 @@ module.exports = (grunt) -> (target) ->
     JSON.stringify(data_properties, null, 2) +
     ');'
   )
+
+  grunt.log.ok 'Built fields file.'
 
   ################################################
   # STEP 2: Build app/data/deviations.js
@@ -65,6 +67,8 @@ module.exports = (grunt) -> (target) ->
 
     for row in rows
       deviations[row.var] = {
+        min_val: row.minVal
+        max_val: row.maxVal
         min: row.min
         max: row.max
         mean: row.mean
@@ -76,6 +80,8 @@ module.exports = (grunt) -> (target) ->
       JSON.stringify(deviations, null, 2) +
       ');'
     )
+
+    grunt.log.ok 'Built deviations file.'
 
     ################################################
     # STEP 3: Build app/data/local-authorities-topojson.js
