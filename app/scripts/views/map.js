@@ -236,7 +236,6 @@
             initialEvent: mousedown_event,
 
             dragStart: function () {
-              // console.log('PAN STARTED');
               map_view.hideHoverBox();
             },
 

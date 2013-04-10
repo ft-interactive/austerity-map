@@ -19,29 +19,11 @@
       app = UKA.app;
       $presets = $('#presets');
 
-      return this;
-    },
+      var view = this;
 
-    render: function () {
-      var a = this.model.attributes;
-
-      this.$el.html(
-        '<img src="' + a.image_url + '" draggable="false">' +
-        '<h4>' + _.escape(a.title) + '</h4>' +
-        '<p>' + _.escape(a.description) + '</p>'
-      );
-
-      return this;
-    },
-
-    append: function () {
-      this.$el.appendTo($presets);
-    },
-
-    events: {
-      click: function (event) {
-        if (event.which === 1) {
-          var preset = this.model.attributes;
+      view.$el.click(function (event) {
+        if (event.which === 1 || event.isTrigger) {
+          var preset = view.model.attributes;
 
           if (preset.translate_x) {
             app.set('zoom_level', preset.zoom);
@@ -57,8 +39,32 @@
             app.set('selected_cut', preset.select_cut);
           if (preset.select_measure != null)
             app.set('selected_measure', preset.select_measure);
+
+          // if (location.hash !== preset.id && 'replaceState' in history) {
+          //   history.replaceState( {} , '', '#'+preset.id);
+          // }
         }
-      }
+      });
+
+      return view;
+    },
+
+    render: function () {
+      var a = this.model.attributes;
+
+      this.$el.html(
+        '<img src="' + a.image_url + '" draggable="false">' +
+        '<h4>' + _.escape(a.title) + '</h4>' +
+        '<p>' + _.escape(a.description) + '</p>'
+      ).attr('data-preset', a.id);
+
+      return this;
+    },
+
+    append: function () {
+      this.$el.appendTo($presets);
+
+      return this;
     }
   });
 

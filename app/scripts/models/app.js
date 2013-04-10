@@ -147,8 +147,9 @@
     start: function () {
       // Set up the presets
       var presets = config.presets;
+      UKA.preset_models = {};
       for (var i=0, l=presets.length; i<l; i++) {
-        new UKA.Models.Preset(presets[i]);
+        UKA.preset_models[presets[i].id] = new UKA.Models.Preset(presets[i]);
       }
 
       // Set up the main map view
@@ -189,6 +190,24 @@
 
       // Select an LA at the start
       app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+
+      // Handle hash changes for preset
+      function clickPresetToReflectHash() {
+        var hash = location.hash;
+        if (hash && hash.length > 1) {
+          var $preset = $('#presets').find('[data-preset=' + hash.substring(1) + ']');
+          // console.log('preset el', $preset[0]);
+          $preset.trigger('click');
+
+          if ('replaceState' in history) {
+            console.log('replacing');
+            history.replaceState( {} , '', location.pathname);
+          }
+        }
+      }
+      // if ('onhashchange' in window)
+      //   window.addEventListener('hashchange', clickPresetToReflectHash, false);
+      clickPresetToReflectHash();
 
       return this;
     }

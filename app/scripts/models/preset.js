@@ -4,7 +4,7 @@
 
   UKA.Models.Preset = Backbone.Model.extend({
     initialize: function () {
-      new UKA.Views.Preset({
+      this.view = new UKA.Views.Preset({
         model: this
       }).render().append();
     }
