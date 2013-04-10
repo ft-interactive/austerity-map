@@ -53,7 +53,7 @@
     render: function () {
       var new_html = '<div>';
       new_html += ('<div class="laName"></div>');
-      new_html += ('<div class="areaLeftHolder"><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div>');
+      new_html += ('<div class="areaLeftHolder"><div class="barHolder"></div><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div>');
       new_html += ('<div class= "imdNote"><span style="font-size:20px">Deprivation</span>');
       new_html += ('<div class="imd"></div></div></div>');
       new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:20px"><i>Political</i></span>');
@@ -69,8 +69,9 @@
     var selected_la = app.get('selected_la');
 	  var selected_measure = app.get('selected_measure');
 	  var selected_cut = app.get('selected_cut');
-	  var cuts = selected_la.cuts
-	  var cutsLabels = UKA.config.cuts
+	  var cuts = selected_la.cuts;
+	  var cutsLabels = UKA.config.cuts;
+    var bar_values =[];
 	  var donut_values =[];
 	  var donut_labels =[];
     // console.log(selected_la)
@@ -111,23 +112,77 @@
       var dVal = Number(cuts[cut]['£PWA'][0]) 
       donut_values.push(dVal);
     }
+
+    for (var cut in cuts) {
+      var bVal = Number(cuts[cut]['£MILL'][0]) 
+      bar_values.push(bVal);
+    }
+    console.log(selected_la);
 	  var totalFig = Math.round(donut_values[donut_values.length-1]);
 	  
 	  view.$(".donutValue").html("<span style='font-size:20px'>Total</span></br>£" + totalFig);
   	  
 	  donut_values.pop();
-      
+    bar_values.pop();
+
+    Array.prototype.sum = function() {
+      return this.reduce(function(a,b){return a+b;});
+    }
+
+    var bValSum = bar_values.sum();
+
 	  for (var cutLabels in cutsLabels) {
-  	      donut_labels.push(cutsLabels[cutLabels].label);
-  	  }
+	      donut_labels.push(cutsLabels[cutLabels].label);
+	  }
+
+    color = [ "#91BDAF", "#E9B099", "#E45C51", "#A3514F", "#613A23", "#4A4233", "#02665E", "#439D91", "#B3C9C3", "#DFDFDF" ];
+
+    // stacker bar creator
+    view.$(".barHolder").empty();
+
+    for (var i = 0; i < bar_values.length; i++) {
+      var bValWidth = (410 * Number(bar_values[i]/bValSum))-1;
+      view.$(".barHolder").append("<div class='barSeg' id='barSeg_" + i + "' ></div>")
+      view.$("#barSeg_" + i).css("width", bValWidth +"px").css("background-color", color[i]);
+      if(i < bar_values.length-1){
+        view.$("#barSeg_" + i).css("border-left", "1px solid #fff");
+      }else{
+        view.$("#barSeg_" + i).css("border-right", "1px solid #fff");
+      }
+    };
+
+    view.$(".barSeg" ).bind("mouseover", function(){
+        var bID = this.id.split('_')[1];
+        console.log(bID);
+        leftPos = $('#cont').offset();
+        $(".toolTip").show();
+        $(".toolTip").empty();
+        $(".toolTip").append("<div class='regionName'><b>" + donut_labels[bID] + "</b><br/><div class='bigNumber' >£" + bar_values[bID].toFixed(2) + "m</div>");
+        $(".toolTip").stop().animate(
+        {
+          opacity:1
+        },
+        500
+        );
+    });
+
+    
+        
+    view.$(".barSeg" ).bind("mouseout", function(){
+      $(".toolTip").stop().animate(
+      {
+        opacity:0
+      },
+      500
+      );
+    })
 
 	  //donut creator
 	  view.$(".donutHolder").empty();
+
 	  var width = 250,
 	      height = 250,
-	      radius = Math.min(width, height) / 2;
-
-	  color = [ "#91BDAF", "#E9B099", "#E45C51", "#A3514F", "#613A23", "#4A4233", "#02665E", "#439D91", "#B3C9C3", "#DFDFDF" ];
+	      radius = Math.min(width, height) / 2;	  
 
 	  pie = d3.layout.pie()
 	      .sort(null);
@@ -154,7 +209,7 @@
       .on("mouseout", donutOut);
 			  
 		  function donutOver(d, i) {
-		  	  leftPos = $('#cont').offset();
+		  	leftPos = $('#cont').offset();
 			  $(".toolTip").show();
 			  $(".toolTip").empty();
 			  d3.select(this).style("stroke", function(d, i) { return "#000"; });

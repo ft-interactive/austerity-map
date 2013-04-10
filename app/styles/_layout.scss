@@ -50,7 +50,7 @@ $min-width: 972px ;
         font-size: 32px;  		
       }
       .areaLeftHolder {
-      	width: 410px;
+      	width: 420px;
         border-right: 1px dotted $ft_warmGrey1;
         margin-top: 6px;
         padding-right: 14px;
@@ -81,7 +81,16 @@ $min-width: 972px ;
         font-size: 13px;
         line-height: 20px;
       }
-  	  
+  	  .barHolder {
+        position: relative;
+        top: 20px;
+        height:30px;
+      }
+      .barSeg{
+        height:30px;
+        float:left;
+        cursor: pointer;
+      }
     }
 	
   .areaRightHolder {
@@ -127,7 +136,7 @@ $min-width: 972px ;
     opacity: 0;
     z-index: 11000;
     pointer-events: none;
-    max-width: 130px;
+    max-width: 150px;
     .bigNumber {
       font-size: 40px;
     }
