@@ -142,61 +142,58 @@
             <b>• Editors:</b>  Christine Spolar and Andrew Ward
           </dd>
         </dl>
-            
+
         <p class="ft-details">
           <span class="copyright"><strong>&#169; The Financial Times Ltd 2013 </strong></span>
           <span>&nbsp;<acronym title="Financial Times">FT</acronym> and 'Financial Times' are trademarks of The Financial Times Ltd.</span>
         </p>
       </footer>
     </div>
-    
+
     <div class="pearson">
       <div class="tagline"><span class="offscreen">Always learning</span></div>
       <div class="companyName"><span class="offscreen">Pearson</span></div>
     </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--#include virtual="/inc/extras-foot-1.html" -->
+<!-- build:js scripts/bottom.js -->
+<script src="components/lodash/dist/lodash.js"></script>
+<script src="components/backbone/backbone.js"></script>
+<script src="components/d3/d3.js"></script>
+<script src="components/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="components/topojson/topojson.js"></script>
+<script src="components/dnd.js/dnd.js"></script>
+<script src="components/numeral/numeral.js"></script>
+<script src="scripts/vendor/uk-postcode.js"></script>
+<script src="scripts/vendor/request-animation-frame.js"></script>
+<script src="components/foundation/js/foundation/foundation.js"></script>
+<script src="components/foundation/js/foundation/foundation.topbar.js"></script>
 
-    <!--#include virtual="/inc/extras-foot-1.html" -->
+<script src="scripts/namespace.js"></script>
+<script src="scripts/config.js"></script>
 
-    <!-- build:js scripts/bottom.js -->
-    <script src="components/lodash/dist/lodash.js"></script>
-    <script src="components/backbone/backbone.js"></script>
-    <script src="components/d3/d3.js"></script>
-    <script src="components/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="components/topojson/topojson.js"></script>
-    <script src="components/dnd.js/dnd.js"></script>
-    <script src="components/numeral/numeral.js"></script>
-    <script src="scripts/vendor/uk-postcode.js"></script>
-    <script src="scripts/vendor/request-animation-frame.js"></script>
-    <script src="components/foundation/js/foundation/foundation.js"></script>
-    <script src="components/foundation/js/foundation/foundation.topbar.js"></script>
+<script src="scripts/helpers/normalise-bucket.js"></script>
+<script src="scripts/helpers/zoom-level-to-scale.js"></script>
 
-    <script src="scripts/namespace.js"></script>
-    <script src="scripts/config.js"></script>
+<script src="scripts/models/app.js"></script>
+<script src="scripts/models/preset.js"></script>
 
-    <script src="scripts/helpers/normalise-bucket.js"></script>
-    <script src="scripts/helpers/zoom-level-to-scale.js"></script>
+<script src="scripts/views/map.js"></script>
+<script src="scripts/views/area-stats.js"></script>
+<script src="scripts/views/cut-types-dropdown.js"></script>
+<script src="scripts/views/measurement-options.js"></script>
+<script src="scripts/views/zoom-control.js"></script>
+<script src="scripts/views/preset.js"></script>
+<script src="scripts/views/postcode-form.js"></script>
+<script src="scripts/views/key.js"></script>
 
-    <script src="scripts/models/app.js"></script>
-    <script src="scripts/models/preset.js"></script>
+<script src="scripts/main.js"></script>
 
-    <script src="scripts/views/map.js"></script>
-    <script src="scripts/views/area-stats.js"></script>
-    <script src="scripts/views/cut-types-dropdown.js"></script>
-    <script src="scripts/views/measurement-options.js"></script>
-    <script src="scripts/views/zoom-control.js"></script>
-    <script src="scripts/views/preset.js"></script>
-    <script src="scripts/views/postcode-form.js"></script>
-    <script src="scripts/views/key.js"></script>
-
-    <script src="scripts/main.js"></script>
-
-    <script src="data/local-authorities-topojson.js"></script>
-    <script src="data/fields.js"></script>
-    <script src="data/deviations.js"></script>
-    <!-- endbuild -->
-
-    <!--#include virtual="/inc/extras-foot-2.html" -->
-  </body>
+<script src="data/local-authorities-topojson.js"></script>
+<script src="data/fields.js"></script>
+<script src="data/deviations.js"></script>
+<!-- endbuild -->
+<!--#include virtual="/inc/extras-foot-2.html" -->
+</body>
 </html>
