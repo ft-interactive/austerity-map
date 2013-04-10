@@ -116,7 +116,7 @@
       var bVal = Number(cuts[cut]['£MILL'][0]) 
       bar_values.push(bVal);
     }
-    console.log(selected_la);
+    //console.log(selected_la);
 	  var totalFig = Math.round(donut_values[donut_values.length-1]);
 	  
 	  view.$(".donutValue").html("<span style='font-size:20px'>Total</span></br>£" + totalFig);
@@ -150,7 +150,6 @@
 
     view.$(".barSeg" ).bind("mouseover", function(){
         var bID = this.id.split('_')[1];
-        console.log(bID);
         leftPos = $('#cont').offset();
         $(".toolTip").show();
         $(".toolTip").empty();
