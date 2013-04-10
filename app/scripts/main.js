@@ -29,11 +29,42 @@
     UKA.deviations = data;
   };
 
+  
+  // best practice jQuery JSON with JSONP fallback implementation
+    var createRequest = function createRequest(url, queryParams, cache) {
+        var opts = {
+            type: 'GET',
+            dataType: 'json',
+            cache: !!cache,
+            data: queryParams,
+            url: url
+        };
+
+        //if (($.browser.msie && $.browser.version < 9) || !$.support.cors) {
+        opts.dataType = 'jsonp';
+        opts.global = false;
+        opts.jsonpCallback = 'callback';
+        opts.timeout = 9000;
+        //}
+
+        return $.ajax(opts);
+    };
+
   // Foundation stuff
   $(document).foundation();
 
   $(function () {
     $(document.body).addClass('loaded');
+
+    createRequest('http://ft-ig-comment-count.herokuapp.com/', null, false).done(function (data) {
+
+        var count = 0;
+        if (data && data.length && data[0].publiccommentcount) {
+            count = data[0].publiccommentcount;
+        }
+
+        $('#comment-count').text(count);
+    });
   });
 
 })();
