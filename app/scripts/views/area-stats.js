@@ -57,7 +57,6 @@
       new_html += ('<div class= "imdNote"><span style="font-size:20px">Deprivation</span>');
       new_html += ('<div class="imd"></div></div></div>');
       new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:20px"><i>Political</i></span>');
-      new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:');
       new_html += ('<div class="mps"></div>');
       new_html += ('<div class= "politicalHolder"><span style="font-size:20px"><i>Economics</i></span>');
       new_html += ('<div class="eco-fig1"></div></div>');     
@@ -79,7 +78,7 @@
     view.$(".donutTitle").html("Annual impact per working age adult");
     view.$(".areaRightHolder").css("visibility","visible")
     view.$(".areaLeftHolder").css("visibility","visible")
-    view.$(".mps").text(selected_la.mpList);
+    view.$(".mps").text('Member(s) of Parliament who represents part or all of this local authority area: ' + selected_la.mpList);
     var nVal = Number(selected_la.nuts3gdhi);
     var tVal = Number(selected_la.nuts3TotalImpact);
     var dVal;

@@ -185,7 +185,7 @@
     {
       "id": "st-albans",
       "title": "St Albans",
-      "description": "Limiting child benefit for higher-rate taxpayers is one change that will hit wealthy areas.St Albans will lose £102 for each working-age adult.",
+      "description": "Limiting child benefit for wealthier households is one change that will hit affluent areas. St Albans will lose £102 for each working-age adult.",
       "map_centre": [
         50,
         1
