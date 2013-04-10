@@ -55,10 +55,9 @@
       new_html += ('<div class="laName"></div>');
       new_html += ('<div class="areaLeftHolder"><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div>');
       new_html += ('<div class= "imdNote"><span style="font-size:20px">Deprivation</span>');
-      new_html += ('<br/>Proportion of neighbourhoods with the local authority that fall within the poorest 20% in Britain: ');
-      new_html += ('<div class="imd claret-value"></div></div></div>');
+      new_html += ('<div class="imd"></div></div></div>');
       new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:20px"><i>Political</i></span>');
-      new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:<br/>');
+      new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:');
       new_html += ('<div class="mps"></div>');
       new_html += ('<div class= "politicalHolder"><span style="font-size:20px"><i>Economics</i></span>');
       new_html += ('<div class="eco-fig1"></div></div>');     
@@ -81,19 +80,32 @@
     view.$(".areaRightHolder").css("visibility","visible")
     view.$(".areaLeftHolder").css("visibility","visible")
     view.$(".mps").text(selected_la.mpList);
-    
     var nVal = Number(selected_la.nuts3gdhi);
+    var tVal = Number(selected_la.nuts3TotalImpact);
+    var dVal;
     var nNote = selected_la.nutsNote;
+
+    if(nVal > 1000){
+      nVal = Math.round(nVal/100)/10;
+      dVal="bn";
+    }else{
+      nVal = nVal.toFixed(1);
+      dVal = "m"
+    }
     if(nNote==null){
       nNote="";
     }
-    view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + addCommas(nVal) + "</span> in 2010. The total <span class='claret-value'>£" + selected_la.nuts3TotalImpact.toFixed(2) + "</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
+    if(selected_la.nuts3_impactPerGdhi ==null){
+      view.$(".eco-fig1").text(nNote);
+    }else{
+      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
+    }
     view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
     view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
-      view.$(".imd").text("None");
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
     }else{
-      view.$(".imd").text(selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) + "%");
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">' + selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) +'%</span> of neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
     }
 
     for (var cut in cuts) {
