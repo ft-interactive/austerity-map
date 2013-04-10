@@ -22,11 +22,11 @@
 
       $('#increase-zoom').on('click', function (event) {
         if (event.which === 1)
-          app.set('zoom_level', app.attributes.zoom_level + 1);
+          app.set('zoom_level', app.attributes.zoom_level + 2);
       });
       $('#decrease-zoom').on('click', function (event) {
         if (event.which === 1)
-          app.set('zoom_level', app.attributes.zoom_level - 1);
+          app.set('zoom_level', app.attributes.zoom_level - 2);
       });
 
       $('#reset-map').on('click', function (event) {

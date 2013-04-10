@@ -41,8 +41,22 @@
     events: {
       click: function (event) {
         if (event.which === 1) {
-          // event.preventDefault();
-          app.set('preset', this.model.attributes);
+          var preset = this.model.attributes;
+
+          if (preset.translate_x) {
+            app.set('zoom_level', preset.zoom);
+            UKA.map_view.setLasGroupTransform({
+              translate_x: preset.translate_x,
+              translate_y: preset.translate_y
+            });
+          }
+
+          if (preset.select_la != null)
+            app.set('selected_la', UKA.map_view.all_las_properties[preset.select_la]);
+          if (preset.select_cut != null)
+            app.set('selected_cut', preset.select_cut);
+          if (preset.select_measure != null)
+            app.set('selected_measure', preset.select_measure);
         }
       }
     }

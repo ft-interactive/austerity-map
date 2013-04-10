@@ -199,22 +199,22 @@
 
       // Listen for mousewheel, and update app:map_scale property
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
+        // Don't do anything special for horizontal scrolling
+        if (!delta_y)
+          return;
+
+        // Prevent the page scrolling
         event.preventDefault();
 
+        // Deterimine which way to zoom
         var zoom_adjustment;
         if (delta_y > 0)
           zoom_adjustment = 1;
         else if (delta_y < 0)
           zoom_adjustment = -1;
 
-        // console.log('zooming', zoom_adjustment);
-
-        var old_zoom_level = app.attributes.zoom_level;
-
-        app.set('zoom_level', old_zoom_level + zoom_adjustment);
-
-        // if (app.attributes.zoom_level === old_zoom_level)
-        //   return ;
+        // Adjust the zoom level
+        app.set('zoom_level', app.attributes.zoom_level + zoom_adjustment);
       }) ;
 
       // Listen for mousedown and start a drag interaction
@@ -250,8 +250,8 @@
               last_delta_y = delta_y;
             },
 
-            dragEnd: function () {
-              // console.log('PAN FINISHED');
+            dragEnd: function (ds, mouseup_event) {
+              mouseup_event.preventDefault();
               panning_sequence = null;
             }
           });
@@ -286,24 +286,6 @@
 
         };
       })()) ;
-
-      // Update the map when a preset is selected
-      app.on('change:preset', function (app, preset) {
-        // console.log('preset', preset.title, (app.previous('preset') ? app.previous('preset').title : null));
-        // console.log('preset', preset);
-
-        if (preset.translate_x) {
-          app.set('zoom_level', preset.zoom);
-          UKA.map_view.setLasGroupTransform({
-            translate_x: preset.translate_x,
-            translate_y: preset.translate_y
-          });
-        }
-
-        if (preset.select_la != null) {
-          app.set('selected_la', map_view.all_las_properties[preset.select_la]);
-        }
-      });
 
       // Append a little shadow effect along the top
       // svg.append('rect').attr({
