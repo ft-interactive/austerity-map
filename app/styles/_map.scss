@@ -55,9 +55,14 @@
   #increase-zoom {
     margin-bottom: 5px ;
   }
-  #reset-map{
+  #reset-map {
+    cursor: pointer ;
     margin-top: 8px;
+    width: 20px ;
+    height: 35px ;
+    background-image: url('images/little-britain.png');
   }
+
 #postcode-form,
 #control-panel {
   width: 240px ;

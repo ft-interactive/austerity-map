@@ -29,7 +29,6 @@
     UKA.deviations = data;
   };
 
-
   // Foundation stuff
   $(document).foundation();
 

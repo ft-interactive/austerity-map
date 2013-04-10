@@ -93,8 +93,6 @@
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
       'map_transform_scale': 1,
-      'map_translate_x': 0,
-      'map_translate_y': 0,
       'zoom_level': 1,
 
       'selected_la': null,
@@ -188,6 +186,9 @@
       new UKA.Views.Key({
         el: document.getElementById('key')
       });
+
+      // Select an LA at the start
+      app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
 
       return this;
     }

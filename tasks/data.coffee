@@ -41,51 +41,15 @@ module.exports = (grunt) -> (target) ->
   # Connect to MySQL
   connection.connect()
 
-  ################################################
-  # STEP 1: Build app/data/fields.js
-  ################################################
-
-  fs.writeFileSync OUTPUT_DATA_FIELDS_FILE, (
-    ';UKA.loadFieldDefinitions(' +
-    JSON.stringify(data_properties, null, 2) +
-    ');'
-  )
-
-  grunt.log.ok 'Built fields file.'
-
-  ################################################
-  # STEP 2: Build app/data/deviations.js
-  ################################################
-
-  sql = fs.readFileSync(DEVIATIONS_QUERY_FILE, 'utf8')
-  connection.query sql, (err, rows, fields) ->
-    if err?
-      grunt.log.error "MySQL query error for query from this file: #{DEVIATIONS_QUERY_FILE}"
-      throw err
-
-    deviations = {}
-
-    for row in rows
-      deviations[row.var] = {
-        min_val: row.minVal
-        max_val: row.maxVal
-        min: row.min
-        max: row.max
-        mean: row.mean
-        sd: row.sd
-      }
-
-    fs.writeFileSync OUTPUT_DEVIATIONS_FILE, (
-      ';UKA.loadDeviations(' +
-      JSON.stringify(deviations, null, 2) +
-      ');'
-    )
-
-    grunt.log.ok 'Built deviations file.'
-
+  buildTopoJson = ->
     ################################################
     # STEP 3: Build app/data/local-authorities-topojson.js
     ################################################
+
+    if target? and target isnt 'topojson'
+      grunt.log.ok 'SKIPPING creation of topojson file.'
+      grunt_task_completed()
+      return
 
     # Load the JSON file
     input_features = require(INPUT_GEOJSON_FILE).features
@@ -214,3 +178,54 @@ module.exports = (grunt) -> (target) ->
 
     # Start the loop
     buildNextFeature()
+
+  ################################################
+  # STEP 1: Build app/data/fields.js
+  ################################################
+
+  if !target? or target is 'fields'
+    fs.writeFileSync OUTPUT_DATA_FIELDS_FILE, (
+      ';UKA.loadFieldDefinitions(' +
+      JSON.stringify(data_properties, null, 2) +
+      ');'
+    )
+    grunt.log.ok 'Built fields file.'
+  else
+    grunt.log.ok 'SKIPPING creation of fields file.'
+
+  ################################################
+  # STEP 2: Build app/data/deviations.js
+  ################################################
+
+  if !target? or target is 'deviations'
+    sql = fs.readFileSync(DEVIATIONS_QUERY_FILE, 'utf8')
+    connection.query sql, (err, rows, fields) ->
+      if err?
+        grunt.log.error "MySQL query error for query from this file: #{DEVIATIONS_QUERY_FILE}"
+        throw err
+
+      deviations = {}
+
+      for row in rows
+        deviations[row.var] = {
+          min_val: row.minVal
+          max_val: row.maxVal
+          min: row.min
+          max: row.max
+          mean: row.mean
+          sd: row.sd
+        }
+
+      fs.writeFileSync OUTPUT_DEVIATIONS_FILE, (
+        ';UKA.loadDeviations(' +
+        JSON.stringify(deviations, null, 2) +
+        ');'
+      )
+
+      grunt.log.ok 'Built deviations file.'
+
+      buildTopoJson()
+
+  else
+    grunt.log.ok 'SKIPPING creation of deviations file.'
+    buildTopoJson()

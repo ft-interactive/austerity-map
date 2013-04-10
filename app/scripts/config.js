@@ -13,6 +13,7 @@ UKA.config = {
 
   default_cut: 'TOTAL_IMPACT',
   default_measure: '£PWA',
+  default_la: 'E07000209',
 
   max_buckets: 8,
 
