@@ -21,10 +21,22 @@
       app = UKA.app;
 
       $('#increase-zoom').on('click', function (event) {
-        app.set('zoom_level', app.attributes.zoom_level + 1);
+        if (event.which === 1)
+          app.set('zoom_level', app.attributes.zoom_level + 1);
       });
       $('#decrease-zoom').on('click', function (event) {
-        app.set('zoom_level', app.attributes.zoom_level - 1);
+        if (event.which === 1)
+          app.set('zoom_level', app.attributes.zoom_level - 1);
+      });
+
+      $('#reset-map').on('click', function (event) {
+        if (event.which === 1) {
+          app.set('zoom_level', 1);
+          UKA.map_view.setLasGroupTransform({
+            translate_x: 0,
+            translate_y: 0
+          });
+        }
       });
 
       return view;
