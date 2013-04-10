@@ -110,6 +110,13 @@
 #control-panel {
   top: 85px ;
 	color: #fff ;
+
+  select {
+    .firefox & {
+      width: 210px ;
+    }
+    font-size: 14px ;
+  }
   
   h3 {
     font-size: 12px ;

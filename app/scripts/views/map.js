@@ -197,25 +197,25 @@
         }
       });
 
-      // Listen for mousewheel, and update app:map_scale property
-      map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
-        // Don't do anything special for horizontal scrolling
-        if (!delta_y)
-          return;
+      // // Listen for mousewheel, and update app:map_scale property
+      // map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
+      //   // Don't do anything special for horizontal scrolling
+      //   if (!delta_y)
+      //     return;
 
-        // Prevent the page scrolling
-        event.preventDefault();
+      //   // Prevent the page scrolling
+      //   event.preventDefault();
 
-        // Deterimine which way to zoom
-        var zoom_adjustment;
-        if (delta_y > 0)
-          zoom_adjustment = 1;
-        else if (delta_y < 0)
-          zoom_adjustment = -1;
+      //   // Deterimine which way to zoom
+      //   var zoom_adjustment;
+      //   if (delta_y > 0)
+      //     zoom_adjustment = 1;
+      //   else if (delta_y < 0)
+      //     zoom_adjustment = -1;
 
-        // Adjust the zoom level
-        app.set('zoom_level', app.attributes.zoom_level + zoom_adjustment);
-      }) ;
+      //   // Adjust the zoom level
+      //   app.set('zoom_level', app.attributes.zoom_level + zoom_adjustment);
+      // }) ;
 
       // Listen for mousedown and start a drag interaction
       map_view.$el.on('mousedown', function (mousedown_event) {

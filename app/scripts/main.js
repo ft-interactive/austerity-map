@@ -2,6 +2,10 @@
 (function () {
   'use strict';
 
+  // Add webkit class for use in CSS hook
+  if (/Firefox/.test(navigator.userAgent))
+    $('html').addClass('firefox');
+
   UKA.loadFieldDefinitions = function (properties) {
     _.extend(UKA.config, properties);
 
