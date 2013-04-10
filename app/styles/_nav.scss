@@ -75,12 +75,13 @@ body{
         background-color: $topbar-bg;
         line-height: 44px;
         cursor: default;
+        font-family: BentonSans;
         font-weight: normal;
         margin:0;
         padding-right: 5px;
         text-transform: none;
         color: rgba(255, 255, 255, 0.8);
-        font-size: .875em;
+        font-size: .75em;
     }
 }
 
@@ -215,4 +216,8 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
     &:hover{
         background-color: #000000;
     }
+}
+
+#comment-count{
+    font-family: BentonSans !important;
 }
