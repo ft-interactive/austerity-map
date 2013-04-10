@@ -55,10 +55,9 @@
       new_html += ('<div class="laName"></div>');
       new_html += ('<div class="areaLeftHolder"><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div>');
       new_html += ('<div class= "imdNote"><span style="font-size:20px">Deprivation</span>');
-      new_html += ('<br/>Proportion of neighbourhoods with the local authority that fall within the poorest 20% in Britain: ');
-      new_html += ('<div class="imd claret-value"></div></div></div>');
+      new_html += ('<div class="imd"></div></div></div>');
       new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:20px"><i>Political</i></span>');
-      new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:<br/>');
+      new_html += ('<br/>Member(s) of Parliament who represents part or all of this local authority area:');
       new_html += ('<div class="mps"></div>');
       new_html += ('<div class= "politicalHolder"><span style="font-size:20px"><i>Economics</i></span>');
       new_html += ('<div class="eco-fig1"></div></div>');     
@@ -81,7 +80,6 @@
     view.$(".areaRightHolder").css("visibility","visible")
     view.$(".areaLeftHolder").css("visibility","visible")
     view.$(".mps").text(selected_la.mpList);
-    
     var nVal = Number(selected_la.nuts3gdhi);
     var tVal = Number(selected_la.nuts3TotalImpact);
     var dVal;
@@ -105,9 +103,9 @@
     view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
     view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
-      view.$(".imd").text("None");
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15%</span>.');
     }else{
-      view.$(".imd").text(selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) + "%");
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">' + selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) +'%</span> of neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15%</span>.');
     }
 
     for (var cut in cuts) {
