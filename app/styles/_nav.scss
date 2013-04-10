@@ -207,3 +207,12 @@ top-bar-section{
 .top-bar-section > ul > li > a{
     height:45px !important;
 }
+
+#comment-btn{
+    padding-left: 45px;
+    padding-right: 10px;
+    background: #231F20 url('../images/comment.svg') no-repeat 13px center;
+    &:hover{
+        background-color: #000000;
+    }
+}
