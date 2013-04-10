@@ -187,6 +187,9 @@
         el: document.getElementById('key')
       });
 
+      // Select an LA at the start
+      app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+
       return this;
     }
   });
