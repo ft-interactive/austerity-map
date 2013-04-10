@@ -103,9 +103,9 @@
     view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
     view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
-      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15%</span>.');
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
     }else{
-      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">' + selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) +'%</span> of neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15%</span>.');
+      view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">' + selected_la["GB_IMD_20%_ most_deprived_LSOAs"].toFixed(1) +'%</span> of neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
     }
 
     for (var cut in cuts) {
