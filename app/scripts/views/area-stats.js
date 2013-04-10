@@ -53,13 +53,13 @@
     render: function () {
       var new_html = '<div>';
       new_html += ('<div class="laName"></div>');
-      new_html += ('<div class="areaLeftHolder"><div class="barHolder"></div><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div>');
-      new_html += ('<div class= "imdNote"><span style="font-size:20px">Deprivation</span>');
-      new_html += ('<div class="imd"></div></div></div>');
-      new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:20px"><i>Political</i></span>');
+      new_html += ('<div class="areaLeftHolder"><div class="donutTitle"></div><div class="donutHolder"></div><div class="donutValue"></div><div class="barTitle"></div><div class="barHolder"></div></div>');
+      new_html += ('<div class="areaRightHolder"><div class="areaContext">AREA IN CONTEXT</div><div class="politicalHolder"><span style="font-size:16px"><i>Political</i></span>');
       new_html += ('<div class="mps"></div>');
-      new_html += ('<div class= "politicalHolder"><span style="font-size:20px"><i>Economics</i></span>');
-      new_html += ('<div class="eco-fig1"></div></div>');     
+      new_html += ('<div class= "politicalHolder"><span style="font-size:16px"><i>Economics</i></span>');
+      new_html += ('<div class="eco-fig1"></div>');     
+      new_html += ('<div class= "politicalHolder"><span style="font-size:16px"><i>Deprivation</i></span>');
+      new_html += ('<div class="imd"></div></div></div>');
       new_html += '</div></div>';
       view.$el.html(new_html);
       return this;
@@ -76,7 +76,8 @@
 	  var donut_labels =[];
     // console.log(selected_la)
     view.$(".laName").text(selected_la.name);
-    view.$(".donutTitle").html("Annual impact per working age adult");
+    view.$(".donutTitle").html("Annual impact<br/> per working <br/>age adult");
+    view.$(".barTitle").html("Annual impact per area<br/>£m");
     view.$(".areaRightHolder").css("visibility","visible")
     view.$(".areaLeftHolder").css("visibility","visible")
     view.$(".mps").text('Member(s) of Parliament who represents part or all of this local authority area: ' + selected_la.mpList);
@@ -98,10 +99,8 @@
     if(selected_la.nuts3_impactPerGdhi ==null){
       view.$(".eco-fig1").text(nNote);
     }else{
-      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
+      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <div class='nutNote'>" + nNote + "</div>");
     }
-    view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
-    view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
       view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
     }else{
@@ -136,19 +135,17 @@
 	  }
 
     color = [ "#91BDAF", "#E9B099", "#E45C51", "#A3514F", "#613A23", "#4A4233", "#02665E", "#439D91", "#B3C9C3", "#DFDFDF" ];
+    var barAve = [1.29, 0.71, 0.91, 0.90, 7.51,  9.66,  4.34, 3.96, 11.48, 9.05];
+    var donutAve = [10.79, 5.23, 7.19, 8.03, 71.53, 87.97, 36.50, 36.56, 103.23, 81.00];
 
     // stacker bar creator
     view.$(".barHolder").empty();
 
     for (var i = 0; i < bar_values.length; i++) {
-      var bValWidth = (410 * Number(bar_values[i]/bValSum))-1;
+      var bValWidth = (390 * Number(bar_values[i]/bValSum))-1;
       view.$(".barHolder").append("<div class='barSeg' id='barSeg_" + i + "' ></div>")
       view.$("#barSeg_" + i).css("width", bValWidth +"px").css("background-color", color[i]);
-      if(i < bar_values.length-1){
-        view.$("#barSeg_" + i).css("border-left", "1px solid #fff");
-      }else{
-        view.$("#barSeg_" + i).css("border-right", "1px solid #fff");
-      }
+      view.$("#barSeg_" + i).css("border-left", "1px solid #fff");     
     };
 
     view.$(".barSeg" ).bind("mouseover", function(){
@@ -157,16 +154,14 @@
         leftPos = $('#cont').offset();
         $(".toolTip").show();
         $(".toolTip").empty();
-        $(".toolTip").append("<div class='regionName'><b>" + donut_labels[bID] + "</b><br/><div class='bigNumber' >£" + bar_values[bID].toFixed(2) + "m</div>");
+        $(".toolTip").append("<div class='regionName'><b>" + donut_labels[bID] + "</b><br/><div class='bigNumber' >£" + bar_values[bID].toFixed(2) + "m</div><div class='natAve'><div class='natLabel'>NATIONAL AVG.</div><div class='natValue'>£" + barAve[bID] + "m</div></div>");
         $(".toolTip").stop().animate(
         {
           opacity:1
         },
         500
         );
-    });
-
-    
+    });    
         
     view.$(".barSeg" ).bind("mouseout", function(){
       $(".toolTip").stop().animate(
@@ -214,7 +209,7 @@
 			  $(".toolTip").empty();
 			  d3.select(this).style("stroke", function(d, i) { return "#000"; });
 			  $(this).moveTop();
-			  $(".toolTip").append("<div class='regionName'><b>" + donut_labels[i] + "</b><br/><div class='bigNumber' >£" + Math.round(donut_values[i]) + "</div>");
+			  $(".toolTip").append("<div class='regionName'><b>" + donut_labels[i] + "</b><br/><div class='bigNumber' >£" + Math.round(donut_values[i]) + "</div><div class='natAve'><div class='natLabel'>NATIONAL AVG.</div><div class='natValue'>£" + donutAve[i].toFixed(0) + "</div></div>");
 			  $(".toolTip").stop().animate(
 				{
 					opacity:1

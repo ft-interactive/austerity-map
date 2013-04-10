@@ -40,7 +40,7 @@ $min-width: 972px ;
     #area-stats {
       padding: 12px 15px 40px 15px;      
       color: $ft_darkGrey;
-      height: 450px;
+      height: 420px;
 
       width: $min-width ;
       margin: 0 auto ;
@@ -50,44 +50,53 @@ $min-width: 972px ;
         font-size: 32px;  		
       }
       .areaLeftHolder {
-      	width: 420px;
+      	width: 400px;
         border-right: 1px dotted $ft_warmGrey1;
         margin-top: 6px;
         padding-right: 14px;
-        height:408px;
+        height:390px;
         float: left;
         visibility: hidden;
       }
       .donutTitle {
-        font-size: 17px;
+        position: relative;
+        top:10px;
+        font-size: 16px;
+      }
+      .barTitle {
+        position: relative;
+        top:-80px;
+        font-size: 16px;
+        padding-top:10px;
+        border-top: 1px dotted $ft_warmGrey1;
       }
       .donutHolder {
-        padding-left: 50px;
+        padding-left: 80px;
         position: relative;
-        top: 20px;
+        top: -40px;
       }
       .donutValue {
         position: relative;
         font-size: 38px;
-        top: -150px;
-        left: 124px;
+        top: -210px;
+        left: 156px;
         text-align: center;
         width: 100px;
         line-height: 28px;
 	    }
       .imdNote{
         position: relative;
-        top: -20px;
+        top:  0px;
         font-size: 13px;
         line-height: 20px;
       }
   	  .barHolder {
         position: relative;
-        top: 20px;
-        height:30px;
+        top: -56px;
+        height:20px;
       }
       .barSeg{
-        height:30px;
+        height:40px;
         float:left;
         cursor: pointer;
       }
@@ -98,8 +107,8 @@ $min-width: 972px ;
     float: left;
     background-color: $ft_tint1;
 
-    width: 453px;
-    height: 368px;
+    width: 500px;
+    height: 350px;
     margin-left: 17px;
     margin-top: 6px;
     padding: 20px;
@@ -115,8 +124,11 @@ $min-width: 972px ;
       font-family: Clarion, serif ;
       font-size: 12px;
       line-height: 20px;
-      margin-top: 16px;
+      margin-top: 10px;
+    }
 
+    .nutNote{
+      margin-top: 6px;
     }
   }
 
@@ -137,10 +149,26 @@ $min-width: 972px ;
     z-index: 11000;
     pointer-events: none;
     max-width: 150px;
+    min-width:110px;
     .bigNumber {
-      font-size: 40px;
+      font-size: 28px;
+      margin-top: 6px;
+    }
+    .natAve{
+      margin: 8px 0px;
+      padding: 10px 0px 10px 0px;
+      border-top: 1px dotted $ft_warmGrey1;
+      color: $ft_warmGrey1;
+      font-size: 11px;
+    }
+    .natLabel{
+      float:left;
+    }
+    .natValue{
+      float:right;
     }
   }
+
 	#ft-footer {		
 		color: $ft_warmGrey2;
     border-top: 8px solid $ft_tint2;
