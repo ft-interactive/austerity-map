@@ -287,24 +287,6 @@
         };
       })()) ;
 
-      // Update the map when a preset is selected
-      app.on('change:preset', function (app, preset) {
-        // console.log('preset', preset.title, (app.previous('preset') ? app.previous('preset').title : null));
-        // console.log('preset', preset);
-
-        if (preset.translate_x) {
-          app.set('zoom_level', preset.zoom);
-          UKA.map_view.setLasGroupTransform({
-            translate_x: preset.translate_x,
-            translate_y: preset.translate_y
-          });
-        }
-
-        if (preset.select_la != null) {
-          app.set('selected_la', map_view.all_las_properties[preset.select_la]);
-        }
-      });
-
       // Append a little shadow effect along the top
       // svg.append('rect').attr({
       //   id: 'inset-shadow',

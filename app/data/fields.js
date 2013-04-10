@@ -148,6 +148,8 @@
       "map_scale": 8,
       "image_url": "images/icon1.png",
       "select_la": "E06000009",
+      "select_cut": "TOTAL_IMPACT",
+      "select_measure": "£PWA",
       "translate_x": 1330,
       "translate_y": 0,
       "zoom": 20
@@ -163,6 +165,8 @@
       "map_scale": 8,
       "image_url": "images/icon2.png",
       "select_la": "E09000033",
+      "select_cut": "BENCAP",
+      "select_measure": "£PWA",
       "translate_x": 215,
       "translate_y": -1389,
       "zoom": 20
@@ -178,6 +182,8 @@
       "map_scale": 8,
       "image_url": "images/icon3.png",
       "select_la": "W06000012",
+      "select_cut": "IB_ESA",
+      "select_measure": "£PWA",
       "translate_x": 500,
       "translate_y": -535,
       "zoom": 7
@@ -193,6 +199,8 @@
       "map_scale": 8,
       "image_url": "images/icon4.png",
       "select_la": "E07000240",
+      "select_cut": "CHILDBEN",
+      "select_measure": "£PWA",
       "translate_x": 96,
       "translate_y": -840,
       "zoom": 13
