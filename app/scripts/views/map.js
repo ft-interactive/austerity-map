@@ -250,8 +250,8 @@
               last_delta_y = delta_y;
             },
 
-            dragEnd: function () {
-              // console.log('PAN FINISHED');
+            dragEnd: function (ds, mouseup_event) {
+              mouseup_event.preventDefault();
               panning_sequence = null;
             }
           });
