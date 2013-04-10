@@ -199,6 +199,9 @@
 
       // Listen for mousewheel, and update app:map_scale property
       map_view.$el.mousewheel(function (event, delta, delta_x, delta_y) {
+        if (!delta_y)
+          return;
+
         event.preventDefault();
 
         var zoom_adjustment;
