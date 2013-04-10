@@ -1,47 +1,10 @@
-// This includes all of the foundation global elements that are needed to work with any of the other files.
-
-
-// Foundation Components
-// @import
-//   "foundation/scss/foundation/global",
-//   "foundation/scss/foundation/grid",
-//   "foundation/scss/foundation/visibility",
-//   "foundation/scss/foundation/block-grid",
-//   "foundation/scss/foundation/type",
-//   "foundation/scss/foundation/buttons",
-//   "foundation/scss/foundation/forms",
-//   "foundation/scss/foundation/custom-forms",
-//   "foundation/scss/foundation/button-groups",
-//   "foundation/scss/foundation/dropdown-buttons",
-//   "foundation/scss/foundation/split-buttons",
-//   "foundation/scss/foundation/flex-video",
-//   "foundation/scss/foundation/section",
-//   "foundation/scss/foundation/top-bar",
-//   "foundation/scss/foundation/orbit",
-//   "foundation/scss/foundation/reveal",
-//   "foundation/scss/foundation/joyride",
-//   "foundation/scss/foundation/clearing",
-//   "foundation/scss/foundation/alert-boxes",
-//   "foundation/scss/foundation/breadcrumbs",
-//   "foundation/scss/foundation/keystrokes",
-//   "foundation/scss/foundation/labels",
-//   "foundation/scss/foundation/inline-lists",
-//   "foundation/scss/foundation/pagination",
-//   "foundation/scss/foundation/panels",
-//   "foundation/scss/foundation/pricing-tables",
-//   "foundation/scss/foundation/progress-bars",
-//   "foundation/scss/foundation/side-nav",
-//   "foundation/scss/foundation/sub-nav",
-//   "foundation/scss/foundation/switch",
-//   "foundation/scss/foundation/magellan",
-//   "foundation/scss/foundation/tables",
-//   "foundation/scss/foundation/thumbs",
-//   "foundation/scss/foundation/tooltips",
-//   "foundation/scss/foundation/dropdown";
-
 $data-btn-size: 100px;
 
 #nav-container{
+    -moz-transition: top .3s ease-in;
+    -webkit-transition: top .3s ease-in;
+    -o-transition: top .3s ease-in;
+    -ms-transition: top .3s ease-in;
     transition: top .3s ease-in;
     top: -50px;
     display: none;
@@ -126,6 +89,10 @@ body{
     opacity: 0;
     z-index:100;
     display:none;
+     -moz-transition: opacity .2s .7s ease-in;
+    -webkit-transition: opacity .2s .7s ease-in;
+    -o-transition: opacity .2s .7s ease-in;
+    -ms-transition: opacity .2s .7s ease-in;
     transition: opacity .2s .7s ease-in;
     @extend .data-btn;
     @include radius(100%);
@@ -192,6 +159,21 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
         }
     }
 }
+
+top-bar-section{
+    ul li > a:not(.button){
+        &.tomorrow{
+            cursor: default !important;
+            color: darken(#fff, 40%);
+            &:hover{
+                background-color: $topbar-bg;
+            }
+        }
+        &.active{
+        }
+    }
+}
+
 
 #nav-title{
     font-size: emCalc(19px);
