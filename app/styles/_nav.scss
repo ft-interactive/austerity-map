@@ -179,6 +179,20 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
     background-color: #312B2C !important;
 }
 
+@media #{$small-topbar} {
+    .top-bar-section ul li > a:not(.button).tomorrow {
+        background-color: #333 !important;
+    }
+}
+
+@media #{$small-topbar} {
+    .top-bar-section ul li.has-dropdown a:not(.button).tomorrow:hover {
+    background-color: #333 !important;
+}
+
+}
+
+
 #nav-title{
     font-size: emCalc(19px);
     padding: emCalc(10px) emCalc(20px) emCalc(10px) emCalc(5px);
