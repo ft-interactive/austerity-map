@@ -83,11 +83,25 @@
     view.$(".mps").text(selected_la.mpList);
     
     var nVal = Number(selected_la.nuts3gdhi);
+    var tVal = Number(selected_la.nuts3TotalImpact);
+    var dVal;
     var nNote = selected_la.nutsNote;
+
+    if(nVal > 1000){
+      nVal = Math.round(nVal/100)/10;
+      dVal="bn";
+    }else{
+      nVal = nVal.toFixed(1);
+      dVal = "m"
+    }
     if(nNote==null){
       nNote="";
     }
-    view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + addCommas(nVal) + "</span> in 2010. The total <span class='claret-value'>£" + selected_la.nuts3TotalImpact.toFixed(2) + "</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
+    if(selected_la.nuts3_impactPerGdhi ==null){
+      view.$(".eco-fig1").text(nNote);
+    }else{
+      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <br/><br/>" + nNote);
+    }
     view.$(".eco-fig2").text(selected_la.nuts3_impactPerGdhi +"%");
     view.$(".eco-fig3").text(selected_la.nuts3_impactPerGdhi);
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
