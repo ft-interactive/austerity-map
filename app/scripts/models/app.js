@@ -11,6 +11,85 @@
   var app,
       config = UKA.config;
 
+  function getLuminosities() {
+    // Returns a hash with all the current SDUs as keys (even the ones outside the range) and all the valid things.
+
+    var attributes      = app.attributes,
+        num_buckets     = attributes.num_buckets,
+        min_sdu         = attributes.min_sdu,
+        max_sdu         = attributes.max_sdu,
+        clamped_min_sdu = attributes.clamped_min_sdu,
+        clamped_max_sdu = attributes.clamped_max_sdu,
+
+        min_luminosity  = config.min_luminosity,
+        max_luminosity  = config.max_luminosity,
+
+        output = {},
+        k;
+
+    // Make an array of luminosity steps
+    var luminosities = [];
+    var lum_range = max_luminosity - min_luminosity;
+    var step = ( lum_range / num_buckets );
+    for (var i = 0; i <= num_buckets; i++) {
+      luminosities.push(
+        min_luminosity + (i * step)
+      );
+    }
+
+    // Define the clamped ones
+    for (k = clamped_min_sdu; k <= clamped_max_sdu; k++) {
+      output[k] = luminosities.pop();
+    }
+
+    // Add values outside the range (as the clamped ones)
+    for (k = min_sdu; k < clamped_min_sdu; k++) {
+      output[k] = output[clamped_min_sdu];
+    }
+    for (k = clamped_max_sdu+1; k <= max_sdu; k++) {
+      output[k] = output[clamped_max_sdu];
+    }
+
+    return output;
+  }
+
+  function updateKeyRelatedAttributes() {
+    // This simply updates the num_buckets attribute to the correct number, reflecting the current selected_combo.
+    // The app model automatically runs this once at start and again whenever the seelcted_combo is updated,
+    // therefore you can always call app.get('num_buckets') and it will be correct for the current selection.
+
+    var values = UKA.deviations[ app.get('selected_combo').join('_') ];
+
+    var min = values.min,
+        max = values.max,
+        num_buckets = max - min,
+        max_buckets = config.max_buckets;
+
+    // Clamp it to ensure there's no more than max_buckets between them
+    if (num_buckets > max_buckets) {
+      if (max > -min)
+        max = min + max_buckets;
+      else
+        min = max - max_buckets;
+
+      num_buckets = max - min;
+    }
+
+    app.set({
+      num_buckets: num_buckets,
+      clamped_min_sdu: min,
+      clamped_max_sdu: max,
+      min_sdu: values.min,
+      max_sdu: values.max
+    });
+
+    app.set('luminosities', getLuminosities());
+
+    console.log('Before: ', values.min, 'to', values.max, 'range', values.max-values.min);
+    console.log('After:', min, 'to', max, 'range', num_buckets);
+    console.log(app.get('luminosities'));
+  }
+
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
       'map_transform_scale': 1,
@@ -28,20 +107,23 @@
         throw 'Cannot instantiate App Model more than once';
       app = this;
 
-      // Update num_buckets whenever a new valid cut:measure combo is selected
+      // Set selected_combo and update it whenever a new VALID cut/measure combination is selected
+      app.set('selected_combo', [app.attributes.selected_cut, app.attributes.selected_measure]);
       app.on('change:selected_cut change:selected_measure', function () {
         $.each(config.cuts, function (i, cut) {
           if (
             cut.key === app.attributes.selected_cut &&
             cut.measures.indexOf(app.attributes.selected_measure) > -1
           ) {
-            app.updateNumBuckets();
+            app.set('selected_combo', [app.attributes.selected_cut, app.attributes.selected_measure]);
             return false;
           }
         });
       });
-      app.updateNumBuckets();
 
+      // Update all the key-related stuff (luminosities, etc) once at start, and whenever the selected combo changes
+      updateKeyRelatedAttributes();
+      app.on('change:selected_combo', updateKeyRelatedAttributes);
 
       // Update zoom level to reflect scale
       // 10 is an acceptable maximum scale
@@ -62,15 +144,6 @@
       });
 
       return this;
-    },
-
-    updateNumBuckets: function () {
-      var values = UKA.deviations[app.attributes.selected_cut + '_' + app.attributes.selected_measure];
-      var min = (values.min < -4? -4 : values.min) ;
-      var max = (values.max >  4?  4 : values.max) ;
-      var num_buckets = max - min ;
-
-      app.set('num_buckets', num_buckets);
     },
 
     start: function () {

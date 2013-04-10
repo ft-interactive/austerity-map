@@ -135,6 +135,7 @@
         })
         .on('click', function (d, i) {
           app.set('selected_la', d.properties);
+          console.log(d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1]);
         })
         .on('mouseover', function (d, i) {
           if (panning_sequence)
@@ -173,21 +174,7 @@
       las_natural_height = bbox.height;
 
       // Update the fill colours whenever relevant app state properties change
-      app.on('change:selected_cut change:selected_measure', function () {
-        // If the current combination of cut and measure is valid, update the colours
-        $.each(config.cuts, function (i, cut) {
-          if (
-            cut.key === app.attributes.selected_cut &&
-            cut.measures.indexOf(app.attributes.selected_measure) > -1
-          ) {
-            // This is a valid combination.
-            // Update the colours
-            map_view.updateMapColours();
-            // Break from loop
-            return false;
-          }
-        });
-      });
+      app.on('change:selected_combo', map_view.updateMapColours);
 
       // Set the stroke on whatever county is selected
       app.on('change:selected_la', function (app, selected_la, options) {
@@ -422,26 +409,20 @@
       // console.log('updating map colours');
 
       la_paths.attr('fill', function (d, i) {
+        var sd = d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1];
+        // if (sd > 1)
+        //   sd--;
+        // else
+        //   sd++;
         return map_view.getLaColour(
-          d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1]
+          sd
         );
       });
     },
 
     getLaColour: function (sd_unit) {
       // Returns the correct colour for the given SD number.
-
-      // Return an HSL with a luminosity reflecting the bucket number
-
-      var num_buckets = app.get('num_buckets');
-
-      var bucket_number = UKA.normaliseBucket(sd_unit, num_buckets);
-      var luminosity_range = config.max_luminosity - config.min_luminosity;
-      var num_divisions = luminosity_range / num_buckets;
-      var luminosity = Math.round(
-        config.max_luminosity - (num_divisions * bucket_number)
-      );
-
+      var luminosity = app.attributes.luminosities[sd_unit];
       return 'hsl(0,50%,'+ luminosity +'%)';
     },
 
@@ -460,12 +441,13 @@
           figure_code = 'formatted_figure_' + selected_cut + '_' + selected_measure;
 
       if (data.properties[figure_code] == null) {
-        var figure = data.properties.cuts[selected_cut][selected_measure][0];
+        var value_and_sd = data.properties.cuts[selected_cut][selected_measure];
+        var figure = value_and_sd[0];
         data.properties[figure_code] = (
           (measure.figure_prefix || '') +
           numeral(figure).format('0,0') +
           (measure.figure_suffix || '')
-        );
+        ) + ' ::: '+value_and_sd[1];
       }
 
       hover_sequence = new DragSequence({
