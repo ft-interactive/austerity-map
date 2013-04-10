@@ -41,9 +41,7 @@
           num_bars = max-min,
           pct_width = (100 / num_bars);
 
-      // console.log('num_bars', num_bars);
-
-      // Make the bars
+      // Build the bars HTML
       var bars_html   = '<div class="the-bars">';
       for (var i = min; i <= max; i++) {
         // There is no "zero" bar.
@@ -57,28 +55,28 @@
             'width:' + pct_width + '%;' +
             'background-color:' + colour + ';' +
             '"' +
-          '>' + i + '</div>'
+          '>' + /*i +*/ '</div>'
         ) ;
       }
       bars_html   += '</div>';
 
-      // Make the labels
+      // Build the labels HTML
       var labels_html = '<div class="the-labels" style="left:-'+(pct_width/2)+'%">';
       for (i = min; i < max; i++) {
-        var breakpoint = Math.round(values.mean + (i * values.sd));
+        // Building the label aligned with the left edge of the corresponding bucket.
+
+        var label_value = Math.round(values.mean + (i * values.sd));
 
         var from = numeral(
           i === min ?
           values.min_val :
-          breakpoint
+          label_value
         ).format('0,0');
-
-        console.log(i, breakpoint, from);
 
         labels_html += (
           '<div class="key-label" style="' +
             'width:' + pct_width + '%;' +
-            (i===0? 'color:blue;' : '') +
+            // (i===0? 'color:blue;' : '') +
           '">'+from+'</div>'
         ) ;
       }
@@ -90,7 +88,10 @@
       ) ;
       labels_html += '</div>';
 
+      // Render
       $bars.empty().append(bars_html).append(labels_html);
+
+      return view;
     }
   });
 

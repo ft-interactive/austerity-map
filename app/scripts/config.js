@@ -16,6 +16,8 @@ UKA.config = {
 
   max_buckets: 8,
 
-  min_luminosity: 5,
-  max_luminosity: 95
+  hue: 0,
+  saturation: 50,
+  min_luminosity: 20,
+  max_luminosity: 87
 };

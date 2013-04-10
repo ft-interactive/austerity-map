@@ -85,9 +85,9 @@
 
     app.set('luminosities', getLuminosities());
 
-    console.log('Before: ', values.min, 'to', values.max, 'range', values.max-values.min);
-    console.log('After:', min, 'to', max, 'range', num_buckets);
-    console.log(app.get('luminosities'));
+    // console.log('Before: ', values.min, 'to', values.max, 'range', values.max-values.min);
+    // console.log('After:', min, 'to', max, 'range', num_buckets);
+    // console.log(app.get('luminosities'));
   }
 
   UKA.Models.App = Backbone.Model.extend({

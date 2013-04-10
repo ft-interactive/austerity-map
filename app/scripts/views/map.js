@@ -135,7 +135,6 @@
         })
         .on('click', function (d, i) {
           app.set('selected_la', d.properties);
-          console.log(d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1]);
         })
         .on('mouseover', function (d, i) {
           if (panning_sequence)
@@ -410,10 +409,6 @@
 
       la_paths.attr('fill', function (d, i) {
         var sd = d.properties.cuts[app.get('selected_cut')][app.get('selected_measure')][1];
-        // if (sd > 1)
-        //   sd--;
-        // else
-        //   sd++;
         return map_view.getLaColour(
           sd
         );
@@ -423,7 +418,7 @@
     getLaColour: function (sd_unit) {
       // Returns the correct colour for the given SD number.
       var luminosity = app.attributes.luminosities[sd_unit];
-      return 'hsl(0,50%,'+ luminosity +'%)';
+      return 'hsl(' + config.hue + ',' + config.saturation + '%,'+ luminosity +'%)';
     },
 
     // Hover box
@@ -447,7 +442,7 @@
           (measure.figure_prefix || '') +
           numeral(figure).format('0,0') +
           (measure.figure_suffix || '')
-        ) + ' ::: '+value_and_sd[1];
+        ) /*+ ' ::: '+value_and_sd[1]*/;
       }
 
       hover_sequence = new DragSequence({
