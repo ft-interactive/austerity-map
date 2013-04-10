@@ -99,7 +99,7 @@
     if(selected_la.nuts3_impactPerGdhi ==null){
       view.$(".eco-fig1").text(nNote);
     }else{
-      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross domestic household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <div class='nutNote'>" + nNote + "</div>");
+      view.$(".eco-fig1").html("The " + selected_la.nuts3name + " NUTS3 region had a gross disposable household income of <span class='claret-value'>£" + nVal + dVal + "</span> in 2010. The total <span class='claret-value'>£" + tVal.toFixed(1) + "m</span> in benefit changes the region faces amount to <span class='claret-value'>" + selected_la.nuts3_impactPerGdhi + "</span> per cent of the region's disposable income, or approximately <span class='claret-value'>" + selected_la.nuts3avgYrsText + "</span> of regional growth. <div class='nutNote'>" + nNote + "</div>");
     }
     if(Number(selected_la["GB_IMD_20%_ most_deprived_LSOAs"])==0){
       view.$(".imd").html('In ' +selected_la.name + ', <span class="claret-value">None</span> of the neighbourhoods are among the poorest 20% in Britain. The average for local authorities in Great Britain is <span class="claret-value">15.1%</span>.');
