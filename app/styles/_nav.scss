@@ -187,8 +187,8 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
 
 @media #{$small-topbar} {
     .top-bar-section ul li.has-dropdown a:not(.button).tomorrow:hover {
-    background-color: #333 !important;
-}
+        background-color: #333 !important;
+    }
 
 }
 
@@ -232,6 +232,12 @@ $small-topbar: "only screen and (max-width:"#{$topbar-breakpoint}")";
     background: #231F20 url('../images/comment.svg') no-repeat 13px center;
     &:hover{
         background-color: #000000;
+    }
+}
+
+@media #{$small-topbar} {
+    #comment-btn span.show-for-small{
+        display: inline !important;
     }
 }
 
