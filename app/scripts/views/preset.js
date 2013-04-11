@@ -7,7 +7,7 @@
 /*global UKA, Backbone, $, _*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var app,
       $presets;
@@ -43,6 +43,9 @@
           // if (location.hash !== preset.id && 'replaceState' in history) {
           //   history.replaceState( {} , '', '#'+preset.id);
           // }
+
+          // Scroll to map
+          UKA.body_view.scrollToMap();
         }
       });
 

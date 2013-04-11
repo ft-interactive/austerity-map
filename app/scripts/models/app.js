@@ -6,7 +6,7 @@
 /*global UKA, Backbone, $*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var app,
       config = UKA.config;
@@ -152,6 +152,11 @@
         UKA.preset_models[presets[i].id] = new UKA.Models.Preset(presets[i]);
       }
 
+      // Set up the body view
+      UKA.body_view = new UKA.Views.Body({
+        el: document.body
+      });
+
       // Set up the main map view
       var map_view = UKA.map_view = new UKA.Views.Map({
         el: document.getElementById('map')
@@ -192,7 +197,6 @@
       app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
 
       // Handle postcode query string parameter OR preset id in hash
-
       function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split('&');

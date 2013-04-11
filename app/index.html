@@ -40,7 +40,10 @@
             Mozilla Firefox, Google Chrome, Safari or Opera.</p>
       </div>
     </div>
-    <![endif]--> 
+    <![endif]-->
+
+<!--[if gte IE 9]><!-->
+
     <!-- begin: nav-bar -->
     <div id="nav-container" class="fixed">
         <nav class="top-bar">
@@ -161,10 +164,11 @@
       <div class="tagline"><span class="offscreen">Always learning</span></div>
       <div class="companyName"><span class="offscreen">Pearson</span></div>
     </div>
-
+    
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!--#include virtual="/inc/extras-foot-1.html" -->
 <!-- build:js scripts/bottom.js -->
+<script src="components/console-polyfill/index.js"></script>
 <script src="components/lodash/dist/lodash.js"></script>
 <script src="components/backbone/backbone.js"></script>
 <script src="components/d3/d3.js"></script>
@@ -194,6 +198,7 @@
 <script src="scripts/views/preset.js"></script>
 <script src="scripts/views/postcode-form.js"></script>
 <script src="scripts/views/key.js"></script>
+<script src="scripts/views/body.js"></script>
 
 <script src="scripts/main.js"></script>
 
@@ -202,5 +207,7 @@
 <script src="data/deviations.js"></script>
 <!-- endbuild -->
 <!--#include virtual="/inc/extras-foot-2.html" -->
+
+<!--<![endif]-->
 </body>
 </html>

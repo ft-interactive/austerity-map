@@ -12,7 +12,7 @@
 window.UKA = window.UKA || {};
 
 window.UKA.normaliseBucket = function (bucket_num, num_buckets) {
-  'use strict';
+  //'use strict';
 
   var half, multiplier;
 
