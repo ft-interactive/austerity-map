@@ -6,7 +6,7 @@
 /*global UKA, Backbone, d3, $*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var view = null,
       app,

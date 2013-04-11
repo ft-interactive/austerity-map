@@ -1,6 +1,6 @@
 /*global UKA, Backbone*/
 (function () {
-  'use strict';
+  //'use strict';
 
   UKA.Models.Preset = Backbone.Model.extend({
     initialize: function () {

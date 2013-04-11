@@ -5,7 +5,7 @@
 /*global UKA, Backbone, $, UKPostcode*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var view,
       app;

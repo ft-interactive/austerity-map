@@ -1,6 +1,6 @@
 /*global UKA, $, _*/
 (function () {
-  'use strict';
+  //'use strict';
 
   // Add webkit class for use in CSS hook
   if (/Firefox/.test(navigator.userAgent))
@@ -33,7 +33,7 @@
     UKA.deviations = data;
   };
 
-  
+
   // best practice jQuery JSON with JSONP fallback implementation
     var createRequest = function createRequest(url, queryParams, cache) {
         var opts = {

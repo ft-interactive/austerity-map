@@ -9,6 +9,6 @@
 window.UKA = window.UKA || {};
 
 window.UKA.zoomLevelToScale = function (zoom_level) {
-  'use strict';
+  //'use strict';
   return (zoom_level / 2) + 0.5;
 };

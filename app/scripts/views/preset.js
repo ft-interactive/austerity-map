@@ -7,7 +7,7 @@
 /*global UKA, Backbone, $, _*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var app,
       $presets;

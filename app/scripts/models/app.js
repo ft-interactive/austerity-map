@@ -6,7 +6,7 @@
 /*global UKA, Backbone, $*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var app,
       config = UKA.config;

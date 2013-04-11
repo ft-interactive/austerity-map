@@ -6,7 +6,7 @@
 /*global UKA, Backbone, d3, $, topojson, DragSequence, _, numeral*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var map_view,
       app,

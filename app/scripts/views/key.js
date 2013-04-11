@@ -6,7 +6,7 @@
 /*global UKA, Backbone, $, numeral*/
 
 (function () {
-  'use strict';
+  //'use strict';
 
   var view,
       app,
