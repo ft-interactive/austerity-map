@@ -163,10 +163,10 @@
       });
       map_view.render().updateMapColours();
 
+      // Set up area stats panel (under map)
       UKA.area_stats_view = new UKA.Views.AreaStats({
         el: document.getElementById('area-stats')
       }).render();
-
 
       // Set up the cut types dropdown
       new UKA.Views.CutTypesDropdown({
@@ -193,8 +193,10 @@
         el: document.getElementById('key')
       });
 
+
       // Select an LA at the start
       app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+
 
       // Handle postcode query string parameter OR preset id in hash
       function getQueryVariable(variable) {
@@ -236,6 +238,14 @@
         clickPresetToReflectHash();
       }
 
+
+      // If loaded on a landscape-oriented device, alert to suggest switching to portrait mode
+      var orientation = window.orientation;
+      if (orientation === -90 || orientation === 90)
+        window.alert('This map is best viewed in portrait mode.');
+
+
+      // Return for chaining
       return this;
     }
   });
