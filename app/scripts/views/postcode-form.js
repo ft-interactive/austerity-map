@@ -27,12 +27,16 @@
       // });
 
       view.$el.on('submit', function (event) {
+        // Prevent page refresh
         event.preventDefault();
 
+        // Get the postcode they entered (and exit if empty)
         var postcode = $postcode_input.select().val();
-
         if (!postcode.length)
           return;
+        
+        // Scroll to map
+        UKA.body_view.scrollToMap();
 
         // Format the postcode correctly
         postcode = (

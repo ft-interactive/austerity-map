@@ -43,6 +43,9 @@
           // if (location.hash !== preset.id && 'replaceState' in history) {
           //   history.replaceState( {} , '', '#'+preset.id);
           // }
+
+          // Scroll to map
+          UKA.body_view.scrollToMap();
         }
       });
 
