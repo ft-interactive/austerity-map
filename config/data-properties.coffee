@@ -1,4 +1,4 @@
-# Define the standard four measures
+ # Define the standard four measures
 default_measures = [
   'NO_HH', '£MILL', 'NO_P10000HH', '£PWA'
 ]
@@ -71,7 +71,7 @@ measures = [
   }
   {
     key   : '£MILL'
-    label : 'Estimated loss per area, £m per year'
+    label : 'Total annual impact (£m)'
     figure_prefix: '£'
     figure_suffix: 'm'
   }
@@ -81,7 +81,7 @@ measures = [
   }
   {
     key   : '£PWA'
-    label : 'Loss per working age adult, £ per year'
+    label : 'Annual impact per working age adult (£m)'
     figure_prefix: '£'
   }
   {
