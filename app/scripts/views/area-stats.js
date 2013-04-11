@@ -79,7 +79,7 @@
       // console.log(selected_la)
       view.$(".laName").text(selected_la.name);
       view.$(".donutTitle").html("Annual impact<br/> per working <br/>age adult");
-      view.$(".barTitle").html("Annual impact per area<br/>£m");
+      view.$(".barTitle").html("Total annual impact <br/>£m");
       view.$(".areaRightHolder").css("visibility","visible")
       view.$(".areaLeftHolder").css("visibility","visible")
       view.$(".mps").text('Member(s) of Parliament who represents part or all of this local authority area: ' + selected_la.mpList);
