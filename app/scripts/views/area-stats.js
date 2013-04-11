@@ -231,10 +231,10 @@
 
         $('#area-stats').bind("mousemove", hoverHandler);
     
-        function hoverHandler(e){
+        function hoverHandler(event){
           //console.log(e);
          if (leftPos)
-            $('.toolTip').css("left", e.pageX + Number(20 - leftPos.left)).css("top", e.pageY -60);
+            $('.toolTip').css("left", event.pageX + Number(20 - leftPos.left)).css("top", event.pageY -60);
         }
 
      //change();
