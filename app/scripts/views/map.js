@@ -135,14 +135,14 @@
           map_view.all_las_properties[data.properties.code] = data.properties;
         })
         .on('mousedown', function (d, i) {
-          last_path_mousedown_x = event.pageX;
-          last_path_mousedown_y = event.pageY;
+          last_path_mousedown_x = d3.event.pageX;
+          last_path_mousedown_y = d3.event.pageY;
         })
         .on('mouseup', function (d, i) {
           if (last_path_mousedown_x != null) {
             var threshold = 4,
-                delta_x = Math.abs(last_path_mousedown_x - event.pageX),
-                delta_y = Math.abs(last_path_mousedown_y - event.pageY),
+                delta_x = Math.abs(last_path_mousedown_x - d3.event.pageX),
+                delta_y = Math.abs(last_path_mousedown_y - d3.event.pageY),
                 past_threshold = (delta_x > threshold || delta_y > threshold);
 
             if (!past_threshold) {
