@@ -10,7 +10,7 @@
 ###
 
 config          = require '../config/database-settings'
-data_properties = require '../config/data-properties'
+data_fields     = require '../config/fields'
 mysql           = require 'mysql'
 fs              = require 'fs'
 path            = require 'path'
@@ -25,8 +25,8 @@ OUTPUT_DEVIATIONS_FILE    = path.resolve 'app/data/deviations.js'
 TOPOJSON_BINARY_PATH      = path.resolve 'node_modules/topojson/bin/topojson'
 
 
-cuts = data_properties.cuts
-extra_fields = data_properties.extra_fields
+cuts = data_fields.cuts
+extra_fields = data_fields.extra_fields
 
 connection = mysql.createConnection({
   host     : config.mysql_host
@@ -186,7 +186,7 @@ module.exports = (grunt) -> (target) ->
   if !target? or target is 'fields'
     fs.writeFileSync OUTPUT_DATA_FIELDS_FILE, (
       ';UKA.loadFieldDefinitions(' +
-      JSON.stringify(data_properties, null, 2) +
+      JSON.stringify(data_fields, null, 2) +
       ');'
     )
     grunt.log.ok 'Built fields file.'

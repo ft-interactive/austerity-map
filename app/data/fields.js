@@ -124,7 +124,7 @@
     },
     {
       "key": "£PWA",
-      "label": "Annual impact per working age adult (£m)",
+      "label": "Annual impact per working age adult (£)",
       "figure_prefix": "£"
     },
     {
