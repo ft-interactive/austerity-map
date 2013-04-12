@@ -45,41 +45,40 @@
 <!--[if gte IE 9]><!-->
 
     <!-- begin: nav-bar -->
-    <div id="nav-container" class="fixed">
+    <div id="nav-container" class="fixed" data-start="top:!-50px;" data--130-top="display:!block;top:!0px;" data-anchor-target="#overview+.layer">
         <nav class="top-bar">
             <ul class="title-area">
-                <li class="name">
+                <li class="name" data-magellan-arrival="overview">
                     <a id="top-logo" href="http://www.ft.com/"></a>
-                    <a id="nav-title" href="/austerity-audit/#overview">Austerity audit</a>
+                    <a id="nav-title" href="#overview">Austerity audit</a>
                 </li>
-                <li class="toggle-topbar menu-icon">
-                    <a href="#"><span></span></a>
-                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
             </ul>
             <section class="top-bar-section">
                 <ul class="right">
                     <li class="label hide-for-small"><label>in context:</label></li>
-                    <li><a href="/austerity-audit/#jobs">Jobs</a></li>
-                    <li><a class="tomorrow" title="Coming tomorrow">Policy</a></li>
-                    <li><a class="tomorrow" title="Coming tomorrow">Business</a></li>
+                    <li data-magellan-arrival="jobs"><a href="/austerity-audit/#jobs">Jobs</a></li>
+                    <li data-magellan-arrival="business"><a href="/austerity-audit/#business">Retail</a></li>
+                    <li data-magellan-arrival="policy"><a href="/austerity-audit/#policy">Politics</a></li>
                     <li class="divider hide-for-small"></li>
                     <li class="has-dropdown"><a href="/austerity-audit/#case-studies">Case Studies</a>
 
                         <ul class="dropdown">
-                            <li><a href="/austerity-audit/#blackpool">Blackpool</a></li>
-                            <li><a class="tomorrow" title="Coming tomorrow">Guildford</a></li>
-                            <li><a class="tomorrow" title="Coming tomorrow">Merthyr Tydfil</a></li>
+                            <li data-magellan-arrival="blackpool"><a href="/austerity-audit/#blackpool">Blackpool</a></li>
+                            <li data-magellan-arrival="guildford"><a href="/austerity-audit/#guildford">Guildford</a></li>
+                            <li data-magellan-arrival="merthyr-tydfil"><a href="/austerity-audit/#merthyr-tydfil">Merthyr Tydfil</a></li>
                         </ul>
                     </li>
                     <li class="divider hide-for-small"></li>
-                        <li><a id="comment-btn" href="/austerity-audit/comments.html"><span id="comment-count"></span></a></li>
-                    <li class="data-graphic show-for-small"><a href="./">Explore the data</a></li>
+                    <li><a id="comment-btn" href="/austerity-audit/comments.html"><span class="show-for-small">Comments&nbsp;&nbsp;</span><span id="comment-count"></span></a></li>
+                    <li class="data-graphic show-for-small"><a href="/austerity-map/">Explore the data</a></li>
                 </ul>
             </section>
         </nav>
+        
     </div>
 
-    <a id="data-btn" class="active" href="./"><span>Data Graphic</span></a>
+    <a id="data-btn" href="/austerity-map/" data-start="opacity:!0;" data--130-top="display:!block;opacity:!1;" data-anchor-target="#overview+.layer"><span>Data Graphic</span></a>
     <!-- end: nav-bar -->
 
     <div id="cont">
@@ -137,7 +136,7 @@
           <dd>
             <b>Sources: </b>
             <a href="http://www.shu.ac.uk/research/cresr/staff/christina-beatty">Professor Christina Beatty</a> and 
-            <a href="http://www.shu.ac.uk/mediacentre/professor-steve-fothergill">Professor Steve Forthergill</a>, 
+            <a href="http://www.shu.ac.uk/mediacentre/professor-steve-fothergill">Professor Steve Fothergill</a>, 
             Sheffield Hallam University. Contains Ordnance Survey data © Crown copyright and database right 2013.
             <br>
             Database funded in part by the <a href="http://pulitzercenter.org/">Pulitzer Center on Crisis Reporting</a> | 
