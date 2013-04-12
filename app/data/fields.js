@@ -114,7 +114,7 @@
     },
     {
       "key": "£MILL",
-      "label": "Estimated loss per area, £m per year",
+      "label": "Total annual impact (£m)",
       "figure_prefix": "£",
       "figure_suffix": "m"
     },
@@ -124,7 +124,7 @@
     },
     {
       "key": "£PWA",
-      "label": "Loss per working age adult, £ per year",
+      "label": "Annual impact per working age adult (£m)",
       "figure_prefix": "£"
     },
     {
@@ -174,7 +174,7 @@
     {
       "id": "neath-port-talbot",
       "title": "Neath Port Talbot",
-      "description": "Incapacity benefit changes be felt most in the Welsh Valleys. Neath Port Talbot stands to lose £256 per working age each year.",
+      "description": "Incapacity benefit changes will be felt most in the Welsh Valleys. Neath Port Talbot stands to lose £256 per working age each year.",
       "map_centre": [
         50,
         1

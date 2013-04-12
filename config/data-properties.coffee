@@ -125,7 +125,7 @@ presets = [
 ,
   id             : "neath-port-talbot"
   title          : "Neath Port Talbot"
-  description    : "Incapacity benefit changes be felt most in the Welsh Valleys. Neath Port Talbot stands to lose £256 per working age each year."
+  description    : "Incapacity benefit changes will be felt most in the Welsh Valleys. Neath Port Talbot stands to lose £256 per working age each year."
   map_centre     : [50, 1]
   map_scale      : 8
   image_url      : "images/icon3.png"
