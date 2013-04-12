@@ -1,6 +1,3 @@
-Development
------------
-
 ## Getting set up ##
 
 1. Clone the repo.
