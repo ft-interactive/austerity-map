@@ -5,11 +5,11 @@ html, body {
 }
 
 // TODO: alter #area-stats and #presets to cope, then reduce this to 768px.
-$min-width: 972px ;
+$central-column-width: 972px ;
 
 #cont {
   // max-width: 1600px ;
-  min-width: $min-width ;
+  min-width: $central-column-width ;
   margin: 0 auto ;
   position: relative ;
   &, * {
@@ -42,7 +42,7 @@ $min-width: 972px ;
       color: $ft_darkGrey;
       height: 420px;
 
-      width: $min-width ;
+      width: $central-column-width ;
       margin: 0 auto ;
 
       .laName {
@@ -197,7 +197,10 @@ $min-width: 972px ;
 		margin-bottom: .75em;
 		}
 	}
-
+    #footer-inner {
+      max-width: $central-column-width ;
+      margin: 0 auto ;
+    }
 
 // IE8 overlay
 .fallback{
