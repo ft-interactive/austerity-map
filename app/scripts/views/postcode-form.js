@@ -20,12 +20,6 @@
       var $postcode_input = $('#postcode-input'),
           $postcode_hint = $('#postcode-hint');
 
-      // $postcode_input.on({
-      //   input: function () {
-      //     $postcode_input.val( $postcode_input.val().toUpperCase() )
-      //   }
-      // });
-
       view.$el.on('submit', function (event) {
         // Prevent page refresh
         event.preventDefault();
@@ -34,7 +28,7 @@
         var postcode = $postcode_input.select().val();
         if (!postcode.length)
           return;
-        
+
         // Scroll to map
         UKA.body_view.scrollToMap();
 
@@ -44,7 +38,6 @@
             .format(true) // get as capitalised string with space in middle
             //.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0') // escape any special chars
         );
-
 
         if (postcode.indexOf(' ') > -1) {
           // It's a valid two-part postcode.
@@ -64,14 +57,7 @@
               var dataset = data.query.results.dataset;
               if (dataset.postcode) {
                 var la = dataset.postcode.la;
-
                 app.set('selected_la', UKA.map_view.all_las_properties[la]);
-
-                // Next time they type anything into the box, deselect
-                // $postcode_input.one({
-                //   input: function () {
-                //   }
-                // });
               }
               else {
                 // Empty result set from Carto.

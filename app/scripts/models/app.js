@@ -141,11 +141,6 @@
         app.set('map_transform_scale', map_transform_scale);
       });
 
-      // Update the URL with the GSS whenever the selected_la changes
-      app.on('change:selected_la', function (app, new_la) {
-        history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
-      });
-
       return this;
     },
 
@@ -221,9 +216,21 @@
       var postcode_param = getQueryVariable('postcode'),
           gss_param = getQueryVariable('gss'),
           preset_param = getQueryVariable('preset');
+
+      if (!gss_param && !postcode_param && !preset_param) {
+        // No query param; just select the default LA at the start
+        app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+      }
+
+      // From now on, update the URL with the GSS whenever the selected_la changes
+      app.on('change:selected_la', function (app, new_la) {
+        history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
+      });
+
       if (gss_param) {
-        // Simply select the specified LA
+        // Simply select the specified LA then scroll to the map
         app.set('selected_la', UKA.map_view.all_las_properties[gss_param]);
+        UKA.body_view.scrollToMap();
       }
       else if (postcode_param) {
         // Fill in the postcode form and submit it
@@ -233,10 +240,6 @@
       else if (preset_param) {
         // Click the preset (this will result in the URL being changed to the chosen LA)
         $('#presets').find('[data-preset=' + preset_param + ']').trigger('click');
-      }
-      else {
-        // No query param; just select the default LA at the start
-        app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
       }
 
       // If loaded on a landscape-oriented device, alert to suggest switching to portrait mode
