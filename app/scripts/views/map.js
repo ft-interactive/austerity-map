@@ -113,6 +113,7 @@
       ;
 
       // Append and draw the features
+      var last_path_mousedown_x, last_path_mousedown_y;
       la_paths = unselected_las_group.selectAll('.la')
         .data(geojson_data.geometries)
         .enter()
@@ -133,8 +134,26 @@
           // Also store it in a convenient lookup hash on the view
           map_view.all_las_properties[data.properties.code] = data.properties;
         })
-        .on('click', function (d, i) {
-          app.set('selected_la', d.properties);
+        .on('mousedown', function (d, i) {
+          last_path_mousedown_x = d3.event.pageX;
+          last_path_mousedown_y = d3.event.pageY;
+        })
+        .on('mouseup', function (d, i) {
+          if (last_path_mousedown_x != null) {
+            var threshold = 4,
+                delta_x = Math.abs(last_path_mousedown_x - d3.event.pageX),
+                delta_y = Math.abs(last_path_mousedown_y - d3.event.pageY),
+                past_threshold = (delta_x > threshold || delta_y > threshold);
+
+            if (!past_threshold) {
+              // Mouse hasn't moved (much) since the mousedown.
+              // Treat this as a deliberate click, i.e. select the clicked LA
+              app.set('selected_la', d.properties);
+            }
+
+            last_path_mousedown_x = null;
+            last_path_mousedown_y = null;
+          }
         })
         .on('mouseover', function (d, i) {
           // Do nothing if this is during a pan
