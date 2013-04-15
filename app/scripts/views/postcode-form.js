@@ -45,28 +45,32 @@
           // Select the text so they can easily type in a new postcode afterwards
           $postcode_input.val(postcode).select();
 
+          // Work out a unique callback function name for this postcode
+          var callback_name = 'postcodeCallback_' + (postcode.split(' ').join(''));
+
           // Query CartoDB for the postcode's location
           $.ajax({
             url: 'http://ig.ft.com/data/yql/index_4.php?_cf=273&pcode=' + postcode,
             type: 'GET',
             dataType: 'jsonp',
             global: false,
-            jsonpCallback: 'callback',
+            jsonpCallback: callback_name,
             timeout: 9000,
-            cache: true
-          }).done(function(data) {
-            // console.log('data', data);
-            var dataset = data.query.results.dataset;
-            if (dataset.postcode) {
-              var la = dataset.postcode.la;
-              app.set('selected_la', UKA.map_view.all_las_properties[la]);
-            }
-            else {
-              // Empty result set from Carto.
-              $postcode_hint.text('Postcode not found').show();
-              setTimeout(function () {
-                $postcode_hint.fadeOut(200);
-              }, 1000);
+            cache: true,
+            success: function (data) {
+              // console.log('data', data);
+              var dataset = data.query.results.dataset;
+              if (dataset.postcode) {
+                var la = dataset.postcode.la;
+                app.set('selected_la', UKA.map_view.all_las_properties[la]);
+              }
+              else {
+                // Empty result set from Carto.
+                $postcode_hint.text('Postcode not found').show();
+                setTimeout(function () {
+                  $postcode_hint.fadeOut(200);
+                }, 1000);
+              }
             }
           });
         }
