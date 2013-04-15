@@ -206,10 +206,16 @@
         // console.log('Query variable %s not found', variable);
       }
 
+      var replace_state_supported = ('replaceState' in history);
+
       // Convert the hash preset into a GET parameter
       var hash = location.hash;
-      if (hash && hash.length > 1 && 'replaceState' in history) {
-        history.replaceState( {} , '', location.pathname + '?preset='+ hash.substring(1));
+      if (hash && hash.length > 1) {
+        var new_url = location.pathname + '?preset='+ hash.substring(1);
+        if (replace_state_supported)
+          history.replaceState( {} , '', new_url);
+        else
+          location.href = new_url;
       }
 
       // Handle GET query parameters
@@ -223,7 +229,7 @@
       }
 
       // From now on, update the URL with the GSS whenever the selected_la changes
-      if ('replaceState' in history) {
+      if (replace_state_supported) {
         app.on('change:selected_la', function (app, new_la) {
           history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
         });
