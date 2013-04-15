@@ -141,6 +141,11 @@
         app.set('map_transform_scale', map_transform_scale);
       });
 
+      // Update the URL with the GSS whenever the selected_la changes
+      app.on('change:selected_la', function (app, new_la) {
+        history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
+      });
+
       return this;
     },
 
@@ -194,11 +199,6 @@
       });
 
 
-      // Select an LA at the start
-      app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
-
-
-      // Handle postcode query string parameter OR preset id in hash
       function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split('&');
@@ -211,33 +211,33 @@
         // console.log('Query variable %s not found', variable);
       }
 
-      function clickPresetToReflectHash() {
-        var hash = location.hash;
-        if (hash && hash.length > 1) {
-          var $preset = $('#presets').find('[data-preset=' + hash.substring(1) + ']');
-          // console.log('preset el', $preset[0]);
-          $preset.trigger('click');
-
-          if ('replaceState' in history) {
-            // console.log('replacing');
-            history.replaceState( {} , '', location.pathname);
-          }
-        }
+      // Convert the hash preset into a GET parameter
+      var hash = location.hash;
+      if (hash && hash.length > 1) {
+        history.replaceState( {} , '', location.pathname + '?preset='+ hash.substring(1));
       }
 
-      var postcode_query = getQueryVariable('postcode');
-      // console.log('postcode_query',postcode_query);
-      if (postcode_query) {
-        $('#postcode-input').val(postcode_query);
+      // Handle GET query parameters
+      var postcode_param = getQueryVariable('postcode'),
+          gss_param = getQueryVariable('gss'),
+          preset_param = getQueryVariable('preset');
+      if (gss_param) {
+        // Simply select the specified LA
+        app.set('selected_la', UKA.map_view.all_las_properties[gss_param]);
+      }
+      else if (postcode_param) {
+        // Fill in the postcode form and submit it
+        $('#postcode-input').val(postcode_param);
         $('#postcode-form').submit();
       }
-      else {
-        // Handle hash changes for preset
-        // if ('onhashchange' in window)
-        //   window.addEventListener('hashchange', clickPresetToReflectHash, false);
-        clickPresetToReflectHash();
+      else if (preset_param) {
+        // Click the preset (this will result in the URL being changed to the chosen LA)
+        $('#presets').find('[data-preset=' + preset_param + ']').trigger('click');
       }
-
+      else {
+        // No query param; just select the default LA at the start
+        app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+      }
 
       // If loaded on a landscape-oriented device, alert to suggest switching to portrait mode
       var orientation = window.orientation;
