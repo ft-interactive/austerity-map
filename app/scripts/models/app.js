@@ -208,7 +208,7 @@
 
       // Convert the hash preset into a GET parameter
       var hash = location.hash;
-      if (hash && hash.length > 1) {
+      if (hash && hash.length > 1 && 'replaceState' in history) {
         history.replaceState( {} , '', location.pathname + '?preset='+ hash.substring(1));
       }
 
@@ -223,9 +223,11 @@
       }
 
       // From now on, update the URL with the GSS whenever the selected_la changes
-      app.on('change:selected_la', function (app, new_la) {
-        history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
-      });
+      if ('replaceState' in history) {
+        app.on('change:selected_la', function (app, new_la) {
+          history.replaceState( {} , '', location.pathname + '?gss=' + new_la.code);
+        });
+      }
 
       if (gss_param) {
         // Simply select the specified LA then scroll to the map

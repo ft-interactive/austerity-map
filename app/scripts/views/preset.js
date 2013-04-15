@@ -40,10 +40,6 @@
           if (preset.select_measure != null)
             app.set('selected_measure', preset.select_measure);
 
-          // if (location.hash !== preset.id && 'replaceState' in history) {
-          //   history.replaceState( {} , '', '#'+preset.id);
-          // }
-
           // Scroll to map
           UKA.body_view.scrollToMap();
         }
