@@ -46,28 +46,29 @@
           $postcode_input.val(postcode).select();
 
           // Query CartoDB for the postcode's location
-          $.getJSON(
-            (
-              'http://ig.ft.com/data/yql/index_4.php?_cf=273&pcode=' +
-              postcode +
-              '&callback=?'
-            ),
-            function(data) {
-              // console.log('data', data);
-              var dataset = data.query.results.dataset;
-              if (dataset.postcode) {
-                var la = dataset.postcode.la;
-                app.set('selected_la', UKA.map_view.all_las_properties[la]);
-              }
-              else {
-                // Empty result set from Carto.
-                $postcode_hint.text('Postcode not found').show();
-                setTimeout(function () {
-                  $postcode_hint.fadeOut(200);
-                }, 1000);
-              }
+          $.ajax({
+            url: 'http://ig.ft.com/data/yql/index_4.php?_cf=273&pcode=' + postcode,
+            type: 'GET',
+            dataType: 'jsonp',
+            global: false,
+            jsonpCallback: 'callback',
+            timeout: 9000,
+            cache: true
+          }).done(function(data) {
+            // console.log('data', data);
+            var dataset = data.query.results.dataset;
+            if (dataset.postcode) {
+              var la = dataset.postcode.la;
+              app.set('selected_la', UKA.map_view.all_las_properties[la]);
             }
-          );
+            else {
+              // Empty result set from Carto.
+              $postcode_hint.text('Postcode not found').show();
+              setTimeout(function () {
+                $postcode_hint.fadeOut(200);
+              }, 1000);
+            }
+          });
         }
         else {
           // They either entered an invalid postcode, or just single-section (eg "SE1").
