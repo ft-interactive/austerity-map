@@ -1,3 +1,17 @@
+
+
+#inset-shadow,
+#zoom-control,
+#postcode-form,
+#control-panel,
+#hover-box {
+  z-index: $z-map-overlays;
+}
+
+#nav-container {
+  z-index: $z-nav-bar;
+}
+
 html, body {
   height: 100% ;
   margin: 0 ;
@@ -27,15 +41,23 @@ $central-column-width: 972px ;
     }
 
     #map-cont {
-      background: #fdd ;
+      // background: blue ;
       // border-left: 1px solid $ft_tint2 ;
       // border-right: 1px solid $ft_tint2 ;
       position: relative ;
       height: $map-height ;
       overflow: hidden ;
       border-bottom: 4px solid $ft_warmGrey1;
-
     }
+
+      #map {
+        height: $map-height ;
+        // width: 500px ;
+        svg {
+          // background-color: rgba(255,0,0,0.1);
+        }
+      }
+
 
     #area-stats {
       padding: 12px 15px 40px 15px;      

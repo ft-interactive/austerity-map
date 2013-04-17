@@ -88,7 +88,7 @@ body{
 #data-btn {
     display: none;
     opacity: 0;
-    z-index:100;
+    z-index:$z-nav-bar;
     display:none;
      -moz-transition: opacity .2s .7s ease-in;
     -webkit-transition: opacity .2s .7s ease-in;
@@ -103,7 +103,7 @@ body{
     top:10px;
     right:40px;
     font-size: 0.95em;
-    z-index:100;
+    z-index:$z-nav-bar;
     border-width: 5px;
     span{
         position: relative;

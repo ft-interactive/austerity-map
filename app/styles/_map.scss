@@ -1,9 +1,15 @@
 #map {
-  background-color: $ft_tint1;
+  // background-color: $ft_tint1;
 }
-
+  .la {
+    cursor: default ;
+  }
   // .la {
   // }
+
+.leaflet-container {
+  background-color: $ft_tint1 ;
+}
 
 #inset-shadow {
   position: absolute;
@@ -17,6 +23,8 @@
   background-image:    -moz-linear-gradient(top, rgba(0,0,0,0.1), rgba(0,0,0,0));
   background-image:      -o-linear-gradient(top, rgba(0,0,0,0.1), rgba(0,0,0,0));
   background-image:         linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0));
+
+  @include user-select(none) ;
 }
 
 #zoom-control {
@@ -205,3 +213,4 @@
         text-align: center ;
       }
   }
+

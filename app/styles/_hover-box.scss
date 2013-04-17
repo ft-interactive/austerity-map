@@ -37,5 +37,9 @@
     font: normal 24px BentonSans ;
     color: #222 ;
   }
+  
 
+  .leaflet-dragging & {
+    visibility: hidden ;
+  }
 }

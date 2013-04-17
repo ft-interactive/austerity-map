@@ -167,8 +167,6 @@
       "select_la": "E09000033",
       "select_cut": "BENCAP",
       "select_measure": "£PWA",
-      "translate_x": 215,
-      "translate_y": -1389,
       "zoom": 20
     },
     {
@@ -184,8 +182,6 @@
       "select_la": "W06000012",
       "select_cut": "IB_ESA",
       "select_measure": "£PWA",
-      "translate_x": 500,
-      "translate_y": -535,
       "zoom": 7
     },
     {
@@ -201,8 +197,6 @@
       "select_la": "E07000240",
       "select_cut": "CHILDBEN",
       "select_measure": "£PWA",
-      "translate_x": 96,
-      "translate_y": -840,
       "zoom": 13
     }
   ],

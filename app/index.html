@@ -1,8 +1,8 @@
 <!doctype html>
-<!--[if lt IE 7]>  <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>     <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>     <html class="no-js lt-ie9"> <![endif]-->
-<!--[if IE 9]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if lt IE 7]>  <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>     <html class="no-js ie7 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>     <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if IE 9]>     <html class="no-js ie9 lt-ie10"> <![endif]-->
 <!--[if !IE]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
@@ -92,8 +92,7 @@
         </section>
 
         <section id="map-cont">
-          <svg id="map" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 972 550">
-          </svg>
+          <div id="map"></div>
 
           <div id="inset-shadow"></div>
 
@@ -116,10 +115,8 @@
             </div>
 
             <div id="key">
-              <!-- <div id="histogram"></div> -->
               <div id="bars"></div>
             </div>
-
           </div>
         </section>
         <div class="toolTip"></div>
@@ -178,12 +175,12 @@
 <script src="scripts/vendor/request-animation-frame.js"></script>
 <script src="components/foundation/js/foundation/foundation.js"></script>
 <script src="components/foundation/js/foundation/foundation.topbar.js"></script>
+<script src="components/leaflet/dist/leaflet-src.js"></script>
 
 <script src="scripts/namespace.js"></script>
 <script src="scripts/config.js"></script>
 
 <script src="scripts/helpers/normalise-bucket.js"></script>
-<script src="scripts/helpers/zoom-level-to-scale.js"></script>
 
 <script src="scripts/models/app.js"></script>
 <script src="scripts/models/preset.js"></script>

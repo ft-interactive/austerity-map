@@ -92,9 +92,6 @@
 
   UKA.Models.App = Backbone.Model.extend({
     defaults: {
-      'map_transform_scale': 1,
-      'zoom_level': 1,
-
       'selected_la': null,
       'selected_measure': config.default_measure,
       'selected_cut': config.default_cut
@@ -122,24 +119,6 @@
       // Update all the key-related stuff (luminosities, etc) once at start, and whenever the selected combo changes
       updateKeyRelatedAttributes();
       app.on('change:selected_combo', updateKeyRelatedAttributes);
-
-      // Update zoom level to reflect scale
-      // 10 is an acceptable maximum scale
-      app.on('change:zoom_level', function () {
-
-        // Clamp zoom level between 1 and 20
-        var zoom_level = app.attributes.zoom_level;
-        if (zoom_level < 1 || !zoom_level)
-          zoom_level = 1;
-        else if (zoom_level > 20)
-          zoom_level = 20;
-        app.attributes.zoom_level = zoom_level;
-
-        // Calculate and set new transform scale
-        var map_transform_scale = UKA.zoomLevelToScale(zoom_level);
-        // console.log('changing scale from ' + app.attributes.map_transform_scale + ' to ' + map_transform_scale);
-        app.set('map_transform_scale', map_transform_scale);
-      });
 
       return this;
     },
@@ -226,6 +205,7 @@
       if (!gss_param && !postcode_param && !preset_param) {
         // No query param; just select the default LA at the start
         app.set('selected_la', UKA.map_view.all_las_properties[config.default_la]);
+        UKA.map_view.resetView();
       }
 
       // From now on, update the URL with the GSS whenever the selected_la changes

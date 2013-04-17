@@ -10,7 +10,9 @@
   //'use strict';
 
   var view,
-      app;
+      app,
+      config,
+      map;
 
   UKA.Views.ZoomControl = Backbone.View.extend({
     initialize: function () {
@@ -19,23 +21,24 @@
       view = this;
 
       app = UKA.app;
+      map = UKA.map;
+      config = UKA.config;
 
       $('#increase-zoom').on('click', function (event) {
         if (event.which === 1)
-          app.set('zoom_level', app.attributes.zoom_level + 2);
+          map.zoomIn();
       });
       $('#decrease-zoom').on('click', function (event) {
         if (event.which === 1)
-          app.set('zoom_level', app.attributes.zoom_level - 2);
+          map.zoomOut();
       });
 
       $('#reset-map').on('click', function (event) {
         if (event.which === 1) {
-          app.set('zoom_level', 1);
-          UKA.map_view.setLasGroupTransform({
-            translate_x: 0,
-            translate_y: 0
-          });
+          map.setView(
+            config.map_centre,
+            config.initial_zoom
+          );
         }
       });
 
