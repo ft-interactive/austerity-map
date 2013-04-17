@@ -163,6 +163,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    rev: {
+      dist: {
+        files: {
+          src: [
+              '<%= yeoman.dist %>/scripts/{,*/}*.js',
+              '<%= yeoman.dist %>/styles/{,*/}*.css'//,
+              // '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+              // '<%= yeoman.dist %>/styles/fonts/*'
+          ]
+        }
+      }
+    },
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',
       options: {
@@ -280,6 +292,7 @@ module.exports = function (grunt) {
       'cssmin',
       'uglify',
       'copy',
+      'rev',
       'usemin'
     ];
 
